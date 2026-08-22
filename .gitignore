@@ -1,0 +1,6 @@
+desktop.ini
+Thumbs.db
+CNAME.hold
+
+# backups never belong on the public site
+*.bak_*

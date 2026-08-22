@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Where the cohort is</title>
+<!-- Fonts self-hosted 2026-08-15. This embed is a SECOND document inside the
+     homepage iframe, and it was making its own round trip to fonts.googleapis.com
+     and fonts.gstatic.com on top of the parent page's. Same three faces, same
+     origin, and the parent page has already warmed the cache by the time this
+     loads. -->
+<link href="/vfc-fonts.css?v=20260817a" rel="stylesheet"/>
+<script src="/vendor/d3.min.js"></script>
+<script src="/vendor/topojson-client.min.js"></script>
+<style>
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; background:#F0F1F0; color:#222222; font-family:'Newsreader',Georgia,serif; -webkit-font-smoothing:antialiased; }
+  a{ color:#B8202E; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:6px 4px 10px; }
+  .layout{ display:grid; grid-template-columns:minmax(0,1.7fr) minmax(230px,1fr); gap:18px 26px; align-items:start; }
+  @media (max-width:680px){ .layout{ grid-template-columns:1fr; } }
+  #map{ width:100%; height:auto; display:block; }
+  .st{ transition:fill .15s; }
+  .st.cohort:hover{ fill:#94182A; cursor:default; }
+  .kick{ font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); letter-spacing:.16em; text-transform:uppercase; color:#3A3A3A; margin:0 0 6px; }
+  .lead{ font-family:'Big Shoulders Display',sans-serif; font-weight:900; font-size:var(--fs-h1); line-height:.9; color:#B8202E; margin:0; }
+  .leadsub{ font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); color:#3A3A3A; margin:4px 0 16px; }
+  table.cohort{ width:100%; border-collapse:collapse; }
+  table.cohort caption{ text-align:left; font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); letter-spacing:.1em; text-transform:uppercase; color:#3A3A3A; padding:0 0 6px; }
+  table.cohort th{ text-align:left; font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); letter-spacing:.08em; text-transform:uppercase; color:#3A3A3A; font-weight:500; padding:0 0 6px; border-bottom:1px solid #D8D9D8; }
+  table.cohort th.num{ text-align:right; }
+  table.cohort td{ font-family:'IBM Plex Mono',monospace; font-size:var(--fs-label); padding:9px 0; border-top:1px solid #D8D9D8; vertical-align:baseline; }
+  table.cohort td.num{ text-align:right; font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:var(--fs-body); color:#B8202E; }
+  table.cohort td .optin{ display:block; font-size:var(--fs-micro); color:#3A3A3A; margin-top:2px; }
+  .note{ font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); line-height:1.6; color:#3A3A3A; margin:14px 0 0; }
+  .note--unknown{ color:#B8202E; margin-top:10px; font-weight:500; }
+  .mapcap{ font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); color:#3A3A3A; margin:6px 0 0; }
+  .legend{ display:flex; gap:16px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); color:#3A3A3A; margin:0 0 6px; }
+  .sw{ display:inline-block; width:13px; height:13px; vertical-align:-2px; margin-right:5px; border:1px solid #D8D9D8; }
+  .sw--cohort{ background:#B8202E; border-color:#B8202E; }
+  .sw--none{ background:#E6E7E6; }
+</style>
+<link href="/vfc-web.css?v=20260817a" rel="stylesheet"/>
+<link href="/vfc-web-ds.css?v=20260817a" rel="stylesheet"/>
+<meta content="Veteran families connected with this project, shown by state as counts only." name="description"/></head>
+<body>
+<div class="wrap">
+<div class="legend">
+<span><span class="sw sw--cohort"></span>Confirmed cohort state</span>
+<span><span class="sw sw--none"></span>No confirmed families yet</span>
+</div>
+<div class="layout">
+<figure class="vfc-u-023">
+<svg aria-label="Map of the United States with confirmed cohort states shaded in red. The same figures are listed in the table beside the map." id="map" role="img"></svg>
+<figcaption class="mapcap">Confirmed cohort families by state. The table at right carries the same data for screen readers and print.</figcaption>
+</figure>
+<aside>
+<p class="kick">Confirmed so far</p>
+<p class="lead" id="totalFam"></p>
+<p class="leadsub" id="totalSt">across, states · updated as families reach us.</p>
+<table class="cohort" id="cohortTable">
+<caption>Confirmed cohort families by state</caption>
+<thead><tr><th scope="col">State</th><th class="num" scope="col">Families</th></tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+<p class="note note--unknown" id="unknownLine"></p>
+<p class="note">Each state shows the number of cohort families who have connected with this project. Families are represented as a count only. Never named or shown, unless they give written consent to be listed. A named, linked entry appears only where a family opted in and chose the channel shown. This is a floor, not a ceiling: it reflects only families who have reached us.<br/>*Some families contacted this project but their state is unknown, they stopped responding or were mid-crisis. They are counted, but cannot be placed on the map.</p>
+</aside>
+</div>
+</div>
+<script>
+  // ---- EDIT HERE: add a state (full name) and its confirmed family count ----
+  // Two accepted forms per state:
+  //   "State": 3                          -> count only (default; protects families who agreed only to be a number)
+  //   "State": { n: 3, optIn: [ { label: "The Ruiz family", url: "https://..." } ] }
+  //                                        -> count PLUS one or more opt-in linked entries.
+  //   An opt-in entry appears ONLY with written consent, and the url must be the PUBLIC
+  //   channel the family chose (their GoFundMe / public post / one intake form) -- never a raw email or phone.
+  const COHORT = {
+    "Washington": 2,
+    "California": 3,
+    "Oregon": 1,
+    "Wyoming": 1,
+    "Texas": 1,
+    "Georgia": 1
+  };
+  // Families who contacted us but whose location is unknown (lost contact / mid-crisis).
+  // Counted, not mapped; surfaced with an asterisk. Set this when the consented list is ready.
+  const UNKNOWN = 0;
+  // -------------------------------------------------------------------------
+  function countOf(v){ return (v && typeof v === "object") ? (v.n || 0) : v; }
+  function optInOf(v){ return (v && typeof v === "object" && Array.isArray(v.optIn)) ? v.optIn : []; }
+
+  const entries = Object.keys(COHORT).map(function(k){ return [k, countOf(COHORT[k]), optInOf(COHORT[k])]; })
+    .sort(function(a,b){ return b[1]-a[1] || a[0].localeCompare(b[0]); });
+  const totalFam = entries.reduce(function(s,e){ return s + e[1]; }, 0);
+
+  // ---- text/table data (always present, works without the map) ----
+  document.getElementById("totalFam").textContent = totalFam + (totalFam===1?" family":" families");
+  document.getElementById("totalSt").textContent = "across " + entries.length + " state" + (entries.length===1?"":"s") + " · updated as families reach us";
+  var _u=document.getElementById("unknownLine"); if(UNKNOWN>0){ _u.textContent = "+ " + UNKNOWN + "* more famil" + (UNKNOWN===1?"y":"ies") + " from unknown locations"; } else { _u.hidden = true; }
+  var tbody = d3.select("#tbody");
+  entries.forEach(function(e){
+    var tr = tbody.append("tr");
+    var td = tr.append("td");
+    td.append("span").text(e[0]);
+    e[2].forEach(function(o){
+      var s = td.append("span").attr("class","optin");
+      if (o.url){ s.append("a").attr("href", o.url).attr("target","_blank").attr("rel","noopener").text(o.label + " ↗"); }
+      else { s.text(o.label); }
+    });
+    tr.append("td").attr("class","num").text(e[1]);
+  });
+
+  // ---- map (progressive enhancement; the table above stands alone) ----
+  const W = 960, H = 560;
+  const svg = d3.select("#map").attr("viewBox", "0 0 " + W + " " + H);
+  d3.json("/vendor/us-states-10m.json").then(function(us){
+    const states = topojson.feature(us, us.objects.states).features;
+    const proj = d3.geoAlbersUsa().fitSize([W, H], {type:"FeatureCollection", features:states});
+    const path = d3.geoPath(proj);
+    const g = svg.append("g");
+    g.selectAll("path").data(states).join("path")
+      .attr("class", function(d){ return "st" + (COHORT[d.properties.name]!=null ? " cohort" : ""); })
+      .attr("d", path)
+      .attr("fill", function(d){ return COHORT[d.properties.name]!=null ? "#B8202E" : "#E6E7E6"; })
+      .attr("stroke", function(d){ return COHORT[d.properties.name]!=null ? "#F0F1F0" : "#D8D9D8"; })
+      .attr("stroke-width", function(d){ return COHORT[d.properties.name]!=null ? 1.2 : 0.6; })
+      .append("title")
+      .text(function(d){ var n=d.properties.name, c=countOf(COHORT[n]); return COHORT[n]!=null ? (n + ", " + c + (c===1?" family":" families")) : n; });
+    g.selectAll("text.cnt").data(states.filter(function(d){ return COHORT[d.properties.name]!=null; })).join("text")
+      .attr("class","cnt")
+      .attr("transform", function(d){ return "translate(" + path.centroid(d) + ")"; })
+      .attr("text-anchor","middle").attr("dy","0.35em")
+      .attr("fill","#F0F1F0").attr("font-family","'Big Shoulders Display',sans-serif")
+      .attr("font-weight",900).attr("font-size",19).attr("pointer-events","none")
+      .text(function(d){ return countOf(COHORT[d.properties.name]); });
+  }).catch(function(err){
+    d3.select("figure").style("display","none");
+  });
+</script>
+</body>
+</html>

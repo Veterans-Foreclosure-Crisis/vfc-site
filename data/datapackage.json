@@ -1,0 +1,638 @@
+{
+  "name": "veterans-foreclosure-crisis-registers",
+  "title": "Veterans Foreclosure Crisis, the registers of record",
+  "description": "The claims, sources, chronology, rebuttals, dated record and glossary that the public-interest oversight project at veteransforeclosurecrisis.org is built from. Every claim carries an identifier, the source it rests on, the date it was last checked, and a stated limitation.",
+  "homepage": "https://veteransforeclosurecrisis.org",
+  "licenses": [
+    {
+      "name": "CC-BY-4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/",
+      "title": "Creative Commons Attribution 4.0 International"
+    }
+  ],
+  "profile": "data-package",
+  "created": "2026-08-13",
+  "contributors": [
+    {
+      "title": "Veterans Foreclosure Crisis",
+      "role": "author"
+    }
+  ],
+  "resources": [
+    {
+      "name": "claims",
+      "path": "claims.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Claims register",
+      "description": "Every factual claim on the site, what it rests on, and what it does not prove.",
+      "schema": {
+        "primaryKey": "claim_id",
+        "fields": [
+          {
+            "name": "claim_id",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "unique": true,
+              "pattern": "^C[0-9]{3}$"
+            },
+            "description": "Stable identifier, C plus three digits. Cited from the site as the C-number and never reused."
+          },
+          {
+            "name": "claim_text",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "minLength": 10
+            },
+            "description": "The claim exactly as the site states it."
+          },
+          {
+            "name": "source_id",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^S[0-9]{3}(;\\s*S[0-9]{3})*$"
+            },
+            "description": "One or more source ids, semicolon separated."
+          },
+          {
+            "name": "content_label",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "DOCUMENTED FACT",
+                "PROJECT ANALYSIS"
+              ]
+            },
+            "description": "Which tier of the claim system this belongs to. Governs how it is rendered and how strongly it may be stated."
+          },
+          {
+            "name": "definition",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "What the label means, carried inline so a downloaded CSV explains its own vocabulary."
+          },
+          {
+            "name": "limitation",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "What stops the figure being carried further than the document behind it can hold. Never blank."
+          },
+          {
+            "name": "last_verified",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "constraints": {
+              "required": true
+            },
+            "description": "Date a human last checked this claim against its sources. ISO 8601."
+          },
+          {
+            "name": "pages",
+            "type": "string",
+            "description": "Semicolon separated page slugs where the claim is used editorially. Pages that render the whole claims register, The Record and Evidence, are NOT listed here; this field records where the claim is argued, not where the register is displayed. KNOWN INCOMPLETE, 2026-08-13: the slug vocabulary across all 58 rows is legacy-derived and no row recorded the Data and Methods or Latest pages until C010 was filled, which almost certainly means the column is under-maintained rather than that no other claim appears there. Treat a value here as a floor, not a complete list."
+          }
+        ]
+      }
+    },
+    {
+      "name": "sources",
+      "path": "sources.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Source register",
+      "description": "Every citation on the site.",
+      "schema": {
+        "primaryKey": "source_id",
+        "fields": [
+          {
+            "name": "source_id",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "unique": true,
+              "pattern": "^S[0-9]{3}$"
+            },
+            "description": "Stable identifier, S plus three digits. Cited from the site as the S-number and never reused."
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "The title of the document this row points to, as the document itself gives it. Not a description and not a URL slug."
+          },
+          {
+            "name": "publisher",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "The organisation that published the document, not the platform that hosts it."
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^(https?://\\S+|docs/\\S+\\.pdf)$"
+            },
+            "description": "An absolute URL, or a relative path to a captured PDF in the repo's docs/ folder. Nothing else. A field shift on 2026-08-09 put prose here and it stayed live for three days."
+          },
+          {
+            "name": "pub_date",
+            "type": "string",
+            "constraints": {
+              "pattern": "^([0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?|not dated)?$"
+            },
+            "description": "ISO date, year-month, or year. Blank allowed."
+          },
+          {
+            "name": "last_verified",
+            "type": "string",
+            "constraints": {
+              "pattern": "^([0-9]{4}-[0-9]{2}-[0-9]{2})?$"
+            },
+            "description": "Date a human last confirmed the URL resolves and is the right document. ISO 8601."
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "What kind of document it is: analysis, press release, hearing record, statute, regulation, circular, news, advocacy org, and so on."
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "verified",
+                "verified-needs-url",
+                "verified-needs-date",
+                "registered-needs-title-and-date",
+                "unverified",
+                "held",
+                "dead-no-archive"
+              ]
+            },
+            "description": "Verification state. 'verified': the URL resolves, it is the document named in the title, and pub_date is established or explicitly 'not dated'. 'verified-needs-url': the row is real and checked, but the URL currently held points at a related page rather than the document the title names. Replace the URL, do not delete the row. 'verified-needs-date': the URL is confirmed as the right document; publication date not yet established. 'registered-needs-title-and-date': auto-registered from a URL, so the title is a slug derived from that URL and is not the document's real title. 'held': under a hold order, must not be cited until released. 'unverified': registered but never checked. 'dead-no-archive': the URL no longer resolves AND no web archive capture exists, so this citation cannot be checked by anyone. Keep the row as a record of what was once cited, move live citations to a verifiable source, and never cite it externally."
+          },
+          {
+            "name": "status_display",
+            "type": "string",
+            "title": "Reader-facing label",
+            "description": "What a reader sees for this status. status is operational; this is public. Kept in the register rather than in a script so no tool can mistake the difference for drift."
+          },
+          {
+            "name": "note",
+            "type": "string",
+            "description": "Free text. Anything a reader needs in order to use this source correctly, including any figure the row is cited for."
+          },
+          {
+            "name": "archived_url",
+            "type": "string",
+            "constraints": {
+              "pattern": "^(https?://\\S+)?$"
+            },
+            "description": "Web archive capture of the same document, so the citation survives link rot."
+          }
+        ]
+      },
+      "vfcRules": [
+        {
+          "name": "needs-date means no date yet",
+          "if": {
+            "field": "status",
+            "equals": "verified-needs-date"
+          },
+          "then": {
+            "field": "pub_date",
+            "equals": ""
+          },
+          "message": "status says the date is not established, so pub_date must be empty. If the date is now known, set status to verified.",
+          "severity": "block"
+        },
+        {
+          "name": "needs-title-and-date means no date yet",
+          "if": {
+            "field": "status",
+            "equals": "registered-needs-title-and-date"
+          },
+          "then": {
+            "field": "pub_date",
+            "equals": ""
+          },
+          "message": "status says title and date are both outstanding, so pub_date must be empty.",
+          "severity": "block"
+        },
+        {
+          "name": "verified means dated",
+          "if": {
+            "field": "status",
+            "equals": "verified"
+          },
+          "then": {
+            "field": "pub_date",
+            "notEquals": ""
+          },
+          "message": "a verified source carries a publication date, or the literal string 'not dated' where it has been established that the document has none.",
+          "severity": "warn"
+        }
+      ],
+      "missingValues": [
+        "",
+        "not dated"
+      ]
+    },
+    {
+      "name": "timeline",
+      "path": "timeline.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Chronology",
+      "description": "The dated spine. The Record owns it; other pages render filtered views.",
+      "schema": {
+        "primaryKey": "id",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "unique": true,
+              "pattern": "^T[0-9]{3}$"
+            },
+            "description": "Stable identifier, T plus three digits."
+          },
+          {
+            "name": "date",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
+            },
+            "description": "Machine-sortable event date, ISO 8601."
+          },
+          {
+            "name": "date_display",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "The date as it should be shown to a reader, which may be less precise than the sort date."
+          },
+          {
+            "name": "event",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "minLength": 10
+            },
+            "description": "What happened, in one sentence, stated as a dated fact."
+          },
+          {
+            "name": "layer",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "authority",
+                "commitment",
+                "hearing",
+                "press",
+                "program"
+              ]
+            },
+            "description": "Which chronology view owns this entry. The Record owns the full spine; other pages render filtered views."
+          },
+          {
+            "name": "span",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "covid",
+                "gap",
+                "hearing-week",
+                "hr1815",
+                "implementation",
+                "now",
+                "vasp"
+              ]
+            },
+            "description": "For events covering a period rather than a day, the period covered."
+          },
+          {
+            "name": "who_was_told",
+            "type": "string",
+            "description": "The party that received notice, where the entry is a notice event. Supports the foreseeability argument."
+          },
+          {
+            "name": "who_told_them",
+            "type": "string",
+            "description": "The party that gave notice."
+          },
+          {
+            "name": "venue",
+            "type": "string",
+            "description": "Where it happened: a hearing, a letter, a filing, a call, a published document."
+          },
+          {
+            "name": "source_url",
+            "type": "string",
+            "constraints": {
+              "pattern": "^(https?://\\S+)?$"
+            },
+            "description": "Link to the record for this event."
+          },
+          {
+            "name": "source_id",
+            "type": "string",
+            "vfcSeverity": "warn",
+            "constraints": {
+              "pattern": "^(S[0-9]{3}(;\\s*S[0-9]{3})*)?$"
+            },
+            "description": "WARN ONLY. Some rows carry a citation string rather than an S-id. Reconciling these is an open board item, so this warns and does not block."
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "verified",
+                "source pending"
+              ]
+            },
+            "description": "Verification state of the entry."
+          },
+          {
+            "name": "notes",
+            "type": "string",
+            "description": "Free text qualifier, including any registered limitation."
+          }
+        ]
+      }
+    },
+    {
+      "name": "rebuttals",
+      "path": "rebuttals.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Rebuttal index",
+      "description": "What you may have heard, and what the record says.",
+      "schema": {
+        "primaryKey": "pr_id",
+        "fields": [
+          {
+            "name": "pr_id",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "unique": true,
+              "pattern": "^PR-[0-9]{2}$"
+            },
+            "description": "Stable identifier, PR plus two digits. PR numbering wins; the retired R-nn scheme is not used."
+          },
+          {
+            "name": "group",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "Which family of talking point this answers."
+          },
+          {
+            "name": "strategy_code",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^R[0-9] .+$"
+            },
+            "description": "A strategy number and its name, e.g. 'R1 Tried-but-blocked'."
+          },
+          {
+            "name": "heard",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "The claim as a reader is likely to have heard it, in that speaker's own framing."
+          },
+          {
+            "name": "where",
+            "type": "string",
+            "description": "Where that claim has actually been made, with enough detail to check."
+          },
+          {
+            "name": "record_says",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "What the documented record shows, stated neutrally."
+          },
+          {
+            "name": "authority",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "The statute, regulation, circular or record that carries the answer."
+          },
+          {
+            "name": "receipt",
+            "type": "string",
+            "description": "The captured image or document that shows it on the face of the record."
+          },
+          {
+            "name": "say_back",
+            "type": "string",
+            "description": "A short reply a family member can use verbatim."
+          },
+          {
+            "name": "if_again",
+            "type": "string",
+            "description": "What to say if the claim is repeated after being answered."
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "Publication state of this entry, including whether it is held pending a receipt."
+          },
+          {
+            "name": "last_verified",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            },
+            "description": "Date a human last checked this entry against its authority. ISO 8601."
+          },
+          {
+            "name": "origin",
+            "type": "string",
+            "description": "Where this entry came from, so a merged entry can be traced back."
+          },
+          {
+            "name": "anchor",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^/rebuttals#PR-[0-9]{2}$"
+            },
+            "description": "The in-page anchor this entry renders at, so a citation can point at it."
+          },
+          {
+            "name": "notes",
+            "type": "string",
+            "description": "Free text, including any registered limitation."
+          }
+        ]
+      }
+    },
+    {
+      "name": "news",
+      "path": "news.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "The dated record",
+      "description": "Hearings, letters, program events and press items with external sources.",
+      "vfcRules": [
+        {
+          "name": "placeholder-url-stays-flagged",
+          "if": {
+            "field": "url",
+            "equals": "URL pending"
+          },
+          "then": {
+            "field": "status",
+            "equals": "needs-url"
+          },
+          "message": "The literal 'URL pending' is the only placeholder allowed in url, and only while status is needs-url. If the status has moved to verified, the placeholder is stale."
+        }
+      ],
+      "schema": {
+        "fields": [
+          {
+            "name": "date",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            },
+            "description": "Date of the item, ISO 8601."
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "Headline as the source itself gives it. Not paraphrased."
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "Hearing, letter, program event, press item, or agency action."
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^(https?://\\S+|URL pending)$"
+            },
+            "description": "An absolute URL, or the literal placeholder 'URL pending' while status is needs-url. See vfcRules."
+          },
+          {
+            "name": "source_org",
+            "type": "string",
+            "constraints": {
+              "required": true
+            },
+            "description": "Publisher or the body that produced the item."
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "verified",
+                "needs-url"
+              ]
+            },
+            "description": "Verification state, including whether a URL is still being chased."
+          },
+          {
+            "name": "notes",
+            "type": "string",
+            "description": "Free text qualifier."
+          }
+        ]
+      }
+    },
+    {
+      "name": "glossary",
+      "path": "glossary.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "title": "Glossary",
+      "description": "Acronyms and terms spelled out on first use.",
+      "schema": {
+        "primaryKey": "term",
+        "fields": [
+          {
+            "name": "term",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "unique": true
+            },
+            "description": "The acronym or term as it appears in the record."
+          },
+          {
+            "name": "definition",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "minLength": 10
+            },
+            "description": "Plain-language expansion, written for a reader meeting the term for the first time."
+          }
+        ]
+      }
+    }
+  ],
+  "version": "1.1.0"
+}

@@ -1,0 +1,18 @@
+/* Base rules shared by every page, lifted verbatim from the <style> block
+   each legacy page carried. One copy, one file, cached once. */
+*{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; scroll-padding-top:120px; }
+  body{ margin:0; background:#F0F1F0; color:#222222; font-family:'Newsreader',Georgia,serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; -webkit-text-size-adjust:100%; }
+  a{ color:#B8202E; text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  ::selection{ background:#B8202E; color:#F0F1F0; }
+  .print-footer{ display:none; }
+  @media print{
+    @page{ margin:0.5in 0.55in 0.7in; }
+    html{ scroll-padding-top:0; }
+    body{ background:#fff !important; }
+    [data-screen-only]{ display:none !important; }
+    [data-collapsible]{ display:block !important; }
+    [data-avoid-break]{ break-inside:avoid; page-break-inside:avoid; }
+    .print-footer{ display:block !important; position:fixed; bottom:0; left:0; right:0; font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); letter-spacing:.06em; color:#555; border-top:1px solid #222; padding:4px 0; text-align:center; background:#fff; }
+  }

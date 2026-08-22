@@ -1,0 +1,1307 @@
+/* ============================================================================
+   VFC WEB DESIGN SYSTEM  v1, 2026-07-26
+   Companion to the newsprint social-graphics system, NOT a replacement.
+   Same locked palette. Same three fonts. Web-scale type and page components.
+
+   The social kit is calibrated to a 1080px canvas with a 22px floor. That is
+   correct for Instagram and impossible for a web page. This file is the web
+   half. Load it once; never write an inline style again.
+   ========================================================================= */
+
+:root {
+  /* ---- palette: locked, from the newsprint system ---- */
+  --paper:       #F0F1F0;
+  --paper-edge:  #E6E7E6;
+  --ink:         #222222;
+  --ink-soft:    #3A3A3A;
+  --ink-deep:    #161616;
+  --red:         #B8202E;
+  --red-dk:      #94182A;
+
+  /* ---- functional additions the web surface genuinely needs ----
+     These were already in use, unnamed and drifting. Naming them stops
+     the drift; leaving them unnamed is how you end up with 18 colors. */
+  --ink-mute:    #8A8F88;   /* de-emphasized metadata, source IDs, dates */
+  --rule:        #CFD0CE;   /* hairline dividers */
+  --warn:        #8A5A00;   /* citation-pending / unverified. The one warm tone with a job. */
+  --warn-bg:     #F6EFE0;
+
+  /* ---- type ---- */
+  --font-display: 'Big Shoulders Display', sans-serif;  /* headlines, big numbers */
+  --font-serif:   'Newsreader', Georgia, serif;         /* body, lede, quotes */
+  --font-mono:    'IBM Plex Mono', ui-monospace, monospace; /* kickers, labels, dates, URLs */
+
+  /* ---- web type scale: nine steps, no others ----
+     Anchored to sizes already in the build so applying it does not reflow
+     the pages you spent five days tuning. */
+  --fs-micro: 12px;   /* source chips, dates, footnotes */
+  --fs-label: 13px;   /* kickers, eyebrow labels, table headers */
+  --fs-body:  16px;   /* default body */
+  --fs-lede:  19px;   /* section lede, the plain line */
+  --fs-h4:    20px;
+  --fs-h3:    22px;
+  --fs-h2:    clamp(20px, 1.9vw, 26px);
+  /* The masthead mark. Fixed 22px against a fluid wordmark meant the ornament
+     outranked the nameplate below a 1158px viewport, on every page, on every
+     phone. A smaller fixed value only moves the breakpoint, so the mark needs
+     its own clamp that sits under --fs-h2 across the whole range. Found 2026-08-12. */
+  --fs-mark:  clamp(16px, 1.5vw, 21px);
+  --fs-h1:    clamp(26px, 2.7vw, 36px);
+  --fs-stat:  clamp(38px, 5vw, 64px);  /* the number an argument turns on */
+
+  /* ---- spacing: six steps ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 14px;
+  --sp-4: 22px; --sp-5: 36px; --sp-6: 56px;
+
+  --measure: 82ch;        /* body line length ceiling */
+  --content: 1080px;      /* content column */
+
+  /* ---- data palette: charts and policy state only. Added 2026-08-15. ----
+     Four greys and one hue. data-1 and data-3 alias existing tokens on
+     purpose, so a chart and a body page cannot drift apart.
+     RULE  --red highlights ONE value in a chart, never a whole series.
+     RULE  --auth is outline + "+" glyph; excluded is solid red + "x" glyph.
+           Dark green against dark red is a deuteranopia collision, so fill
+           against outline is what actually carries the meaning. The hue is
+           a convenience, never the signal. */
+  --data-1:  #222222;   /* the series the claim is about. Alias of --ink */
+  --data-2:  #5C605C;
+  --data-3:  #8A8F88;   /* alias of --ink-mute */
+  --data-4:  #B9BCB8;
+  --auth:    #3F5A34;   /* authorized / what Congress wrote. 6.8:1 on paper */
+  --auth-bg: #EBEEE8;
+}
+
+/* ============================ FOUNDATIONS ============================ */
+
+.vfc-page   { background: var(--paper); color: var(--ink); font-family: var(--font-serif); font-size: var(--fs-body); line-height: 1.6; }
+.vfc-wrap   { max-width: var(--content); margin: 0 auto; padding: 0 var(--sp-4); }
+.vfc-body   { font-size: var(--fs-body); line-height: 1.6; max-width: var(--measure); margin: 0 0 var(--sp-3); }
+.vfc-lede   { font-size: var(--fs-lede); line-height: 1.5; max-width: var(--measure); margin: 0 0 var(--sp-3); }
+.vfc-micro  { font-family: var(--font-mono); font-size: var(--fs-micro); color: var(--ink-mute); }
+.vfc-hr     { border: 0; border-top: 1px solid var(--rule); margin: var(--sp-5) 0; }
+
+/* ============================ MASTHEAD / NAV ============================ */
+
+.vfc-masthead      { border-bottom: 3px double var(--ink); padding: var(--sp-3) 0; }
+.vfc-masthead__name{ font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h2);
+                     text-transform: uppercase; letter-spacing: .02em; margin: 0; }
+/* The one sanctioned mark. Ratified 2026-08-08, superseding the blanket
+   no-pictorial-element rule. Masthead only. Never a bullet, a divider, a
+   rating, or an ornament in body copy. A second mark is the violation.
+   Small display size, one step under the wordmark. Always aria-hidden in the
+   markup: a screen reader must announce the wordmark clean. */
+.vfc-masthead__mark{ font-family: var(--font-display); font-weight: 800;
+                     font-size: var(--fs-mark); color: var(--ink);
+                     margin-left: .28em; vertical-align: .04em; }
+.vfc-masthead__meta{ font-family: var(--font-mono); font-size: var(--fs-micro);
+                     text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+.vfc-nav           { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); padding: var(--sp-2) 0; }
+.vfc-nav__item     { font-family: var(--font-display); font-weight: 700; font-size:var(--fs-body);
+                     text-transform: uppercase; letter-spacing: .02em; color: var(--ink);
+                     text-decoration: none; padding-bottom: 3px;
+                     border-bottom: 2px solid transparent; white-space: nowrap; }
+.vfc-nav__item:hover,
+.vfc-nav__item[aria-current] { color: var(--red); border-bottom-color: var(--red); }
+.vfc-nav__item[aria-current] { font-weight: 900; }
+.vfc-nav__item:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+
+/* ============================ THE SECTION BLOCK ============================
+   The single most important component. Fixed order, every time:
+     kicker (what this section is)  →  headline (the editorial line)
+     →  chip (evidence class)  →  plain line  →  body  →  collapsed detail
+   Orienting context first. Never last. This is a structural guarantee,
+   not an editorial habit, the DOM order enforces it.
+   ========================================================================= */
+
+.vfc-section          { margin: var(--sp-6) 0; scroll-margin-top: var(--sp-5); }
+.vfc-section__kicker  { font-family: var(--font-mono); font-size: var(--fs-label);
+                        text-transform: uppercase; letter-spacing: .12em; color: var(--red);
+                        border-top: 1px solid var(--ink); padding-top: var(--sp-2);
+                        margin: 0 0 var(--sp-2); display: block; }
+.vfc-section__headline{ font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h2);
+                        line-height: 1.12; letter-spacing: .01em; margin: 0 0 var(--sp-2);
+                        max-width: 24ch; }
+.vfc-section__plain   { font-size: var(--fs-lede); line-height: 1.5; font-style: italic;
+                        color: var(--ink-soft); max-width: var(--measure); margin: 0 0 var(--sp-3); }
+.vfc-section__body    { max-width: var(--measure); }
+
+/* ============================ EVIDENCE CHIPS ============================ */
+
+.vfc-chip        { display: inline-block; font-family: var(--font-mono); font-size:var(--fs-micro);
+                   font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+                   white-space: nowrap; padding: 3px 7px; margin: 0 var(--sp-1) var(--sp-1) 0; }
+.vfc-chip--fact  { background: var(--ink);  color: var(--paper); }
+.vfc-chip--analysis { background: transparent; color: var(--ink-soft); border: 1px solid var(--ink-soft); }
+.vfc-chip--pending  { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn); }
+.vfc-chip--source   { background: transparent; color: var(--red); border: 1px solid var(--red);
+                      text-decoration: none; }
+.vfc-chip--source:hover { background: var(--red); color: var(--paper); }
+
+/* ============================ STAT CARD ============================
+   Anatomy, always: label → number → context → source chip → as-of date.
+   No naked numbers. If it has no claim_id it does not ship.
+   ========================================================================= */
+
+.vfc-stat        { border-top: 2px solid var(--ink); padding: var(--sp-3) 0; }
+.vfc-stat__label { font-family: var(--font-mono); font-size: var(--fs-micro);
+                   text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft);
+                   margin: 0 0 var(--sp-1); }
+.vfc-stat__value { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-stat);
+                   line-height: .95; margin: 0 0 var(--sp-1); }
+.vfc-stat__value--accent { color: var(--red); }
+.vfc-stat__context { font-size: var(--fs-body); line-height: 1.4; margin: 0 0 var(--sp-2); }
+.vfc-stat__meta  { font-family: var(--font-mono); font-size:var(--fs-micro); color: var(--ink-mute); }
+.vfc-stat-row    { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+                   gap: var(--sp-4); }
+
+/* ============================ RECEIPT FIGURE ============================
+   The load-bearing component for documentary work. A claim next to a
+   screenshot of the primary source is the difference between asserting
+   and showing. Every receipt gets identical treatment so the eye reads
+   them as one evidence class.
+   ========================================================================= */
+
+.vfc-receipt        { margin: var(--sp-4) 0; border: 1px solid var(--rule);
+                      background: #fff; padding: var(--sp-3); }
+.vfc-receipt--wide  { max-width: 100%; }
+.vfc-receipt--half  { max-width: 520px; }
+.vfc-receipt__img   { display: block; width: 100%; height: auto; object-fit: contain;
+                      border: 1px solid var(--rule); background: var(--paper-edge); }
+.vfc-receipt__cap   { font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.5;
+                      color: var(--ink-soft); margin: var(--sp-2) 0 0; }
+.vfc-receipt__cap b { color: var(--ink); font-weight: 600; }
+.vfc-receipt__what  { font-size: var(--fs-body); line-height: 1.45; margin: 0 0 var(--sp-2);
+                      font-weight: 600; }
+.vfc-receipt-grid   { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                      gap: var(--sp-4); }
+
+/* ============================ MYTH BLOCK ============================
+   "What you've heard" vs "what the record says." The recurring device
+   for the debunk layer. Deploy as a section OR inline as a chip link.
+   ========================================================================= */
+
+.vfc-myth        { border-left: 4px solid var(--red); padding: var(--sp-3) 0 var(--sp-3) var(--sp-4);
+                   margin: var(--sp-4) 0; scroll-margin-top: var(--sp-5); }
+.vfc-myth__heard { font-family: var(--font-mono); font-size: var(--fs-label);
+                   text-transform: uppercase; letter-spacing: .1em; color: var(--red);
+                   margin: 0 0 var(--sp-1); }
+.vfc-myth__claim { font-family: var(--font-serif); font-style: italic; font-size: var(--fs-lede);
+                   color: var(--ink-soft); margin: 0 0 var(--sp-3); max-width: var(--measure); }
+.vfc-myth__record{ font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3);
+                   line-height: 1.2; margin: 0 0 var(--sp-2); text-wrap: pretty; }
+.vfc-myth-link   { font-family: var(--font-mono); font-size:var(--fs-micro); text-transform: uppercase;
+                   letter-spacing: .06em; color: var(--red); text-decoration: none;
+                   border-bottom: 1px solid var(--red); }
+
+/* ============================ TIMELINE ============================ */
+
+.vfc-spine       { display: flex; align-items: stretch; height: 34px; margin: var(--sp-3) 0 var(--sp-5);
+                   border: 1px solid var(--ink); font-family: var(--font-mono); font-size:var(--fs-micro); }
+.vfc-spine__seg  { flex: 1; display: flex; align-items: center; justify-content: center;
+                   border-right: 1px solid var(--rule); color: var(--ink-mute);
+                   text-transform: uppercase; letter-spacing: .04em; text-decoration: none; }
+.vfc-spine__seg:last-child { border-right: 0; }
+.vfc-spine__seg[aria-current] { background: var(--red); color: var(--paper); font-weight: 600; }
+
+.vfc-node        { display: grid; grid-template-columns: 104px 1fr; gap: var(--sp-2) var(--sp-4);
+                   padding: var(--sp-3) 0; border-top: 1px solid var(--rule); }
+.vfc-node__date  { font-family: var(--font-mono); font-size: var(--fs-micro); font-weight: 600;
+                   text-transform: uppercase; letter-spacing: .04em; color: var(--red); }
+.vfc-node__title { font-size: var(--fs-body); font-weight: 600; line-height: 1.35; margin: 0 0 var(--sp-1); }
+.vfc-node__body  { font-size: var(--fs-body); line-height: 1.55; margin: 0; }
+
+/* ============================ TABLE ============================ */
+
+.vfc-table       { width: 100%; border-collapse: collapse; font-size: var(--fs-body); margin: var(--sp-3) 0; }
+.vfc-table th    { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 600;
+                   text-transform: uppercase; letter-spacing: .06em; text-align: left;
+                   border-bottom: 2px solid var(--ink); padding: var(--sp-2); }
+.vfc-table td    { border-bottom: 1px solid var(--rule); padding: var(--sp-2); vertical-align: top; line-height: 1.5; }
+.vfc-table tr:hover td { background: var(--paper-edge); }
+/* Captions default to centred, which reads as a title rather than a note. */
+.vfc-table caption { text-align: left; padding: 0 var(--sp-2) var(--sp-2); }
+
+/* ============================ QUOTE / CALLOUT ============================ */
+
+.vfc-quote       { border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+                   padding: var(--sp-4) 0; margin: var(--sp-5) 0; }
+.vfc-quote__text { font-family: var(--font-serif); font-style: italic; font-size: var(--fs-h3);
+                   line-height: 1.35; margin: 0 0 var(--sp-2); max-width: 40ch; }
+.vfc-quote__text em { font-style: italic; color: var(--red); }
+.vfc-quote__attr { font-family: var(--font-mono); font-size: var(--fs-micro);
+                   text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+
+.vfc-callout     { background: var(--paper-edge); border-left: 4px solid var(--ink);
+                   padding: var(--sp-3) var(--sp-4); margin: var(--sp-4) 0; }
+
+/* ============================ PROGRESSIVE DISCLOSURE ============================ */
+
+.vfc-details            { border-top: 1px solid var(--rule); margin: var(--sp-3) 0; }
+.vfc-details > summary  { font-family: var(--font-mono); font-size: var(--fs-label);
+                          text-transform: uppercase; letter-spacing: .08em; color: var(--red);
+                          padding: var(--sp-2) 0; cursor: pointer; list-style: none; }
+.vfc-details > summary::after { content: " +"; }
+.vfc-details[open] > summary::after { content: " −"; }
+.vfc-details__body      { padding: 0 0 var(--sp-3); max-width: var(--measure); }
+
+/* ============================ FOOTER ============================ */
+
+.vfc-footer      { border-top: 3px double var(--ink); margin-top: var(--sp-6);
+                   padding: var(--sp-4) 0; font-family: var(--font-mono); font-size: var(--fs-micro);
+                   line-height: 1.7; color: var(--ink-soft); }
+.vfc-footer a    { color: var(--ink); }
+
+/* ============================ ACCESSIBILITY ============================ */
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+           overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.vfc-skip { position: absolute; left: -9999px; }
+.vfc-skip:focus { left: var(--sp-3); top: var(--sp-3); background: var(--ink); color: var(--paper);
+                  padding: var(--sp-2) var(--sp-3); z-index: 100; }
+:where(a, button, summary):focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+
+@media print {
+  .vfc-nav.vfc-spine { display: none; }
+  .vfc-details[open] .vfc-details__body { display: block; }
+  .vfc-receipt { break-inside: avoid; }
+}
+
+/* ============================ POSITION SCALE ============================
+   Separate from the brand palette. The accountability tracker needs to
+   differentiate members, and hue alone should not carry that meaning:
+
+   1. A green/amber/red traffic light reads as partisan scoring. This is a
+      public-record project; the tracker documents POSITIONS ON THE RECORD,
+      not good guys and bad guys. Scoring invites the deflection that the
+      whole campaign is a partisan attack.
+   2. ~8% of men have red/green colour deficiency. Hue-only status fails them.
+   3. Green and gold are off-palette for newsprint.
+
+   So: position is carried by BORDER TREATMENT first, hue second, and a
+   text label always. Colourblind-safe, on-brand, and it reads as
+   documentation instead of a scorecard.
+   ========================================================================= */
+
+.vfc-pos            { border-left: 6px solid var(--rule); padding: var(--sp-3) var(--sp-4);
+                      margin: 0 0 var(--sp-3); background: #fff; }
+.vfc-pos__label     { font-family: var(--font-mono); font-size:var(--fs-micro); font-weight: 600;
+                      text-transform: uppercase; letter-spacing: .1em; margin: 0 0 var(--sp-1); }
+.vfc-pos__name      { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h4);
+                      margin: 0 0 var(--sp-1); }
+.vfc-pos__body      { font-size: var(--fs-body); line-height: 1.5; margin: 0 0 var(--sp-2); }
+.vfc-pos__cite      { font-family: var(--font-mono); font-size:var(--fs-micro); color: var(--ink-mute); }
+
+/* on record, acting, solid ink, filled marker */
+.vfc-pos--acting    { border-left-color: var(--ink); border-left-style: solid; }
+.vfc-pos--acting  .vfc-pos__label { color: var(--ink); }
+.vfc-pos--acting  .vfc-pos__label::before { content: "\25A0\00A0"; }
+
+/* on record, supportive, not yet acting */
+.vfc-pos--stated    { border-left-color: var(--ink-soft); border-left-style: double; }
+.vfc-pos--stated  .vfc-pos__label { color: var(--ink-soft); }
+.vfc-pos--stated  .vfc-pos__label::before { content: "\25A3\00A0"; }
+
+/* on record, opposed / advanced a pay-for off veterans */
+.vfc-pos--opposed   { border-left-color: var(--red); border-left-style: solid; }
+.vfc-pos--opposed .vfc-pos__label { color: var(--red); }
+.vfc-pos--opposed .vfc-pos__label::before { content: "\25B2\00A0"; }
+
+/* contacted, no response on the record */
+.vfc-pos--silent    { border-left-color: var(--ink-mute); border-left-style: dashed; }
+.vfc-pos--silent  .vfc-pos__label { color: var(--ink-mute); }
+.vfc-pos--silent  .vfc-pos__label::before { content: "\25CB\00A0"; }
+
+/* not yet approached */
+.vfc-pos--none      { border-left-color: var(--rule); border-left-style: dotted; }
+.vfc-pos--none    .vfc-pos__label { color: var(--ink-mute); }
+.vfc-pos--none    .vfc-pos__label::before { content: "\00B7\00A0"; }
+
+.vfc-pos-key        { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4);
+                      font-family: var(--font-mono); font-size:var(--fs-micro); text-transform: uppercase;
+                      letter-spacing: .06em; color: var(--ink-soft);
+                      border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+                      padding: var(--sp-2) 0; margin: 0 0 var(--sp-3); }
+
+/* ---- inline myth chip, links any stereotype back to its rebuttal ---- */
+.vfc-myth-chip { margin: 0 0 var(--sp-3); }
+.vfc-myth-chip .vfc-myth-link { display: inline-block; padding: 3px 0; }
+
+
+/* ============================ KEY FINDING ============================
+   Reading-priority signal. One per section, ideally one per page. Sits at the
+   TOP of its section, directly after the headline and the plain line and before
+   the evidence, so the finding leads and the reader never hunts for it. Marks
+   the sentence a reader should take away if they take nothing else. Never used for
+   epistemic status: it always carries a content label chip as well, so the
+   signal is carried by words and by shape, not by colour alone (WCAG 1.4.1).
+   Crimson on white is 5.65:1, AA for body text; the 8px bar is 5.65:1 against
+   the card and 4.99:1 against the page, both above the 3:1 non-text minimum
+   (WCAG 1.4.11). Red-green colour vision deficiency does not affect luminance,
+   so the bar stays a dark bar for the ~8% of men with CVD.
+   Competing red left bars are demoted to ink so this stays unique.
+   ==================================================================== */
+.vfc-key-finding { background:#ffffff; border-left:8px solid #B8202E; padding:20px 22px 22px; margin:16px 0 0; color:#222222; }
+.vfc-key-finding__head { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin:0 0 12px; }
+.vfc-key-finding__label { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#B8202E; margin:0; }
+.vfc-key-finding__body { font-family:'Newsreader',Georgia,serif; font-size:var(--fs-body); line-height:1.55; margin:0; color:#222222; text-wrap:pretty; }
+.vfc-key-finding__body + .vfc-key-finding__body { margin-top:12px; }
+
+
+/* ============================ SECTION OPENER ============================
+   Structural divider. Wraps a section's existing kicker, headline, evidence
+   chip and plain line in a block closed by an ink rule above and below, so a
+   long page scans as discrete sections instead of one run of copy. Deliberately
+   quiet: ink rules, no fill, no label of its own, because it repeats many times
+   per page and must never compete with the one KEY FINDING. Crimson is not used
+   here for the same reason. Changes nothing about the elements inside it.
+   ======================================================================= */
+.vfc-section-open { border-top:3px solid #222222; border-bottom:1px solid #222222; padding:15px 0 14px; margin:0 0 24px; }
+.vfc-section-open > :first-child { margin-top:0; border-top:none; padding-top:0; }  /* the opener supplies the rule; ruled kicker classes must not add a second */
+.vfc-section-open > :last-child { margin-bottom:0; }
+.vfc-section-open__meta { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin:10px 0 0; }
+/* the opener now supplies the break, so the hero does not also need a closing rule */
+.vfc-ruled-073:has(+ section > .vfc-section-open:first-child) { border-bottom:none; }
+@media print { .vfc-section-open { break-after:avoid; page-break-after:avoid; } }
+
+/* ==========================================================================
+   FILTER, SORT AND SEARCH CONTROLS            added 2026-08-07
+   Written when watch.html and evidence.html were converted off the Claude
+   Design runtime. The tracker and the claims register had been built with
+   inline styles because these components did not exist. They exist now.
+   Progressive enhancement: the controls carry [hidden] in the markup and
+   vfc-controls.js removes it, so a reader without JS sees every entry
+   rather than a row of dead buttons.
+   ====================================================================== */
+
+.vfc-controls           { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-5);
+                          align-items: flex-end; margin: 0 0 var(--sp-4); }
+.vfc-controls__label    { font-family: var(--font-mono); font-size:var(--fs-micro); font-weight: 600;
+                          text-transform: uppercase; letter-spacing: .1em;
+                          color: var(--ink-soft); margin: 0 0 var(--sp-2); }
+.vfc-controls__row      { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.vfc-btn                { font-family: var(--font-mono); font-size: var(--fs-micro);
+                          letter-spacing: .02em; padding: 7px 12px; cursor: pointer;
+                          background: #fff; color: var(--ink); border: 1px solid var(--rule); }
+.vfc-btn:hover          { border-color: var(--ink); }
+.vfc-btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.vfc-search             { font-family: var(--font-mono); font-size: var(--fs-micro);
+                          padding: 9px 12px; width: 100%; max-width: 380px; background: #fff;
+                          color: var(--ink); border: 1px solid var(--rule); }
+.vfc-btn:focus-visible,
+.vfc-search:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.vfc-result-count       { font-family: var(--font-mono); font-size:var(--fs-micro);
+                          color: var(--ink-soft); margin: 0 0 var(--sp-3); }
+.vfc-empty              { font-family: var(--font-mono); font-size: var(--fs-micro);
+                          color: var(--ink-soft); border: 1px dashed var(--rule);
+                          padding: var(--sp-4); margin: 0 0 var(--sp-3); }
+
+/* ---- the claim card, Evidence register ---- */
+.vfc-claim              { background: #fff; border-left: 6px solid var(--ink);
+                          padding: var(--sp-4); margin: 0 0 var(--sp-3); }
+.vfc-claim--analysis    { border-left-color: var(--red); }
+.vfc-claim--held        { border-left-color: var(--warn); background: var(--warn-bg); }
+.vfc-claim__text        { font-family: var(--font-serif); font-size: var(--fs-lede);
+                          line-height: 1.45; margin: var(--sp-2) 0; max-width: var(--measure); }
+.vfc-claim__def         { font-size:var(--fs-label); line-height: 1.55; color: var(--ink-soft);
+                          margin: 0 0 var(--sp-3); max-width: var(--measure); }
+.vfc-claim__meta        { border-top: 1px solid var(--rule); padding-top: var(--sp-2); }
+.vfc-claim__src         { font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.5;
+                          display: block; }
+.vfc-claim__note        { font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.5;
+                          color: var(--ink-soft); margin: var(--sp-2) 0 0; }
+.vfc-claim__id          { font-family: var(--font-mono); font-size:var(--fs-micro); color: var(--ink-mute); }
+
+/* ---- position card additions, Accountability tracker ---- */
+.vfc-pos__role          { font-family: var(--font-mono); font-size:var(--fs-micro);
+                          color: var(--ink-soft); margin: 0 0 var(--sp-2); }
+.vfc-pos__ask           { font-size:var(--fs-body); line-height: 1.5; margin: 0 0 var(--sp-2);
+                          max-width: var(--measure); }
+
+/* ---- register layouts: cards, not prose, so the 68ch measure moves inside ----
+   .vfc-section__body caps at --measure, which is right for prose and wrong for
+   a card register: it left half the viewport empty. The measure still holds,
+   on the text inside each card. */
+.vfc-section__body--wide { max-width: none; }
+.vfc-card-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+                  gap: var(--sp-3); align-items: start; }
+.vfc-card-grid > .vfc-claim, .vfc-card-grid > .vfc-pos { margin: 0; }
+@media print { .vfc-card-grid { display: block; } }
+
+/* ---- national default, state examples marked ----   added 2026-08-07
+   The site's procedural content defaults to what is federal and true
+   everywhere. Where a rule is state law, it is marked as an example and
+   the reader is told to check their own state. The cohort is multi-state;
+   a Washington timeline printed as a national one can cost someone a
+   deadline they did not know they had. */
+.vfc-state            { background: #fff; border: 1px dashed var(--red-dk);
+                        padding: var(--sp-3) var(--sp-4); margin: 0 0 var(--sp-3); }
+.vfc-state__label     { font-family: var(--font-mono); font-size:var(--fs-micro); font-weight: 600;
+                        text-transform: uppercase; letter-spacing: .1em;
+                        color: var(--red-dk); margin: 0 0 var(--sp-2); }
+.vfc-state__label::before { content: "\25C6\00A0"; }
+.vfc-state__body      { font-size:var(--fs-label); line-height: 1.55; margin: 0; max-width: var(--measure); }
+.vfc-federal          { background: var(--paper-edge); border-left: 4px solid var(--ink);
+                        padding: var(--sp-3) var(--sp-4); margin: 0 0 var(--sp-3); }
+.vfc-federal__label   { font-family: var(--font-mono); font-size:var(--fs-micro); font-weight: 600;
+                        text-transform: uppercase; letter-spacing: .1em;
+                        color: var(--ink); margin: 0 0 var(--sp-2); }
+.vfc-federal__label::before { content: "\25A0\00A0"; }
+
+/* ---- printable family handouts ----                added 2026-08-07
+   first-72-hours.html and one-pager.html were built as <doc-page> custom
+   elements and carried "doc-page:not(:defined){visibility:hidden}", so both
+   rendered a blank screen whenever the Claude Design doc runtime was absent,
+   which it is in every export. They are now plain pages. Letter geometry is
+   preserved for print; on screen they read as a normal page. */
+.vfc-sheet          { max-width: 8.5in; margin: 0 auto; background: #fff;
+                      padding: 0.55in; box-shadow: 0 1px 0 var(--rule); }
+.vfc-sheet__header  { border-bottom: 2px solid var(--ink); padding: 0 0 6px; margin: 0 0 10px;
+                      display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+.vfc-sheet__footer  { border-top: 1px solid var(--ink); padding: 6px 0 0; margin: var(--sp-4) 0 0;
+                      display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+@media print { .vfc-sheet { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+               @page { size: letter; margin: 0.55in; } }
+
+/* ==================== URGENCY MARKERS (document triage) ====================
+   Four levels, and the level is always spelled out in words. Colour and weight
+   are reinforcement only, never the carrier, because a reader in a hard moment
+   may be on a phone in sunlight, colour-blind, or printing this in greyscale.
+   Rule source: vfc-web-design-system §5, meaning never by colour alone. */
+.vfc-urg          { font-family: var(--font-mono); font-size: var(--fs-label);
+                    text-transform: uppercase; letter-spacing: .06em;
+                    white-space: nowrap; font-weight: 600; }
+.vfc-urg::before  { content: "· "; }
+.vfc-urg--info    { color: var(--ink-mute); }
+.vfc-urg--info::before    { content: "○ "; }
+.vfc-urg--timed   { color: var(--warn); }
+.vfc-urg--timed::before   { content: "◐ "; }
+.vfc-urg--act     { color: var(--red); }
+.vfc-urg--act::before     { content: "● "; }
+.vfc-urg--now     { color: var(--red); }
+.vfc-urg--now::before     { content: "▲ "; }
+.vfc-urg--now     { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================ HOMEPAGE HUB ============================
+   Restored 2026-08-11 from the hand-built hub page. These classes carry the
+   layout that page was authored with, replacing its inline style attributes
+   one for one. Locked palette, three fonts, no new values invented.
+   ===================================================================== */
+
+.vfc-hero               { padding: 30px 0 20px; }
+.vfc-hero__title        { font-family: var(--font-display); font-weight: 900;
+                          font-size:var(--fs-stat); line-height: .92;
+                          letter-spacing: -.01em; text-transform: uppercase;
+                          margin: 0 0 14px; text-wrap: balance; color: var(--ink); }
+.vfc-hero__rule         { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+                          padding: 10px 0 7px; font-family: var(--font-mono); font-size:var(--fs-micro);
+                          letter-spacing: .17em; text-transform: uppercase;
+                          color: var(--red); margin: 0 0 15px; }
+.vfc-hero__lede         { font-family: var(--font-serif); font-size:var(--fs-h3);
+                          line-height: 1.5; margin: 0; max-width: 100%; color: var(--ink); }
+
+/* Status bar: three cells, white card, heavy left rule. */
+.vfc-statusbar          { border: 1px solid var(--ink); border-left-width: 5px;
+                          background: #FFFFFF; padding: 20px 24px; display: grid;
+                          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                          gap: 20px 34px; }
+.vfc-statusbar__value   { font-family: var(--font-serif); font-weight: 600; font-size:var(--fs-body);
+                          text-transform: none; line-height: 1.4; margin: 0 0 6px;
+                          color: var(--red); }
+.vfc-statusbar__value--ink { color: var(--ink); }
+
+/* The four moves. */
+.vfc-moves              { display: flex; flex-direction: column; gap: 26px; margin: 18px 0 0; }
+.vfc-move__head         { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; }
+.vfc-move__text         { font-size:var(--fs-body); line-height: 1.55; margin: 0 0 10px; max-width: 100%; }
+.vfc-move__note         { font-family: var(--font-serif); font-size: var(--fs-body); line-height: 1.6;
+                          color: var(--ink-soft); margin: 0 0 10px; max-width: 100%; }
+.vfc-move__link         { display: inline-block; margin: 0 0 18px; }
+.vfc-move__close        { font-size:var(--fs-body); line-height: 1.5; margin: 14px 0 0; }
+.vfc-move__source       { font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.55;
+                          color: var(--ink-soft); margin: 16px 0 0; }
+.vfc-mono-link          { font-family: var(--font-mono); font-size:var(--fs-micro); letter-spacing: .04em;
+                          text-transform: uppercase; }
+
+/* Figure cards inside move 2. Override the taller door-card geometry. */
+.vfc-figure-grid        { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                          gap: 10px 14px; align-items: start; }
+.vfc-figure-card        { min-height: 0; display: block; padding: 12px 14px; }
+.vfc-figure-card--wide  { margin: 14px 0 0; }
+.vfc-figure__num        { font-family: var(--font-display); font-weight: 800; font-size:var(--fs-h1);
+                          line-height: 1.05; margin: 0 0 6px; color: var(--ink-deep); }
+
+.vfc-rebuttal           { margin: 14px 0 0; }
+.vfc-rebuttal__label    { display: block; font-family: var(--font-mono); font-size:var(--fs-micro);
+                          letter-spacing: .17em; text-transform: uppercase;
+                          color: var(--red); margin: 0 0 6px; }
+.vfc-rebuttal__link     { font-family: var(--font-serif); font-size:var(--fs-h4); line-height: 1.35;
+                          color: var(--ink); text-decoration: none;
+                          border-bottom: 2px solid var(--red); }
+
+.vfc-asks-grid          { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+                          gap: 10px 34px; }
+
+/* Move 4: the four destination cards. */
+.vfc-doors              { padding: 26px 0 8px; }
+.vfc-doors__head        { border-top: 3px solid var(--red); padding: 14px 0 0; margin: 0 0 18px; }
+.vfc-doors__text        { font-size:var(--fs-body); line-height: 1.55; margin: 0; max-width: 100%; }
+.vfc-doors__grid        { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+                          gap: 14px; }
+
+/* Latest updates + the cohort map block. */
+.vfc-updates            { padding: 0; }
+.vfc-updates__foot      { font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.6;
+                          color: var(--ink-soft); margin: 16px 0 0; }
+.vfc-headrow            { display: flex; align-items: baseline; justify-content: space-between;
+                          gap: 12px; flex-wrap: wrap; margin: 0 0 16px; }
+.vfc-headrow--tight     { margin: 0 0 6px; }
+.vfc-headrow__meta      { font-family: var(--font-mono); font-size:var(--fs-micro); letter-spacing: .06em;
+                          text-transform: uppercase; color: var(--ink-soft); margin: 0; }
+.vfc-headrow__link      { font-family: var(--font-mono); font-size:var(--fs-micro); letter-spacing: .06em;
+                          text-transform: uppercase; color: var(--ink-soft); }
+.vfc-map__lede          { font-size:var(--fs-body); line-height: 1.55; margin: 0 0 18px; max-width: 100%; }
+.vfc-map__frame         { width: 100%; height: 560px; border: 1px solid var(--rule);
+                          background: var(--paper); }
+
+
+/* ================ HOMEPAGE TYPE HIERARCHY (restored 2026-08-11) ================
+   Content outranks ornament. Section headlines keep the mono-caps treatment the
+   author chose but move to 14px ink over a 3px red section rule. Move titles take
+   the display face and the ordinal drops to a small mono label. Status labels take
+   the display face and their values drop to serif. Statistics sit below titles.
+   Locked palette and the three-font system only. No inline styles.
+   ============================================================================= */
+
+.vfc-section-break      { margin: 34px 0 0; border-top: 3px solid var(--red);
+                          padding: 20px 0 8px; }
+.vfc-section-title      { font-family: var(--font-mono); font-weight: 600; font-size:var(--fs-label);
+                          letter-spacing: .17em; text-transform: uppercase;
+                          color: var(--ink); margin: 0; }
+
+.vfc-move__ordinal      { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h3);
+                           line-height: 1.2; color: var(--red);  margin-right: .35em;}
+.vfc-move__title        { font-family: var(--font-display); font-weight: 800; font-size:var(--fs-h3);
+                          text-transform: uppercase; line-height: 1.02; color: var(--ink);
+                          margin: 0; }
+
+.vfc-statusbar__label   { font-family: var(--font-display); font-weight: 800; font-size:var(--fs-h4);
+                          text-transform: uppercase; line-height: 1.05;
+                          color: var(--ink); margin: 0 0 4px; }
+
+
+/* ============== THE DATED RECORD, /latest (restored 2026-08-11) ==============
+   Restored from the hand-built news page. These classes carry the layout that
+   page was authored with, replacing its 139 inline style attributes one for one.
+   Three off-palette values were mapped to the locked palette on the way in:
+   rgb(198,38,46) to --red, rgb(138,143,152) to --ink-mute, rgb(58,59,56) to
+   --ink-soft. Month titles take the display face at 22px and metadata sits at
+   11 to 12px, the same hierarchy the homepage now uses. Nothing here reaches
+   the page H1, which stays clamp(30px, 4.4vw, 58px).
+   ========================================================================= */
+
+.vfc-rec                { padding: 16px 0 8px; }
+.vfc-rec__stamp         { font-family: var(--font-mono); font-size: var(--fs-micro);
+                          letter-spacing: .06em; text-transform: uppercase;
+                          color: var(--ink-soft); margin: 0; }
+.vfc-rec__count         { font-family: var(--font-mono); font-size: var(--fs-micro);
+                          color: var(--ink-soft); margin: 16px 0 0; }
+.vfc-rec__month         { font-family: var(--font-display); font-weight: 800; font-size:var(--fs-h3);
+                          letter-spacing: .01em; text-transform: uppercase; color: var(--ink);
+                          margin: 22px 0 0; border-top: 2px solid var(--ink); padding-top: 10px; }
+.vfc-rec__item          { display: grid; grid-template-columns: 110px 1fr; gap: 6px 24px;
+                          padding: 16px 0; border-top: 1px solid var(--rule); }
+.vfc-rec__date          { font-family: var(--font-mono); font-size: var(--fs-micro);
+                          font-weight: 600; color: var(--red); margin: 0 0 8px; }
+.vfc-rec__type          { display: inline-block; font-family: var(--font-mono); font-size:var(--fs-micro);
+                          font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+                          padding: 3px 7px; background: transparent; color: var(--ink-soft);
+                          border: 1px solid var(--ink-mute); }
+.vfc-rec__type--pending { color: var(--red-dk); border-color: var(--red-dk); }
+.vfc-rec__text          { font-size:var(--fs-body); line-height: 1.45; margin: 0 0 6px; }
+.vfc-rec__meta          { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; }
+.vfc-rec__src           { font-family: var(--font-mono); font-size:var(--fs-micro); color: var(--red); }
+.vfc-rec__note          { font-family: var(--font-mono); font-size: var(--fs-micro);
+                          line-height: 1.6; color: var(--ink-soft); margin: 26px 0 44px;
+                          max-width: 100%; }
+
+
+/* ============================================================================
+   PAGE COMPONENTS RECOVERED FROM THE HAND-BUILT ORIGINALS   v1, 2026-08-11
+   record/watch, take-action/policy and take-action carried class names whose
+   rules never came across in the 8/9 migration, so those elements rendered as
+   unstyled default browser text. The geometry below is recovered from the
+   finished originals; colour and type are mapped onto the locked web system.
+   Every name is namespaced to its page, so nothing here can collide with the
+   sitewide record timeline, a global button, or a global status label.
+   ========================================================================= */
+
+/* ---------------------------- record/watch ---------------------------- */
+
+.vfc-watch__list            { padding-left: 1.2em; margin: var(--sp-3) 0; }
+.vfc-watch__list > li       { margin: 0 0 var(--sp-2); }
+.vfc-watch__list > li::marker { color: var(--red); font-weight: 700; }
+
+.vfc-watch__tracker         { background: var(--paper); border: 1px solid var(--rule);
+                              padding: var(--sp-4); margin: var(--sp-4) 0; }
+
+.vfc-watch__phrases         { list-style: none; padding: 0; margin: var(--sp-2) 0; }
+.vfc-watch__phrases > li    { display: flex; align-items: flex-start; gap: var(--sp-2);
+                              padding: 7px 0; margin: 0;
+                              border-bottom: 1px solid var(--rule); }
+.vfc-watch__phrases > li:last-child { border-bottom: none; }
+.vfc-watch__phrases input[type="checkbox"] { flex: none; margin-top: 4px;
+                              width: 16px; height: 16px;
+                              accent-color: var(--ink); cursor: pointer; }
+.vfc-watch__phrases label   { flex: 1; cursor: pointer; font-size:var(--fs-body); line-height: 1.5; }
+.vfc-watch__phrases input[type="checkbox"]:checked + label {
+                              color: var(--ink-mute); text-decoration: line-through; }
+
+.vfc-watch__btn             { font-family: var(--font-mono); font-size: var(--fs-label);
+                              font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+                              color: var(--ink-deep); background: var(--paper);
+                              border: 1px solid var(--ink); padding: 6px 16px;
+                              margin: 6px 6px 0 0; cursor: pointer; }
+.vfc-watch__btn:hover       { background: var(--ink); color: var(--paper); }
+
+.vfc-watch__letter          { font-size:var(--fs-body); line-height: 1.55; margin: 11px 0;
+                              padding-left: var(--sp-3); border-left: 3px solid var(--rule); }
+
+.vfc-watch__timeline        { list-style: none; padding: 0; margin: var(--sp-4) 0; }
+.vfc-watch__timeline > li   { position: relative; margin: 0;
+                              padding: var(--sp-3) 0 var(--sp-3) 120px;
+                              border-bottom: 1px solid var(--rule); }
+.vfc-watch__when            { position: absolute; left: 0; top: var(--sp-3); width: 104px;
+                              font-family: var(--font-mono); font-size: var(--fs-micro);
+                              font-weight: 600; letter-spacing: .02em; color: var(--ink-soft); }
+
+@media (max-width: 600px) {
+  .vfc-watch__timeline > li { padding-left: 0; padding-top: 30px; }
+}
+
+/* ------------------------- take-action/policy ------------------------- */
+
+.vfc-policy__callout        { background: var(--paper-edge); border-left: 3px solid var(--red);
+                              padding: var(--sp-3) var(--sp-4); margin: var(--sp-5) 0;
+                              font-size: var(--fs-body); }
+.vfc-policy__callout > p strong { color: var(--red); font-weight: 700;
+                              text-transform: uppercase; letter-spacing: .02em; }
+
+.vfc-policy__nets           { list-style: none; padding: 0; margin: var(--sp-3) 0; }
+.vfc-policy__nets > li      { position: relative; margin: 0;
+                              padding: 11px 0 11px 150px;
+                              border-bottom: 1px solid var(--rule); }
+.vfc-policy__nets > li:last-child { border-bottom: none; }
+.vfc-policy__status         { position: absolute; left: 0; top: 13px; width: 136px;
+                              font-family: var(--font-mono); font-size: var(--fs-micro);
+                              font-weight: 700; line-height: 1.35; letter-spacing: .04em;
+                              text-transform: uppercase; color: var(--red); }
+
+@media (max-width: 600px) {
+  .vfc-policy__nets > li    { padding-left: 0; padding-top: 34px; }
+  .vfc-policy__status       { width: auto; }
+}
+
+/* ---------------------------- take-action ----------------------------- */
+
+.vfc-action__copy           { background: var(--paper-edge); border-left: 3px solid var(--ink);
+                              padding: var(--sp-3) var(--sp-4); margin: var(--sp-4) 0;
+                              font-family: var(--font-mono); font-size:var(--fs-body); line-height: 1.6;
+                              white-space: pre-wrap; }
+
+/* ------------- take-action: sub-line + audience jump nav -------------- */
+
+.vfc-subline                { font-family: var(--font-serif); font-weight: 400;
+                              font-size: var(--fs-lede); line-height: 1.45;
+                              color: var(--ink); text-transform: none;
+                              max-width: var(--measure); margin: 0 0 var(--sp-3); }
+
+.vfc-jump                   { display: flex; flex-wrap: wrap; align-items: baseline;
+                              border-top: 1px solid var(--rule);
+                              border-bottom: 1px solid var(--rule);
+                              padding: var(--sp-2) 0; margin: 0 0 var(--sp-3); }
+.vfc-jump__item             { font-family: var(--font-mono); font-weight: 600;
+                              font-size: var(--fs-micro); line-height: 1.5;
+                              letter-spacing: .1em; text-transform: uppercase;
+                              color: var(--ink); text-decoration: none;
+                              padding: 4px 14px 4px 0; margin-right: 14px;
+                              border-right: 1px solid var(--rule); }
+.vfc-jump__item:last-child  { border-right: none; margin-right: 0; padding-right: 0; }
+.vfc-jump__item:hover       { text-decoration: underline; text-underline-offset: 3px; }
+.vfc-jump__item:focus-visible { outline: 3px solid var(--red); outline-offset: 2px;
+                              text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 600px) {
+  .vfc-jump__item           { border-right: none; margin-right: 0;
+                              padding: 4px 16px 4px 0; }
+}
+
+/* ------------- headings promoted in place from existing labels ---------- */
+/* The label's own class still carries the type. These neutralise only the
+   two user-agent heading defaults that would otherwise change how the label
+   already looked: bold weight, and the block margin on a former inline. */
+
+.vfc-h-w400                 { font-weight: 400; }
+.vfc-h-m0                   { margin: 0; }
+
+
+/* Take Action ask-card numerals. Fixed 48px out-sized the page H1, which is
+   clamp(30px, 4.4vw, 58px), on any viewport under about 1090px, so on a phone
+   the ornament beat the headline. Brand core: exactly one largest element and
+   nothing ties it. Used only on take-action, 8 instances. 2026-08-11. */
+.vfc-display-s48-126 {
+  font-size:var(--fs-stat);
+}
+
+
+/* ==========================================================================
+   STRUCTURAL PILOT                                          2026-08-11
+   Four fixes, piloted on index.html, record/index.html and take-action/
+   index.html. Nothing here invents a value: locked palette, three fonts.
+   ====================================================================== */
+
+/* ---- Fix 1. The section pattern, un-inverted ----------------------------
+   Ratified for the print briefs on 2026-08-10 and never carried to the web:
+   the plain section name is the heading, the sentence sits under it. The
+   heading element carries the name, so the outline reads as a table of
+   contents instead of a run of claims. */
+.vfc-section__sub           { font-family: var(--font-serif); font-weight: 400;
+                              font-size:var(--fs-lede); line-height: 1.45;
+                              color: var(--ink-soft); text-transform: none;
+                              letter-spacing: 0; max-width: var(--measure);
+                              margin: 0 0 var(--sp-2); }
+
+/* The page heading must be the one largest element at every width. Section
+   headings and the masthead both sit at --fs-h2, so an h1 that borrowed the
+   section-headline class tied with them. It no longer can. */
+h1.vfc-section__headline    { font-size: var(--fs-h1); max-width: none; }
+
+/* ---- Fix 2. Registers are not prose ------------------------------------
+   --measure went 68ch to 82ch above. A table, a timeline, a card grid or a
+   stat row is not a line of text and takes the full content column. The
+   measure still holds on the prose inside them. */
+.vfc-section__body:has(.vfc-table),
+.vfc-section__body:has(.vfc-card-grid),
+.vfc-section__body:has(.vfc-receipt-grid),
+.vfc-section__body:has(.vfc-stat-row),
+.vfc-section__body:has(.vfc-node),
+.vfc-section__body:has(.vfc-figure-grid) { max-width: none; }
+
+.vfc-table, .vfc-card-grid, .vfc-receipt-grid,
+.vfc-stat-row, .vfc-node, .vfc-jump      { max-width: none; }
+
+/* ---- Fix 3. The masthead is the way home -------------------------------
+   The wordmark was a dead paragraph, so a sub-page had no route back. The
+   link inherits the wordmark exactly: no underline, no crimson, and the
+   sanctioned star stays inside it and reads as part of the mark. */
+.vfc-masthead__name a               { color: inherit; text-decoration: none; }
+.vfc-masthead__name a:hover         { text-decoration: none; }
+.vfc-masthead__name a:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+/* ---- Fix 4. A control looks like a control -----------------------------
+   Download and cross-page actions were rendering at heading weight. A
+   control is a bordered bar in mono caps: it can never be mistaken for a
+   section name, and no heading on these pages uses this treatment. */
+.vfc-cta                { display: inline-flex; align-items: center;
+                          font-family: var(--font-mono); font-weight: 600;
+                          font-size:var(--fs-label); letter-spacing: .1em;
+                          text-transform: uppercase; line-height: 1.2;
+                          color: var(--ink); background: var(--paper);
+                          border: 1px solid var(--rule); padding: 10px 16px;
+                          text-decoration: none; }
+.vfc-cta:hover          { background: var(--ink); color: var(--paper);
+                          border-color: var(--ink); text-decoration: none; }
+.vfc-cta:focus-visible  { outline: 3px solid var(--red); outline-offset: 2px; }
+
+/* ---- Fix 5. Jump nav, dotted variant -----------------------------------
+   The Record already carried its own view list with middle-dot separators.
+   It becomes the jump nav rather than a second one being written. */
+.vfc-jump--dotted .vfc-jump__item { border-right: none; margin-right: 10px;
+                                    padding-right: 0; }
+.vfc-jump__sep          { font-family: var(--font-mono); font-size: var(--fs-micro);
+                          line-height: 1.5; color: var(--ink-mute);
+                          margin-right: 10px; }
+
+
+/* ============================ INTERVAL BAND ============================
+   Chart 1, The Record. One row, five periods, Mar 27 2020 to Nov 28 2026.
+   The window is 2,437 days. Segment widths are exact day proportions of it,
+   computed from data/timeline.csv rows T001, T002, T005, T009, T020, T023:
+
+       m31   945 d   38.777 %        m19   581 d   23.841 %
+       m11   335 d   13.746 %        m13   410 d   16.824 %
+       m5    166 d    6.812 %        sum          100.000 %
+
+   Colour never carries the meaning. A covered period is a solid ink fill; a
+   gap is paper under a diagonal texture with a crimson hairline on its top
+   edge; a partial period is a flat light neutral under a heavy ink cap rule.
+   Every segment also states its condition and its month count in words, so
+   the band reads in greyscale, in print, and read aloud.
+
+   The 2px separation between adjacent fills is an inset box-shadow, not a
+   border and not a flex gap. Both of those would shift every boundary
+   downstream, and the H.R. 1815 marker is positioned to the day.
+   ==================================================================== */
+
+.vfc-band-fig    { margin: var(--sp-4) 0 var(--sp-5); }
+.vfc-band-scroll { overflow-x: auto; padding-bottom: var(--sp-1); }
+.vfc-band-inner  { min-width: 900px; }
+
+.vfc-band        { display: flex; align-items: stretch; height: 94px;
+                   border: 1px solid var(--ink); background: var(--paper); }
+.vfc-band__seg   { position: relative; box-sizing: border-box; display: flex;
+                   flex-direction: column; justify-content: space-between;
+                   padding: 7px 7px 8px; box-shadow: inset -2px 0 0 var(--paper); }
+.vfc-band__seg:first-child { border-radius: 4px 0 0 4px; }
+.vfc-band__seg:last-child  { border-radius: 0 4px 4px 0; box-shadow: none; }
+
+/* the five width classes, exact day proportions of the 2,437-day window */
+.vfc-band--m31 { flex: 0 0 38.777%; }
+.vfc-band--m19 { flex: 0 0 23.841%; }
+.vfc-band--m11 { flex: 0 0 13.746%; }
+.vfc-band--m13 { flex: 0 0 16.824%; }
+.vfc-band--m5  { flex: 0 0 6.812%; }
+
+.vfc-band__state  { font-family: var(--font-mono); font-size:var(--fs-micro); font-weight: 600;
+                    letter-spacing: .08em; text-transform: uppercase; margin: 0; }
+.vfc-band__months { font-family: var(--font-display); font-weight: 800; font-size:var(--fs-h4);
+                    line-height: 1; letter-spacing: .01em; margin: 0; }
+.vfc-band__mo     { font-family: var(--font-mono); font-size:var(--fs-micro); font-weight: 500;
+                    letter-spacing: .06em; text-transform: uppercase; }
+
+.vfc-band__seg--covered { background: var(--ink); color: var(--paper); }
+.vfc-band__seg--gap     { color: var(--ink); border-top: 1px solid var(--red);
+                          background: repeating-linear-gradient(135deg,
+                            #D8D9D8 0, #D8D9D8 3px,
+                            var(--paper) 3px, var(--paper) 9px); }
+.vfc-band__seg--partial { color: var(--ink); background: var(--paper-edge);
+                          border-top: 3px solid var(--ink); }
+.vfc-band--m5 .vfc-band__state { font-size:var(--fs-micro); letter-spacing: .01em; }
+
+/* H.R. 1815 marker. Signed 2025-07-30, which is 90 days into the 410-day
+   gap that began when VASP ended: 21.951% across period 4, and 80.057%
+   across the whole window. The law existed. The program did not. */
+.vfc-band__flag         { position: absolute; top: 0; bottom: 0; width: 0;
+                          border-left: 1px solid var(--red); }
+.vfc-band__flag--hr1815 { left: 21.951%; }
+
+/* The marker label hangs to the LEFT of its own crimson connector, so the
+   connector sits on the exact date and the text never overruns the band. */
+.vfc-band-anno       { position: relative; height: 42px; }
+.vfc-band-anno__item { position: absolute; top: 0; margin: 0; max-width: 46%;
+                       font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.35;
+                       color: var(--ink); text-align: right;
+                       border-right: 1px solid var(--red); padding: 5px 9px 0 0; }
+.vfc-band-anno__item b { color: var(--ink-deep); font-weight: 600; }
+.vfc-band-anno__item--hr1815 { right: 19.943%; }
+
+.vfc-band-scale  { display: flex; justify-content: space-between; margin: 0;
+                   border-top: 1px solid var(--rule); padding-top: var(--sp-1);
+                   font-family: var(--font-mono); font-size:var(--fs-micro); letter-spacing: .06em;
+                   text-transform: uppercase; color: var(--ink-mute); }
+
+.vfc-band-key        { display: grid; list-style: none; margin: var(--sp-4) 0 0; padding: 0;
+                       grid-template-columns: repeat(auto-fit, minmax(184px, 1fr));
+                       gap: var(--sp-3) var(--sp-4); }
+.vfc-band-key__item  { border-top: 2px solid var(--ink); padding-top: var(--sp-2); }
+.vfc-band-key__n     { font-family: var(--font-mono); font-size:var(--fs-micro); font-weight: 600;
+                       letter-spacing: .1em; text-transform: uppercase;
+                       color: var(--ink-mute); margin: 0 0 3px; }
+.vfc-band-key__label { font-size:var(--fs-label); line-height: 1.3; font-weight: 600; margin: 0 0 3px; }
+.vfc-band-key__range { font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.45;
+                       color: var(--ink-soft); margin: 0 0 3px; }
+.vfc-band-key__swatch          { display: inline-block; width: 26px; height: 11px;
+                                 margin-right: 6px; border: 1px solid var(--ink); }
+.vfc-band-key__swatch--covered { background: var(--ink); }
+.vfc-band-key__swatch--gap     { border-top-color: var(--red);
+                                 background: repeating-linear-gradient(135deg,
+                                   #D8D9D8 0, #D8D9D8 3px,
+                                   var(--paper) 3px, var(--paper) 9px); }
+.vfc-band-key__swatch--partial { background: var(--paper-edge); border-top: 3px solid var(--ink); }
+
+
+/* ============================ COST BARS ============================
+   Chart 2, Policy. Two bars, one scale, zero to $74,000, which is the
+   largest figure the claims register carries for these outcomes.
+   Widths are exact, from data/claims.csv:
+
+       partial claim per family, C032    27,200 / 74,000 = 36.757 %
+       foreclosure, lower endpoint, C005 72,000 / 74,000 = 97.297 %
+       span between the two endpoints     2,000 / 74,000 =  2.703 %
+
+   C005 is registered "Cite whichever figure with its own source label; do
+   not blend". So the foreclosure bar is drawn as a RANGE: a solid fill out
+   to the NCLC figure, then a hatched extension out to the CRL figure, and
+   each end is labelled with its own publisher. There is deliberately no
+   single foreclosure number and no midpoint mark in this component.
+   Do not add one. An average of the two would misrepresent the record.
+   ================================================================ */
+
+.vfc-cost        { margin: var(--sp-4) 0 var(--sp-5); }
+.vfc-cost__row   { margin: 0 0 var(--sp-5); }
+.vfc-cost__head  { display: flex; flex-wrap: wrap; align-items: baseline;
+                   gap: var(--sp-1) var(--sp-3); margin: 0 0 var(--sp-2); }
+.vfc-cost__label { font-family: var(--font-display); font-weight: 800;
+                   font-size: var(--fs-h4); text-transform: uppercase;
+                   letter-spacing: .02em; margin: 0; }
+.vfc-cost__track { display: flex; align-items: stretch; height: 38px;
+                   background: var(--paper); border-bottom: 1px solid var(--rule); }
+
+.vfc-cost__bar   { box-sizing: border-box; display: flex; align-items: center;
+                   justify-content: flex-end; background: var(--ink);
+                   border-radius: 0 4px 4px 0; }
+.vfc-cost__bar--claim   { flex: 0 0 36.757%; }
+.vfc-cost__bar--fc      { flex: 0 0 97.297%; border-radius: 0;
+                          box-shadow: inset -2px 0 0 var(--paper); }
+.vfc-cost__bar--fcrange { flex: 0 0 2.703%; border: 1px solid var(--ink);
+                          border-radius: 0 4px 4px 0;
+                          background: repeating-linear-gradient(135deg,
+                            var(--ink) 0, var(--ink) 1px,
+                            var(--paper) 1px, var(--paper) 4px); }
+.vfc-cost__val   { font-family: var(--font-display); font-weight: 800; font-size:var(--fs-body);
+                   color: var(--paper); white-space: nowrap; padding-right: 10px; }
+.vfc-cost__val em { font-family: var(--font-mono); font-size:var(--fs-micro); font-weight: 500;
+                    font-style: normal; letter-spacing: .08em; }
+.vfc-cost__ends  { display: flex; flex-wrap: wrap; justify-content: space-between;
+                   gap: var(--sp-1) var(--sp-3); margin: var(--sp-1) 0 0;
+                   font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.5;
+                   color: var(--ink-soft); }
+.vfc-cost__ends b { color: var(--ink); font-weight: 600; }
+.vfc-cost__scale { display: flex; justify-content: space-between; margin: var(--sp-2) 0 0;
+                   border-top: 1px solid var(--rule); padding-top: var(--sp-1);
+                   font-family: var(--font-mono); font-size:var(--fs-micro); letter-spacing: .06em;
+                   text-transform: uppercase; color: var(--ink-mute); }
+
+/* shared chart furniture: the line a chart argues, and its stated limit */
+.vfc-chart-sum   { font-family: var(--font-display); font-weight: 700;
+                   font-size: var(--fs-h3); line-height: 1.25;
+                   margin: var(--sp-4) 0 var(--sp-2); max-width: 46ch; }
+.vfc-chart-limit { font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.6;
+                   color: var(--ink-soft); margin: 0 0 var(--sp-2);
+                   border-left: 2px solid var(--rule); padding-left: var(--sp-3); }
+.vfc-chart-limit b { color: var(--ink); font-weight: 600; }
+
+@media print {
+  .vfc-band-scroll { overflow-x: visible; }
+  .vfc-band-inner  { min-width: 0; }
+  .vfc-band        { height: 78px; }
+  .vfc-band__seg   { overflow: hidden; }
+  .vfc-band-fig, .vfc-cost__row, .vfc-band-key__item { break-inside: avoid; }
+}
+
+/* A data table is not prose. The section-level fix already exempts a table
+   from the 82ch measure, but a table inside a collapsed detail was still
+   being squeezed to the prose width and wrapping every date onto three
+   lines. Every chart on this site ships with a table equivalent, and the
+   equivalent has to be as readable as the chart. */
+.vfc-details__body:has(.vfc-table) { max-width: none; }
+
+
+/* ============================ SECTION SUB-NAV ============================
+   Added 2026-08-11. Eight primary items each hid their children, so a reader
+   who landed on The Record had no way to learn that Current status and Who is
+   engaged existed. Every page in a group now lists its siblings.
+
+   Subordinate by construction, not by convention: mono instead of display,
+   one size step down from the primary nav, normal weight, a hairline rule
+   instead of a double rule. It sits directly under .vfc-nav and may never
+   read as loud as it, and neither may reach a page h1.
+
+   The current item is marked three ways, not one: red, heavier weight, and a
+   rule that appears under it. Colour alone is never the signal.
+   ========================================================================= */
+
+.vfc-subnav        { display: flex; flex-wrap: wrap; align-items: baseline;
+                     gap: var(--sp-1) var(--sp-3);
+                     border-top: 1px solid var(--rule);
+                     border-bottom: 1px solid var(--rule);
+                     padding: var(--sp-2) 0; margin: 0 0 var(--sp-3); }
+.vfc-subnav__item  { font-family: var(--font-mono); font-weight: 400;
+                     font-size: var(--fs-micro); line-height: 1.5;
+                     letter-spacing: .08em; text-transform: uppercase;
+                     color: var(--ink-soft); text-decoration: none;
+                     padding: 3px 0; border-bottom: 2px solid transparent; }
+.vfc-subnav__item:hover { color: var(--red); text-decoration: underline;
+                     text-underline-offset: 3px; }
+.vfc-subnav__item[aria-current] { color: var(--red); font-weight: 600;
+                     border-bottom-color: var(--red);
+                     text-decoration: underline; text-underline-offset: 3px;
+                     text-decoration-thickness: 2px; }
+.vfc-subnav__item:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+
+@media print { .vfc-subnav { display: none; } }
+
+/* ---- Standing note --------------------------------------------------------
+   A rule about how the record works, not a footnote about one entry. It was
+   set at metadata size and disappeared. Body size, ruled, so it is read. */
+
+.vfc-note          { font-family: var(--font-serif); font-size: var(--fs-body);
+                     line-height: 1.6; color: var(--ink);
+                     background: var(--paper-edge);
+                     border-left: 3px solid var(--red);
+                     padding: var(--sp-3) var(--sp-4);
+                     margin: var(--sp-4) 0; max-width: var(--measure); }
+
+
+/* ---- correction log: date groups and entry headings, 2026-08-11 ----
+   about/corrections is a dated evidence log. Its entries are never edited,
+   reordered or merged. No heading text was written or copied: each entry's
+   own lead sentence, already marked by the author, is promoted in place so
+   only the element around it changes. .vfc-log__group opens a run of entries
+   sharing a date and sits at --fs-h2, below the page h1 at every width, so
+   the page still has exactly one largest element. .vfc-log__body keeps the
+   promoted heading and the entry body together in the grid's second column,
+   which is the layout the two-column entry already had. */
+.vfc-log__group   { font-family: var(--font-display); font-weight: 800;
+                    font-size: var(--fs-h2); line-height: 1.05;
+                    letter-spacing: -.01em; text-transform: uppercase;
+                    color: var(--ink); border-bottom: 3px solid var(--ink);
+                    padding-bottom: var(--sp-2); scroll-margin-top: var(--sp-3);
+                    margin: var(--sp-6) 0 var(--sp-3); }
+.vfc-log__body    { min-width: 0; }
+.vfc-log__entry   { font-family: var(--font-serif); font-weight: 600;
+                    font-size:var(--fs-body); line-height: 1.3; color: var(--ink);
+                    max-width: var(--measure); margin: 0 0 var(--sp-2); }
+
+
+/* ---------------------------------------------------------------------------
+   2026-08-13 · the measure and the rules did not agree
+
+   Reported by Leann on /about/, /record/current-status/ and /rebuttals/: text
+   condensing to the left, lines breaking short, uneven dead space on the right.
+
+   Cause, not guess. `.vfc-wrap` is max-width var(--content) 1080px, centred.
+   Body text is capped at var(--measure), 82ch, roughly 660-700px, with a left
+   margin of 0 and no centring. The page-header block `.vfc-ruled-073` and the
+   ruled kicker `.vfc-mono-caps-ruled-s12-052` carried NO max-width, so their
+   hairlines and the 3px section rule ran the full 1080px while the text under
+   them stopped 380-420px short, on the right only.
+
+   A rule tells the eye where the column ends. When the rule and the text
+   disagree, a deliberate measure reads as a broken layout. So the rules now end
+   where the text ends.
+
+   Deliberately NOT touched: tables, receipt grids and stat rows are wider than
+   the measure on purpose and still span the container.
+--------------------------------------------------------------------------- */
+/* reverted 2026-08-13, see the second pass below */
+
+
+/* ---------------------------------------------------------------------------
+   2026-08-13, second pass, from Leann's screenshot of /about/
+
+   REVERTED: capping the ruled kicker and the page-header block at --measure was
+   the wrong fix. It made the RULES stop short of the TEXT, which is the inverse
+   of the reported bug. Reading the screenshot showed the real cause.
+
+   THE REAL BUG: headings are capped narrower than the body text under them. On
+   /about/ the h2 "This record is built from more than one family..." wraps at
+   roughly 920px while the paragraph beneath it runs to roughly 1290px. That is
+   the odd line break and the ragged right edge. A heading is a single line of
+   display type, not a column of prose, so a reading measure does not apply to it.
+
+   Reported alongside: h1 too big, section kickers too small to read, the reuse
+   and funding paragraphs too small and too light, sections too tightly spaced.
+--------------------------------------------------------------------------- */
+
+/* 1. Headings use the column, not the reading measure. */
+.vfc-serif-s26-237,
+.vfc-section__headline,
+.vfc-section__sub,
+.vfc-display-caps-s30-053,
+.vfc-m-193 {
+  max-width: none;
+}
+
+/* 2. The page h1 was clamp(30px, 4.4vw, 58px). At 58px it dwarfed everything
+      and pushed the page name below the fold on a laptop. */
+.vfc-display-caps-s30-053,
+.vfc-m-193 {
+  font-size:var(--fs-h1);
+  line-height: 1.02;
+}
+
+/* 3. Section kickers were 11.5px and 12px. That is metadata size, and these are
+      doing the job of a section label. The web floor of 12px is for metadata
+      only, per the design system. */
+.vfc-mono-caps-ruled-s11_5-066,
+.vfc-mono-caps-ruled-s12-052,
+.vfc-m-094,
+.vfc-section__kicker {
+  font-size:var(--fs-micro);
+  letter-spacing: .14em;
+}
+
+/* 4. .vfc-micro carried the reuse and funding disclosure, which are things a
+      reader is meant to act on, at metadata size and low contrast. */
+.vfc-micro {
+  font-size:var(--fs-label);
+  line-height: 1.6;
+  color: var(--ink-soft, #3A3A3A);
+}
+
+/* 5. Sections were running together. */
+.vfc-section {
+  margin: var(--sp-6) 0 var(--sp-5);
+}
+.vfc-mono-caps-ruled-s11_5-066,
+.vfc-mono-caps-ruled-s12-052,
+.vfc-m-094 {
+  margin-top: var(--sp-5);
+}
+
+
+/* ---------------------------------------------------------------------------
+   2026-08-13, third pass. THE ACTUAL BUG, AND IT HAS A NAME.
+
+   `text-wrap: balance`.
+
+   Reported repeatedly as: headings do not extend far enough, lines break in odd
+   spots, text condenses left with uneven dead space on the right. It was never a
+   width limit, which is why capping and uncapping max-width changed nothing.
+
+   text-wrap: balance tells the browser to make every line of a block roughly the
+   SAME length instead of filling each line to the available width. On a two or
+   three word headline that looks deliberate. On a long headline it means neither
+   line uses the column, and the result is two stubby balanced lines with a ragged
+   gap on the right. Exactly the reported symptom.
+
+   Six classes carried it, and between them they cover every major heading on the
+   site, which is why this appeared on every page and never went away:
+     .vfc-hero__title  .vfc-m-014  .vfc-m-074  .vfc-m-136  .vfc-m-193
+     .vfc-display-caps-s30-053  .vfc-serif-s26-237
+
+   text-wrap: pretty is the correct choice here. It still prevents orphans and
+   bad last lines, and it fills each line normally. The other 37 text-wrap
+   declarations in these stylesheets are already `pretty` and were never part of
+   the problem.
+--------------------------------------------------------------------------- */
+.vfc-hero__title,
+.vfc-m-014,
+.vfc-m-074,
+.vfc-m-136,
+.vfc-m-193,
+.vfc-display-caps-s30-053,
+.vfc-serif-s26-237,
+.vfc-section__headline,
+.vfc-section__sub {
+  text-wrap: pretty;
+}
+
+
+/* Section panels. Added 2026-08-15 at Leann's request: on a long register page
+   the sections ran together because everything sat on one continuous paper
+   field, so a reader could not see where one section ended. A panel one step
+   lighter than the page, with a hairline and real padding, does the blocking-off
+   without introducing a new colour. Same treatment the homepage cards already
+   use, applied to whole sections. */
+.vfc-panel {
+  background: #FFFFFF;
+  border: 1px solid var(--rule, #CFD0CE);
+  border-top: 3px solid var(--ink, #222222);
+  padding: var(--sp-4, 28px) var(--sp-4, 28px) var(--sp-3, 20px);
+  margin-block: var(--sp-5, 40px);
+}
+.vfc-panel > :first-child { margin-top: 0; }
+.vfc-panel > :last-child  { margin-bottom: 0; }
+@media print { .vfc-panel { background: none; border: 0; padding: 0; } }
+
+/* ====================== RECEIPT CARD  .vfc-rc ======================
+   The annotated primary source. Distinct from .vfc-receipt, which is a
+   picture with a caption and stays exactly as it is; 36 of them are in
+   service on Evidence and this does not touch them.
+
+   Anatomy, always, in this order:
+     head  kind + title + status chip
+     doc   the scan, with 1 to 3 numbered callouts positioned on it
+     ann   per callout: verbatim quote, then why it matters
+     foot  S-number, page, archive date, checksum, full-document link
+
+   RULES, enforced by review not by CSS:
+     - 1 to 3 callouts. More than three and it is two cards.
+     - __says is verbatim quotation only. If it is not a quote it is not here.
+     - __why never introduces a fact that is not in the document.
+     - Any callout resting on sequence or inference carries __read, unnumbered.
+     - __foot is never optional. No provenance, no card.
+     - Redaction is squared ink applied before layout. Blur is reversible
+       and is banned.
+   Added 2026-08-15. */
+.vfc-rc            { background: #fff; border: 1px solid var(--ink);
+                     margin: var(--sp-4) 0; }
+.vfc-rc__head      { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3);
+                     align-items: baseline; padding: var(--sp-3) var(--sp-4);
+                     border-bottom: 1px solid var(--rule); }
+.vfc-rc__kind      { font-family: var(--font-mono); font-size: var(--fs-micro);
+                     font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+                     color: var(--red); }
+.vfc-rc__title     { font-family: var(--font-display); font-weight: 800;
+                     font-size: var(--fs-h4); text-transform: uppercase;
+                     line-height: 1.1; flex: 1 1 320px; margin: 0; }
+.vfc-rc__body      { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); }
+.vfc-rc__doc       { position: relative; padding: var(--sp-4);
+                     background: var(--paper-edge); border-right: 1px solid var(--rule); }
+.vfc-rc__img       { display: block; width: 100%; height: auto; object-fit: contain;
+                     border: 1px solid var(--rule); background: #fff; }
+.vfc-rc__num       { position: absolute; width: 26px; height: 26px; border-radius: 50%;
+                     background: var(--red); color: var(--paper);
+                     font-family: var(--font-display); font-weight: 800; font-size: 15px;
+                     display: flex; align-items: center; justify-content: center;
+                     box-shadow: 0 0 0 3px #fff; }
+.vfc-rc__ann       { padding: var(--sp-4); }
+.vfc-rc__item      { position: relative; padding-left: 34px; margin: 0 0 var(--sp-4); }
+.vfc-rc__item:last-child { margin-bottom: 0; }
+.vfc-rc__badge     { position: absolute; left: 0; top: 1px; width: 24px; height: 24px;
+                     border-radius: 50%; background: var(--red); color: var(--paper);
+                     font-family: var(--font-display); font-weight: 800; font-size: 14px;
+                     display: flex; align-items: center; justify-content: center; }
+.vfc-rc__says      { font-family: var(--font-serif); font-style: italic;
+                     font-size: var(--fs-body); line-height: 1.45; margin: 0 0 var(--sp-2); }
+.vfc-rc__lab       { display: block; font-family: var(--font-mono); font-size: 10px;
+                     font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+                     color: var(--ink-mute); margin-bottom: 2px; }
+.vfc-rc__why       { font-size: var(--fs-label); line-height: 1.5; margin: 0; }
+.vfc-rc__read      { padding-left: 0; }
+.vfc-rc__read .vfc-rc__why { color: var(--ink-soft); }
+.vfc-rc__foot      { border-top: 1px solid var(--rule); padding: var(--sp-3) var(--sp-4);
+                     display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4);
+                     align-items: center; }
+.vfc-rc__src       { font-family: var(--font-mono); font-size: var(--fs-micro);
+                     color: var(--ink-soft); }
+.vfc-rc__src b     { color: var(--ink); font-weight: 600; }
+.vfc-rc__link      { font-family: var(--font-mono); font-size: var(--fs-micro);
+                     font-weight: 600; color: var(--red); text-transform: uppercase;
+                     letter-spacing: .08em; text-decoration: none;
+                     border-bottom: 2px solid var(--red); }
+.vfc-rc__link:hover{ background: var(--red); color: var(--paper); }
+@media (max-width: 760px) {
+  .vfc-rc__body    { grid-template-columns: 1fr; }
+  .vfc-rc__doc     { border-right: 0; border-bottom: 1px solid var(--rule); }
+}
+@media print {
+  .vfc-rc          { break-inside: avoid; page-break-inside: avoid; }
+  .vfc-rc__body    { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); }
+}
+
+/* ---------------- policy-state chips, siblings of the existing four -------
+   Colour is the convenience. Fill against outline plus the glyph is the
+   signal, so these survive greyscale print and colour blindness both. */
+.vfc-chip--auth        { background: transparent; color: var(--auth);
+                         border: 1px solid var(--auth); }
+.vfc-chip--auth::before{ content: "\002B\00A0"; }
+.vfc-chip--excl        { background: var(--red); color: var(--paper); }
+.vfc-chip--excl::before{ content: "\00D7\00A0"; }
+
+/* ---------------- authorized / implemented comparison ------------------- */
+.vfc-cmp           { display: grid; grid-template-columns: 1fr 1fr;
+                     gap: var(--sp-3); margin: var(--sp-4) 0; }
+.vfc-cmp__side     { padding: var(--sp-3) var(--sp-4); background: #fff;
+                     border: 1px solid var(--rule); }
+.vfc-cmp__side--auth { border-left: 5px solid var(--auth); background: var(--auth-bg); }
+.vfc-cmp__side--excl { border-left: 5px solid var(--red); }
+.vfc-cmp__lab      { font-family: var(--font-mono); font-size: var(--fs-label);
+                     font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+                     margin: 0 0 var(--sp-2); }
+.vfc-cmp__side--auth .vfc-cmp__lab { color: var(--auth); }
+.vfc-cmp__side--excl .vfc-cmp__lab { color: var(--red); }
+.vfc-cmp__side p   { margin: 0; font-size: var(--fs-body); line-height: 1.5; }
+@media (max-width: 760px) { .vfc-cmp { grid-template-columns: 1fr; } }
