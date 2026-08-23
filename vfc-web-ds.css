@@ -122,7 +122,16 @@
 .vfc-section__headline{ font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h2);
                         line-height: 1.12; letter-spacing: .01em; margin: 0 0 var(--sp-2);
                         max-width: 24ch; }
-.vfc-section__plain   { font-size: var(--fs-lede); line-height: 1.5; font-style: italic;
+/* 2026-08-23. Was --fs-lede, 19px fixed, under a headline clamped at
+   20px to 26px in a CONDENSED display face. Below a 1053px viewport the
+   headline sits at its 20px floor and the two tie, and a condensed face
+   at 20px reads smaller than a serif at 19px, so the subordinate line
+   won. Same shape as the masthead-mark bug at the top of this file: a
+   fixed size under a clamped one whose floor is too near it. Reported
+   three times by Leann and "fixed" three times in markup, because the
+   markup was never what was wrong. --fs-body gives 1.25 to 1.63 at
+   every width, with no tie anywhere in the range. */
+.vfc-section__plain   { font-size: var(--fs-body); line-height: 1.5; font-style: italic;
                         color: var(--ink-soft); max-width: var(--measure); margin: 0 0 var(--sp-3); }
 .vfc-section__body    { max-width: var(--measure); }
 
