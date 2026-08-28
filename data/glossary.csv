@@ -1,18 +1,18 @@
-term,definition
-VASP,"Veterans Affairs Servicing Purchase, the VA program (2024–2025) that bought defaulted VA loans and re-set them to an affordable payment. Terminated May 1, 2025."
-partial claim,"A tool that moves missed payments into a separate, no-interest second loan so a family can resume its original monthly payment instead of paying everything back at once."
-forbearance,"A temporary, agreed pause or reduction in mortgage payments. It is not forgiveness; the paused amount still has to be resolved through an exit like a partial claim."
-REO,"Real Estate Owned, a home the lender or guarantor takes onto its own books after foreclosure. The VA takes roughly three in four foreclosed veteran homes into REO."
-trustee sale,"A foreclosure sale run by a trustee without a court hearing, used in deed-of-trust (non-judicial) states like Washington. Timelines are short."
-UD,"Unlawful detainer, the formal court eviction case a new owner files to remove occupants after a foreclosure sale."
-loss mitigation,"The set of options a servicer must review before foreclosing (forbearance, modification, partial claim, short sale), meant to keep families housed."
-funding fee,A one-time fee charged on many VA loans. Congress and the VA have at times proposed raising it to offset the cost of other measures.
-M26-4 Ch. 22,"The VA handbook chapter that sets the current Partial Claim Program rules, including the VA-added eligibility barriers that are not written into the statute."
-CBO,"Congressional Budget Office, the nonpartisan agency that scores the budget cost of legislation. It found the permanent partial claim saves money."
-VALERI,"VA Loan Electronic Reporting Interface, the system the VA uses to track servicer actions and compliance on VA-guaranteed loans."
-SSVF,"Supportive Services for Veteran Families, a VA-funded program offering rapid re-housing and homelessness-prevention help to veteran households."
-IRRRL,"Interest Rate Reduction Refinance Loan, the VA refinance that replaces an existing VA loan with a lower-rate one using reduced paperwork, usually with no appraisal, no income documents and no new credit check. Federal law sets conditions it must meet before VA will guarantee it."
-seasoning,"The waiting period before an existing loan may be refinanced. For a VA refinance, at least six consecutive monthly payments must have been made on the old loan and at least 210 days must have passed since that loan's first payment due date, whichever comes later."
-recoupment,"The time it takes for the money a refinance saves each month to pay back the fees the refinance cost. Federal law requires those fees to be scheduled for recoupment within 36 months, counting the fees but not taxes, escrow deposits or the VA funding fee."
-net tangible benefit,"The test a lender must give the borrower showing that a refinance actually leaves them better off, through a lower rate, a lower payment or a shorter term. VA requires the lender to provide it before the loan can be guaranteed."
-TPP,"Trial Payment Plan. A short run of reduced or trial payments a servicer asks for before a permanent option is granted. VA's servicer handbook routes the partial claim through a Partial Claim TPP event in VALERI, so the trial plan sits in the plumbing of the program even though the statute never mentions one."
+term,definition,see
+VASP,"Veterans Affairs Servicing Purchase, the VA program (2024–2025) that bought defaulted VA loans and re-set them to an affordable payment. Terminated May 1, 2025.",/record/policy/
+partial claim,"A tool that moves missed payments into a separate, no-interest second loan so a family can resume its original monthly payment instead of paying everything back at once.",/record/policy/
+forbearance,"A temporary, agreed pause or reduction in mortgage payments. It is not forgiveness; the paused amount still has to be resolved through an exit like a partial claim.",/record/policy/
+REO,"Real Estate Owned, a home the lender or guarantor takes onto its own books after foreclosure. The VA takes roughly three in four foreclosed veteran homes into REO.",/record/oversight/
+trustee sale,"A foreclosure sale run by a trustee without a court hearing, used in deed-of-trust (non-judicial) states like Washington. Timelines are short.",/record/policy/
+UD,"Unlawful detainer, the formal court eviction case a new owner files to remove occupants after a foreclosure sale.",/get-help/first-72-hours/
+loss mitigation,"The set of options a servicer must review before foreclosing (forbearance, modification, partial claim, short sale), meant to keep families housed.",/record/policy/
+funding fee,A one-time fee charged on many VA loans. Congress and the VA have at times proposed raising it to offset the cost of other measures.,/record/watch/
+M26-4 Ch. 22,"The VA handbook chapter that sets the current Partial Claim Program rules, including the VA-added eligibility barriers that are not written into the statute.",/record/policy/
+CBO,"Congressional Budget Office, the nonpartisan agency that scores the budget cost of legislation. It found the permanent partial claim saves money.",/record/policy/
+VALERI,"VA Loan Electronic Reporting Interface, the system the VA uses to track servicer actions and compliance on VA-guaranteed loans.",/build-your-case/evidence/
+SSVF,"Supportive Services for Veteran Families, a VA-funded program offering rapid re-housing and homelessness-prevention help to veteran households.",/get-help/
+IRRRL,"Interest Rate Reduction Refinance Loan, the VA refinance that replaces an existing VA loan with a lower-rate one using reduced paperwork, usually with no appraisal, no income documents and no new credit check. Federal law sets conditions it must meet before VA will guarantee it.",/build-your-case/refinance-check/
+seasoning,"The waiting period before an existing loan may be refinanced. For a VA refinance, at least six consecutive monthly payments must have been made on the old loan and at least 210 days must have passed since that loan's first payment due date, whichever comes later.",/build-your-case/refinance-check/
+recoupment,"The time it takes for the money a refinance saves each month to pay back the fees the refinance cost. Federal law requires those fees to be scheduled for recoupment within 36 months, counting the fees but not taxes, escrow deposits or the VA funding fee.",/build-your-case/refinance-check/
+net tangible benefit,"The test a lender must give the borrower showing that a refinance actually leaves them better off, through a lower rate, a lower payment or a shorter term. VA requires the lender to provide it before the loan can be guaranteed.",/build-your-case/refinance-check/
+TPP,"Trial Payment Plan. A short run of reduced or trial payments a servicer asks for before a permanent option is granted. VA's servicer handbook routes the partial claim through a Partial Claim TPP event in VALERI, so the trial plan sits in the plumbing of the program even though the statute never mentions one.",/record/policy/
