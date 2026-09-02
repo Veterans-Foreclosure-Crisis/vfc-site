@@ -21,7 +21,7 @@
   /* ---- functional additions the web surface genuinely needs ----
      These were already in use, unnamed and drifting. Naming them stops
      the drift; leaving them unnamed is how you end up with 18 colors. */
-  --ink-mute:    #8A8F88;   /* de-emphasized metadata, source IDs, dates */
+  --ink-mute:    #686D67;   /* de-emphasized metadata, source IDs, dates */
   --rule:        #CFD0CE;   /* hairline dividers */
   --warn:        #8A5A00;   /* citation-pending / unverified. The one warm tone with a job. */
   --warn-bg:     #F6EFE0;
