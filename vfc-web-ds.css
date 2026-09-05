@@ -40,7 +40,23 @@
   --fs-lede:  19px;   /* section lede, the plain line */
   --fs-h4:    20px;
   --fs-h3:    22px;
-  --fs-h2:    clamp(20px, 1.9vw, 26px);
+  /* --fs-h2's FLOOR raised 20px -> 24px, 2026-09-05. The ornament-outranks-the-
+     nameplate bug at a different step: below 1158px h2 shrank toward 20px while
+     h3 stayed 22px, so THE SUB-HEADING WAS BIGGER THAN THE HEADLINE on every
+     laptop, tablet and phone. It looks right on a wide monitor, which is where
+     it was always checked, which is why it survived.
+
+     MEASURED at ten widths, 375 to 1920. The fix prescribed in three documents
+     was "make --fs-h3 fluid" - that is WRONG and was never measured: h3 on a
+     clamp under h2 falls to 18px and goes UNDER --fs-h4's fixed 20px, breaking
+     five widths instead of four. The real collision was h2's floor sitting at
+     the same value as h4, which left h3 no room between them (P8, a prescription
+     carried forward as a finding).
+
+     Raising the floor fixes all ten widths, touches NO component - the seven
+     users of --fs-h3 are untouched - and leaves the desktop appearance at
+     1368px and above identical at 26px. */
+  --fs-h2:    clamp(24px, 1.9vw, 26px);
   /* The masthead mark. Fixed 22px against a fluid wordmark meant the ornament
      outranked the nameplate below a 1158px viewport, on every page, on every
      phone. A smaller fixed value only moves the breakpoint, so the mark needs
