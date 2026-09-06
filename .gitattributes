@@ -1,0 +1,38 @@
+# vfc-site line-ending policy. Added 2026-09-06.
+#
+# WHY. Every push warned `LF will be replaced by CRLF`. The repo had no
+# .gitattributes and relied on core.autocrlf=true, which is a per-machine
+# setting: it lives in the clone, not in the repo, so it cannot follow the
+# tree and it is silent when it is missing. `* text=auto` puts the policy in
+# the repo itself. LF in the object store, native in the working tree.
+#
+# Leann approved `* text=auto` on 2026-09-05 and deferred the session.
+
+* text=auto
+
+# Text, normalised to LF in the object store.
+*.html  text
+*.css   text
+*.js    text
+*.json  text
+*.md    text
+*.csv   text
+*.xml   text
+*.txt   text
+*.svg   text
+
+# Binary. Never touched, never diffed as text. A newline rewritten inside a
+# PNG or a font is silent corruption, which is the whole reason this list is
+# explicit rather than left to git's content heuristic.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.zip   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
