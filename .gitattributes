@@ -8,7 +8,17 @@
 #
 # Leann approved `* text=auto` on 2026-09-05 and deferred the session.
 
-* text=auto
+# MEASURED 2026-09-06, with a control, because `* text=auto` alone did NOT
+# silence the warning. Touch one file, `git add --all`, count warnings:
+#
+#     * text=auto           ->  1 warning
+#     * text=auto eol=lf    ->  0 warnings
+#
+# WHY. core.autocrlf=true stores LF and converts to CRLF ON CHECKOUT, and the
+# warning IS git announcing that conversion. `eol=lf` keeps the working tree
+# LF too, so no conversion happens and nothing to warn about. That also
+# matches what Astro writes, so the build stops creating spurious diffs.
+* text=auto eol=lf
 
 # Text, normalised to LF in the object store.
 *.html  text
