@@ -1281,7 +1281,7 @@ h1.vfc-section__headline    { font-size: var(--fs-h1); max-width: none; }
                      display: flex; align-items: center; justify-content: center; }
 .vfc-rc__says      { font-family: var(--font-serif); font-style: italic;
                      font-size: var(--fs-body); line-height: 1.45; margin: 0 0 var(--sp-2); }
-.vfc-rc__lab       { display: block; font-family: var(--font-mono); font-size: 10px;
+.vfc-rc__lab       { display: block; font-family: var(--font-mono); font-size: var(--fs-micro); /* 2026-09-09: was 10px, below the 12px web floor */
                      font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
                      color: var(--ink-mute); margin-bottom: 2px; }
 .vfc-rc__why       { font-size: var(--fs-label); line-height: 1.5; margin: 0; }
@@ -1330,3 +1330,41 @@ h1.vfc-section__headline    { font-size: var(--fs-h1); max-width: none; }
 .vfc-cmp__side--excl .vfc-cmp__lab { color: var(--red); }
 .vfc-cmp__side p   { margin: 0; font-size: var(--fs-body); line-height: 1.5; }
 @media (max-width: 760px) { .vfc-cmp { grid-template-columns: 1fr; } }
+
+/* 2026-09-09. axe-core (WCAG 1.4.1 link-in-text-block) counted 231 inline links
+   on 10 pages distinguished from body text by colour alone. One rule, sitewide:
+   links inside running text carry an underline. Nav, subnav, jump, chip and
+   masthead links are components with their own affordance and are excluded by
+   scoping to text containers. */
+.vfc-body a, .vfc-lede a, .vfc-micro a, .vfc-section__plain a, .vfc-section__body p a,
+.vfc-section__body li a, .vfc-table a, .vfc-stat__meta a, .vfc-pos__cite a, .vfc-rc__foot a,
+.vfc-statusbar a, .vfc-doors__text a {
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+}
+
+/* 2026-09-09, from an axe-core run on the staged tree. Three contrast failures
+   with named causes, fixed at the highest specificity so the migrated one-off
+   classes cannot win:
+   1. .vfc-ruled-010 sets color #F0F1F0 (paper) and is used on phone links INSIDE
+      .vfc-key-finding, whose background is #ffffff. White on white: the HUD and
+      211 numbers on /get-help/ were invisible. Tier 1.
+   2. The 988 link inside .vfc-chip-350 (ink background) inherited the base red
+      link colour: red on black fails AA.
+   3. .vfc-mono-s11-292 sets #686d67 at 12px on paper, below 4.5:1. */
+main .vfc-key-finding a, main .vfc-key-finding a.vfc-ruled-010 {
+  color: var(--red-dk); border-bottom: 0; text-decoration: underline; text-underline-offset: 3px;
+}
+main .vfc-chip-350 a, main .vfc-chip-350 a.vfc-ruled-010 {
+  color: var(--paper); text-decoration: underline; text-underline-offset: 3px;
+}
+main .vfc-mono-s11-292 { color: var(--ink-soft); }
+/* Underline every link that sits in running text, whatever class the migrated
+   markup gave its container. Cards and buttons wrap their text (a > h3, a > p),
+   so they do not match these selectors. */
+main p a, main li a, main td a, main th a, main dd a, main dt a, main figcaption a, main caption a, main blockquote a {
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+}
+/* 2026-09-09, axe pass 2 on /record/policy/: two ink-panel texts inherited light-ground colours, and one red stat sits below AA on its panel. */
+main .vfc-chip-350 .vfc-m-139 { color: var(--paper); }
+main .vfc-chip-350 .vfc-u-020 { color: #d6d7d4; }
+main .vfc-m-155 { color: var(--red-dk); }
