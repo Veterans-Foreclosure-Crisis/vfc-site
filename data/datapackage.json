@@ -210,6 +210,22 @@
               "pattern": "^(https?://\\S+)?$"
             },
             "description": "Web archive capture of the same document, so the citation survives link rot."
+          },
+          {
+            "name": "provenance",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "public-web",
+                "hearing-archive",
+                "court-record",
+                "records-request",
+                "family-file-consented",
+                "screenshot-dated"
+              ]
+            },
+            "description": "How the document was obtained, so a reader can judge the route as well as the source. public-web: fetched from the URL on record. hearing-archive: a committee's or C-SPAN's own record of a hearing. court-record: a court's or settlement administrator's own site. records-request: a FOIA or records-request response. family-file-consented: a family's own document, shared with consent. screenshot-dated: a dated capture where no live URL survives. Added 2026-09-12 (citation policy clause B; ProPublica: 'we describe how the documents were obtained')."
           }
         ]
       },
