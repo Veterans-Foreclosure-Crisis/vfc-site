@@ -147,9 +147,9 @@
             "type": "string",
             "constraints": {
               "required": true,
-              "pattern": "^(https?://\\S+|docs/\\S+\\.pdf)$"
+              "pattern": "^(https?://\\S+|docs/\\S+\\.(pdf|txt))$"
             },
-            "description": "An absolute URL, or a relative path to a captured PDF in the repo's docs/ folder. Nothing else. A field shift on 2026-08-09 put prose here and it stayed live for three days."
+            "description": "An absolute URL, or a relative path to a captured PDF in the repo's docs/ folder. Nothing else. A field shift on 2026-08-09 put prose here and it stayed live for three days. docs/*.txt allowed from 2026-09-12 for this project's own plain-text measurement receipts (first: S286)."
           },
           {
             "name": "pub_date",
@@ -222,10 +222,11 @@
                 "court-record",
                 "records-request",
                 "family-file-consented",
-                "screenshot-dated"
+                "screenshot-dated",
+                "project-measurement"
               ]
             },
-            "description": "How the document was obtained, so a reader can judge the route as well as the source. public-web: fetched from the URL on record. hearing-archive: a committee's or C-SPAN's own record of a hearing. court-record: a court's or settlement administrator's own site. records-request: a FOIA or records-request response. family-file-consented: a family's own document, shared with consent. screenshot-dated: a dated capture where no live URL survives. Added 2026-09-12 (citation policy clause B; ProPublica: 'we describe how the documents were obtained')."
+            "description": "How the document was obtained, so a reader can judge the route as well as the source. public-web: fetched from the URL on record. hearing-archive: a committee's or C-SPAN's own record of a hearing. court-record: a court's or settlement administrator's own site. records-request: a FOIA or records-request response. family-file-consented: a family's own document, shared with consent. screenshot-dated: a dated capture where no live URL survives. Added 2026-09-12 (citation policy clause B; ProPublica: 'we describe how the documents were obtained'). project-measurement: this project's own measurement output, published so an analysis can be checked (added 2026-09-12)."
           }
         ]
       },

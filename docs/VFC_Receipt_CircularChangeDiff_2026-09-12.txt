@@ -1,0 +1,19 @@
+CORPUS C:\Users\leann\OneDrive\Documents\Claude\Projects\Foreclosure Case\03_Data\govt-official-documents\VA_Circulars: 63 PDF(s), 15 change file(s)
+change file              verdict (base text vs change instructions)                 live base  live chg   still-present sample
+26-21-07-change3.pdf     STALE BASE (not folded in): 0 of 1 added string(s) present; the 1 removed string(s) are absent too, likely set by an earlier change identical  identical  
+26-21-20-change1.pdf     STALE BASE: 2 of 2 removed string(s) still present         identical  identical  September 30, 2022; October 1, 2022
+26-23-12-change1.pdf     STALE BASE (not folded in): 0 of 1 added string(s) present identical  identical  
+26-23-16-change1.pdf     STALE BASE: 1 of 1 removed string(s) still present         identical  identical  has requested on its website (http://www.benefits.
+26-24-12-change1.pdf     STALE BASE: 1 of 1 removed string(s) still present         identical  identical  The servicer has not received a monthly payment fo
+26_19_24_change1.pdf     STALE BASE (not folded in): 0 of 1 added string(s) present identical  identical  
+26_19_24_change2.pdf     STALE BASE (not folded in): 0 of 1 added string(s) present identical  identical  
+26_20_10_change1.pdf     STALE BASE (not folded in): 0 of 1 added string(s) present identical  identical  
+26_20_10_change2.pdf     UNVERIFIABLE BY TEXT: 0 instruction(s), none quotes the text it changes identical  identical  
+26_20_10_change3.pdf     STALE BASE (not folded in): 0 of 1 added string(s) present; the 1 removed string(s) are absent too, likely set by an earlier change identical  identical  
+26_20_12_change1.pdf     STALE BASE: 2 of 3 removed string(s) still present         identical  identical  loan refunding;  for not less than the 60-day period beginning on 
+26_20_25_change1.pdf     STALE BASE: 1 of 1 removed string(s) still present; +1 unverifiable identical  identical  Lenders are reminded that all IRRRLs must meet loa
+26_21_07_change1.pdf     STALE BASE (not folded in): 0 of 1 added string(s) present identical  identical  
+26_21_07_change2.pdf     STALE BASE: 1 of 1 removed string(s) still present         identical  identical  April 1, 2022.
+26_21_17_change1.pdf     STALE BASE: 1 of 1 removed string(s) still present         identical  identical  October 1, 2022.
+TOTAL: 15 pair(s), 14 STALE BASE, 0 reflect the change, 0 unparseable, 0 without base
+negative control: ZZZ_NEGATIVE_CONTROL_NOT_IN_ANY_CIRCULAR absent from every base (asserted per pair)
