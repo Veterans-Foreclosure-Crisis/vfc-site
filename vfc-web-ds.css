@@ -1370,12 +1370,34 @@ main .vfc-chip-350 .vfc-u-020 { color: #d6d7d4; }
 main .vfc-m-155 { color: var(--red-dk); }
 
 
-/* 2026-09-13. Contact page, Leann: the section buttons were thin and blended into the page,
-   and the page needed to be a short list with a link on every line. */
-.vfc-cta-row       { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin: 0 0 var(--sp-5); }
-.vfc-cta--lg       { font-size: var(--fs-lede); font-weight: 700; padding: 14px 22px;
-                     border: 2px solid var(--ink); background: var(--ink); color: var(--paper);
-                     text-decoration: none; }
-.vfc-cta--lg:hover { background: var(--red); border-color: var(--red); color: var(--paper); }
-.vfc-contact-list  { margin: 0 0 var(--sp-4); padding-left: 1.2em; }
-.vfc-contact-list li { font-size: var(--fs-body); line-height: 1.6; margin: 0 0 var(--sp-2); }
+/* 2026-09-13, revised the same night. Contact doors: Leann said the black mono-caps buttons were
+   horrible. A door is a card: sentence case in the display face, one plain line under it, a red rule
+   on the left, no underline. Whole card is the link. */
+.vfc-door-grid     { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                     gap: var(--sp-3); margin: var(--sp-4) 0 var(--sp-5); }
+.vfc-door          { display: block; background: var(--paper-edge); color: var(--ink);
+                     border: 1px solid var(--rule); border-left: 6px solid var(--red);
+                     padding: var(--sp-3) var(--sp-4); text-decoration: none; }
+.vfc-door:hover    { border-color: var(--ink); border-left-color: var(--red-dk); }
+.vfc-door:hover .vfc-door__title { text-decoration: underline; text-underline-offset: 3px; }
+.vfc-door:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.vfc-door__title   { display: block; font-family: var(--font-display); font-weight: 800;
+                     font-size: var(--fs-h4); line-height: 1.15; margin: 0 0 6px; color: var(--ink); }
+.vfc-door__text    { display: block; font-family: var(--font-serif); font-size: var(--fs-body);
+                     line-height: 1.45; color: var(--ink-soft); }
+
+/* Plain bullet list with a bold label per line. */
+.vfc-list, .vfc-contact-list { margin: 0 0 var(--sp-4); padding-left: 1.2em; }
+.vfc-list li, .vfc-contact-list li { font-size: var(--fs-body); line-height: 1.6; margin: 0 0 var(--sp-2); }
+
+/* A section that must stand apart from the sections around it (four roles, 2026-09-13).
+   Palette tokens only: paper-edge ground, hairline border, red top rule. */
+.vfc-section--feature { background: var(--paper-edge); border: 1px solid var(--rule);
+                        border-top: 4px solid var(--red); padding: var(--sp-5) var(--sp-4); }
+.vfc-tile-grid     { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                     gap: var(--sp-3); margin: 0 0 var(--sp-5); }
+.vfc-tile          { background: var(--paper); border: 1px solid var(--rule);
+                     border-top: 3px solid var(--ink); padding: var(--sp-3); }
+.vfc-tile__title   { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h4);
+                     line-height: 1.15; margin: 0 0 var(--sp-2); color: var(--ink); }
+.vfc-tile__text    { font-size: var(--fs-body); line-height: 1.5; margin: 0; }
