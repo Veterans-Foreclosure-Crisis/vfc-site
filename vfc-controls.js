@@ -32,6 +32,12 @@
           : (shown + ' of ' + items.length + ' ' + nouns + ' shown');
       }
       if (empty) empty.hidden = shown !== 0;
+      /* 2026-09-13: a group (a month on /latest/) with nothing visible hides with its items. */
+      Array.prototype.forEach.call(scope.querySelectorAll('[data-vfc-group]'), function (g) {
+        g.hidden = !g.querySelector('[data-vfc-item]:not([hidden])');
+      });
+      /* 2026-09-13: reordering flattens nested lists, so only scopes that offer a sort reorder. */
+      if (!scope.querySelector('[data-vfc-sort]')) return;
 
       var seq = items.slice();
       if (state.sort === 'name')        seq.sort(function (a, b) { return txt(a, 'data-name').localeCompare(txt(b, 'data-name')); });
