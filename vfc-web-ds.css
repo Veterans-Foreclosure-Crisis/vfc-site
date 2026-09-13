@@ -1394,10 +1394,14 @@ main .vfc-m-155 { color: var(--red-dk); }
    Palette tokens only: paper-edge ground, hairline border, red top rule. */
 .vfc-section--feature { background: var(--paper-edge); border: 1px solid var(--rule);
                         border-top: 4px solid var(--red); padding: var(--sp-5) var(--sp-4); }
-.vfc-tile-grid     { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+.vfc-tile-grid     { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
                      gap: var(--sp-3); margin: 0 0 var(--sp-5); }
 .vfc-tile          { background: var(--paper); border: 1px solid var(--rule);
                      border-top: 3px solid var(--ink); padding: var(--sp-3); }
 .vfc-tile__title   { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h4);
                      line-height: 1.15; margin: 0 0 var(--sp-2); color: var(--ink); }
 .vfc-tile__text    { font-size: var(--fs-body); line-height: 1.5; margin: 0; }
+
+@media (min-width: 1000px) { .vfc-tile-grid { grid-template-columns: repeat(4, 1fr); } }  /* four across, or two by two, never three and one */
+.vfc-section--feature .vfc-section__sub { font-family: var(--font-display); font-weight: 800;
+                                          font-size: var(--fs-h3); line-height: 1.15; margin: 0 0 var(--sp-3); }
