@@ -69,7 +69,7 @@
   --sp-1: 4px;  --sp-2: 8px;  --sp-3: 14px;
   --sp-4: 22px; --sp-5: 36px; --sp-6: 56px;
 
-  --measure: 82ch;        /* body line length ceiling */
+  --measure: 100%;       /* 2026-09-13, Leann: prose runs the full content column (was 82ch, her 2026-08-17 ruling). Undo: set back to 82ch. */
   --content: 1080px;      /* content column */
 
   /* ---- data palette: charts and policy state only. Added 2026-08-15. ----
@@ -1368,3 +1368,14 @@ main p a, main li a, main td a, main th a, main dd a, main dt a, main figcaption
 main .vfc-chip-350 .vfc-m-139 { color: var(--paper); }
 main .vfc-chip-350 .vfc-u-020 { color: #d6d7d4; }
 main .vfc-m-155 { color: var(--red-dk); }
+
+
+/* 2026-09-13. Contact page, Leann: the section buttons were thin and blended into the page,
+   and the page needed to be a short list with a link on every line. */
+.vfc-cta-row       { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin: 0 0 var(--sp-5); }
+.vfc-cta--lg       { font-size: var(--fs-lede); font-weight: 700; padding: 14px 22px;
+                     border: 2px solid var(--ink); background: var(--ink); color: var(--paper);
+                     text-decoration: none; }
+.vfc-cta--lg:hover { background: var(--red); border-color: var(--red); color: var(--paper); }
+.vfc-contact-list  { margin: 0 0 var(--sp-4); padding-left: 1.2em; }
+.vfc-contact-list li { font-size: var(--fs-body); line-height: 1.6; margin: 0 0 var(--sp-2); }
