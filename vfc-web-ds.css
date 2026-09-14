@@ -252,7 +252,7 @@
 .vfc-quote       { border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
                    padding: var(--sp-4) 0; margin: var(--sp-5) 0; }
 .vfc-quote__text { font-family: var(--font-serif); font-style: italic; font-size: var(--fs-h3);
-                   line-height: 1.35; margin: 0 0 var(--sp-2); max-width: 40ch; }
+                   line-height: 1.35; margin: 0 0 var(--sp-2); max-width: var(--measure); }
 .vfc-quote__text em { font-style: italic; color: var(--red); }
 .vfc-quote__attr { font-family: var(--font-mono); font-size: var(--fs-micro);
                    text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
@@ -1000,7 +1000,7 @@ h1.vfc-section__headline    { font-size: var(--fs-h1); max-width: none; }
 /* shared chart furniture: the line a chart argues, and its stated limit */
 .vfc-chart-sum   { font-family: var(--font-display); font-weight: 700;
                    font-size: var(--fs-h3); line-height: 1.25;
-                   margin: var(--sp-4) 0 var(--sp-2); max-width: 46ch; }
+                   margin: var(--sp-4) 0 var(--sp-2); max-width: var(--measure); }
 .vfc-chart-limit { font-family: var(--font-mono); font-size:var(--fs-micro); line-height: 1.6;
                    color: var(--ink-soft); margin: 0 0 var(--sp-2);
                    border-left: 2px solid var(--rule); padding-left: var(--sp-3); }
@@ -1414,3 +1414,18 @@ main .vfc-m-155 { color: var(--red-dk); }
 .vfc-record-note__label { font-family: var(--font-mono); font-size: var(--fs-micro); text-transform: uppercase;
                           letter-spacing: .08em; color: var(--ink-soft); margin: 0 0 var(--sp-1); }
 .vfc-record-note__text  { font-size: var(--fs-body); line-height: 1.5; margin: 0; }
+
+/* 2026-09-14. Widths (Leann: "fix text width thats cut short and widen across width of page"). Quotes and the
+   fiscal chart summary now take the column like body text (changed in place above: 40ch and 46ch went). The two
+   part intros on /record/policy/ were held to 64ch by a legacy class in vfc-web.css. */
+.vfc-s16_5-362 { max-width: var(--measure); }
+
+/* 2026-09-14. Card section. The look of /record/policy/fiscal/#warned (vfc-m-189), which Leann named as the one
+   she wants ("love the formatting/layout/background"): a white panel with a red top rule and an ink bottom rule,
+   so each section sits apart from the page ground instead of running into the next. White is not one of brand
+   core's locked colours; it is the value that section already carries. */
+:root { --card: #FFFFFF; }
+.vfc-section--card { background: var(--card); border-top: 4px solid var(--red); border-bottom: 4px solid var(--ink);
+                     padding: 30px var(--sp-4) var(--sp-4); margin: var(--sp-5) 0; }
+.vfc-section--card > .vfc-section-open > .vfc-section__kicker:first-child { border-top: none; padding-top: 0; }
+.vfc-section--card .vfc-section__body > :last-child { margin-bottom: 0; }
