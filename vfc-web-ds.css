@@ -1405,3 +1405,12 @@ main .vfc-m-155 { color: var(--red-dk); }
 @media (min-width: 1000px) { .vfc-tile-grid { grid-template-columns: repeat(4, 1fr); } }  /* four across, or two by two, never three and one */
 .vfc-section--feature .vfc-section__sub { font-family: var(--font-display); font-weight: 800;
                                           font-size: var(--fs-h3); line-height: 1.15; margin: 0 0 var(--sp-3); }
+
+/* 2026-09-14. Record note: a subordinate line under a page header, one job each ("About this record",
+   "Related record"). Muted label, body-size text, so it never reads as the title (Leann, They Were Warned). */
+.vfc-record-note        { border-top: 1px solid var(--rule); padding: var(--sp-2) 0; margin: 0; max-width: var(--measure); }
+.vfc-record-note + .vfc-record-note { border-top: none; padding-top: 0; }
+.vfc-record-note + .vfc-jump { margin-top: var(--sp-3); }
+.vfc-record-note__label { font-family: var(--font-mono); font-size: var(--fs-micro); text-transform: uppercase;
+                          letter-spacing: .08em; color: var(--ink-soft); margin: 0 0 var(--sp-1); }
+.vfc-record-note__text  { font-size: var(--fs-body); line-height: 1.5; margin: 0; }

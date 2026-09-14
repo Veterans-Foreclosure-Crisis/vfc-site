@@ -404,9 +404,76 @@
             "name": "notes",
             "type": "string",
             "description": "Free text qualifier, including any registered limitation."
+          },
+          {
+            "name": "commitment_kind",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "va-commitment",
+                "congressional-ask",
+                "deadline",
+                "va-answer",
+                "outside-ask",
+                "follow-up"
+              ]
+            },
+            "description": "Set only on layer=commitment rows. va-commitment: VA or a named VA official promised something. congressional-ask: a member, members or a committee of Congress asked VA for something. deadline: a date set for VA or its servicers by a law, a regulation or VA's own guidance. va-answer: VA's written reply to an inquiry; not counted as a commitment. outside-ask: an ask from outside Congress, recorded and not counted. follow-up: records what happened to another row, so the same item is not counted twice. The /record/watch/ tally counts va-commitment, congressional-ask and deadline."
+          },
+          {
+            "name": "outcome",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "delivered",
+                "not-done",
+                "answered",
+                "refused",
+                "no-answer",
+                "pending",
+                "unknown"
+              ]
+            },
+            "description": "What the record shows happened, as of the date in the row's OUTCOME BASIS note. delivered: the thing promised or asked for happened. not-done: it did not happen. answered: VA replied in writing. refused: VA said in writing it would not or could not. no-answer: no reply located, with a dated check named in notes. pending: not yet due. unknown: no dated check yet; never read as nothing happened."
+          },
+          {
+            "name": "due_date",
+            "type": "string",
+            "constraints": {
+              "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$"
+            },
+            "description": "The date named for delivery or reply, when one was actually given. Empty when none was named ('shortly'), which is kept visible rather than inferred."
           }
         ]
-      }
+      },
+      "vfcRules": [
+        {
+          "name": "a counted kind carries an outcome",
+          "if": {
+            "field": "commitment_kind",
+            "notEquals": ""
+          },
+          "then": {
+            "field": "outcome",
+            "notEquals": ""
+          },
+          "message": "a commitment row with a kind needs an outcome, even if it is unknown, so a missing row is visible rather than silently zero.",
+          "severity": "block"
+        },
+        {
+          "name": "an outcome needs a kind",
+          "if": {
+            "field": "outcome",
+            "notEquals": ""
+          },
+          "then": {
+            "field": "commitment_kind",
+            "notEquals": ""
+          },
+          "message": "an outcome on a row with no commitment_kind is never counted anywhere.",
+          "severity": "block"
+        }
+      ]
     },
     {
       "name": "rebuttals",
