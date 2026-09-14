@@ -1429,3 +1429,14 @@ main .vfc-m-155 { color: var(--red-dk); }
                      padding: 30px var(--sp-4) var(--sp-4); margin: var(--sp-5) 0; }
 .vfc-section--card > .vfc-section-open > .vfc-section__kicker:first-child { border-top: none; padding-top: 0; }
 .vfc-section--card .vfc-section__body > :last-child { margin-bottom: 0; }
+
+/* 2026-09-14. Phone width, measured at 375px after cards went on four more pages. One overflow was new (a wide
+   receipt on /record/current-status/ inside a card's padding); two were already there before cards (a register
+   table on /record/oversight/, long mono links on /record/policy/). A table may be wider than the screen only inside
+   its own scroll container (vfc-web-design-system, Responsive), so under 600px it scrolls sideways by itself. */
+@media (max-width: 600px) {
+  .vfc-section--card { padding-left: var(--sp-3); padding-right: var(--sp-3); }
+  .vfc-section--card figure, .vfc-section--card img { max-width: 100%; }
+  .vfc-table { display: block; overflow-x: auto; }
+  .vfc-mono-inline-s11-017 { display: inline; overflow-wrap: anywhere; }
+}
