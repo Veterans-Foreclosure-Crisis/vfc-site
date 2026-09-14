@@ -1440,3 +1440,28 @@ main .vfc-m-155 { color: var(--red-dk); }
   .vfc-table { display: block; overflow-x: auto; }
   .vfc-mono-inline-s11-017 { display: inline; overflow-wrap: anywhere; }
 }
+
+/* 2026-09-14. The two phone-width problems that were there before cards, measured at 375px.
+   /record/watch/ "not published" rows: .vfc-grid-ruled-177 had three fixed-minimum columns (200 + 240 + 140px) and
+   never stacked, so the page was 650px wide on a phone. /record/policy/: the fact cards in .vfc-grid-366 stayed two
+   across, leaving about 100px of text per card, and the .vfc-grid-363 text-and-figure pair squeezed a caption to 0px.
+   Under 600px each of these stacks to one column. */
+@media (max-width: 600px) {
+  .vfc-grid-ruled-177, .vfc-grid-366, .vfc-grid-363 { grid-template-columns: 1fr; }
+}
+
+/* 2026-09-14. Site-wide phone sweep: every page in sitemap.xml measured at 375px. Nine pages were wider than the
+   screen, all before today's cards: home (.vfc-asks-grid, 420px minimum columns), /record/watch/ and /sources/
+   (.vfc-card-grid, 430px minimum), /sources/methods/ (.vfc-grid-ruled-080, three fixed-minimum columns),
+   /record/policy/barriers/ (a table with no scroll box), /record/policy/fiscal/ (a nowrap chip label and a 300px
+   flex minimum), /take-action/one-pager/ (a nowrap label in a flex row), /take-action/for-reporters/ (a long link).
+   Under 600px: grids stack, tables scroll inside their own box, labels and links wrap. */
+@media (max-width: 600px) {
+  main table { display: block; overflow-x: auto; max-width: 100%; }
+  main table > caption { display: block; max-width: calc(100vw - 2 * var(--sp-4)); }
+  .vfc-card-grid, .vfc-asks-grid, .vfc-grid-ruled-080 { grid-template-columns: 1fr; }
+  .vfc-m-090 { flex-wrap: wrap; }
+  .vfc-m-092, .vfc-mono-caps-inline-s11_5-113 { white-space: normal; }
+  .vfc-m-179 { min-width: 0; }
+  .vfc-ruled-010 { overflow-wrap: anywhere; word-break: break-word; }
+}
