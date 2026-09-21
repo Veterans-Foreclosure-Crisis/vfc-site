@@ -1,0 +1,382 @@
+/* ============================================================================
+   VFC LAYOUT PRIMITIVES  -  Phase 3.2, 2026-09-17
+
+   Low-level structure only. Six primitives, enough to carry the eight approved
+   page shells and the two prototype pages, and deliberately not one thing more.
+
+   THREE RULES THIS FILE KEEPS
+   1. EVERY CLASS IS A NEW NAME. The prefix `vfc-p-` was measured against the
+      whole source tree before it was chosen: 0 existing uses. Nothing here
+      overrides an existing component, so adding this file changes no page that
+      does not opt in. That is owner decision 4, controlled adoption.
+   2. NO DECORATION. No cards, no pills, no shadows, no large radii. Borders and
+      whitespace carry structure. A surface is a ground and a text colour, not
+      a box with a drop shadow.
+   3. CRIMSON AND BLUE-GREY NEVER PAIR. They are functional signals, never a
+      visual treatment. Nothing in this file puts them adjacent, alternates
+      them, or builds a red-section/blue-section rhythm. The identity is warm
+      paper and charcoal.
+
+   All values come from the tokens in vfc-web-ds.css. No literal sizes here.
+   ========================================================================= */
+
+
+/* ---------------------------------------------------------------- 1. CANVAS
+   The outer bound. Centres the page and stops the layout growing without limit
+   on an ultrawide monitor, where a full-bleed measure is unreadable. */
+.vfc-p-canvas {
+  max-width: var(--canvas-max);
+  margin-inline: auto;
+}
+
+
+/* ------------------------------------------------------------- 2. CONTAINER
+   The everyday wrapper: grid max plus a responsive gutter. The gutter is a
+   padding rather than a margin so a child that needs to bleed can escape it. */
+.vfc-p-container {
+  max-width: var(--grid-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter-mobile);
+}
+@media (min-width: 769px) {
+  .vfc-p-container { padding-inline: var(--gutter-tablet); }
+}
+@media (min-width: 1025px) {
+  .vfc-p-container { padding-inline: var(--gutter-desktop); }
+}
+
+
+/* ----------------------------------------------------------------- 3. PROSE
+   A constrained reading column that a child can break OUT of.
+
+   WHY A GRID AND NOT `max-width` ON THE PARENT. The owner decision of
+   2026-09-17 is explicit: prose runs at --prose-max, but headings and evidence
+   are NOT constrained to prose width. A plain max-width parent forces every
+   descendant into the column and a table has to be dragged back out with
+   negative margins, which is where the old stylesheet's alignment bugs came
+   from. Here the column is a named grid track: children sit in `prose` by
+   default and opt into `wide` or `full` with one class, no wrapper and no
+   negative margin.
+
+   It degrades to single column on its own: the side tracks are minmax(0, ...)
+   so they collapse to zero before the prose column is squeezed, and the prose
+   track is min(100% - gutters, --prose-max). */
+.vfc-p-prose {
+  --_side: minmax(0, calc((var(--grid-max) - var(--prose-max)) / 2));
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--gutter-mobile), 1fr)
+    [wide-start] var(--_side)
+    [prose-start] min(100% - (var(--gutter-mobile) * 2), var(--prose-max)) [prose-end]
+    var(--_side) [wide-end]
+    minmax(var(--gutter-mobile), 1fr) [full-end];
+
+  font-family: var(--font-serif);
+  font-size: var(--t-body);
+  line-height: var(--t-body-lh);
+  color: var(--ink-charcoal);
+}
+.vfc-p-prose > *              { grid-column: prose; }
+.vfc-p-prose > .vfc-p-wide    { grid-column: wide; }
+.vfc-p-prose > .vfc-p-full    { grid-column: full; }
+
+/* Headings inside prose are UI face, per the Sept 17 role table: Big Shoulders
+   is identity and impact only, never a normal heading. They sit in the prose
+   column by default; add .vfc-p-wide to let one run to the evidence width. */
+.vfc-p-prose :is(h1, h2, h3) { font-family: var(--font-ui); font-weight: 600; }
+.vfc-p-prose h1 { font-size: var(--t-h1); line-height: var(--t-h1-lh); }
+.vfc-p-prose h2 { font-size: var(--t-h2); line-height: var(--t-h2-lh); }
+.vfc-p-prose h3 { font-size: var(--t-h3); line-height: var(--t-h3-lh); }
+
+.vfc-p-deck {
+  font-family: var(--font-serif);
+  font-size: var(--t-deck);
+  line-height: var(--t-deck-lh);
+}
+.vfc-p-meta {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: var(--meta-ink);
+}
+
+
+/* -------------------------------------------------------- 4. WIDE / EVIDENCE
+   For tables, timelines, maps and source comparisons: the things that carry
+   column relationships and are destroyed by being squeezed into a prose
+   measure. Standalone version, for use outside a .vfc-p-prose grid. */
+.vfc-p-evidence {
+  max-width: var(--grid-max);
+  margin-inline: auto;
+}
+
+/* A table inside evidence scrolls in its own box rather than pushing the page
+   wider. Page-level horizontal scroll is the thing this prevents. */
+.vfc-p-evidence__scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* -------------------------------------------------------- 5. SECTION SPACING
+   One rhythm, from the approved scale. Sections do not set their own margins;
+   the stack owns the gap, so two adjacent sections cannot collapse into an
+   accidental double space. */
+.vfc-p-stack       > * + * { margin-block-start: var(--space-6); }
+.vfc-p-stack--tight > * + * { margin-block-start: var(--space-3); }
+.vfc-p-stack--loose > * + * { margin-block-start: var(--space-12); }
+
+.vfc-p-section { padding-block: var(--space-12); }
+@media (min-width: 769px) {
+  .vfc-p-section { padding-block: var(--space-16); }
+}
+
+
+/* ------------------------------------------------------------ 6. GRID (12col)
+   A 12-column desktop grid that is a LAYOUT tool, not a card generator. There
+   is no border, ground or shadow here on purpose: a grid cell looks like
+   nothing until something is put in it.
+
+   Collapses to one column at the same 768px boundary the type scale uses. */
+.vfc-p-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+.vfc-p-col-3  { grid-column: span 3; }
+.vfc-p-col-4  { grid-column: span 4; }
+.vfc-p-col-6  { grid-column: span 6; }
+.vfc-p-col-8  { grid-column: span 8; }
+.vfc-p-col-12 { grid-column: span 12; }
+
+@media (max-width: 768px) {
+  .vfc-p-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+  .vfc-p-col-3, .vfc-p-col-4, .vfc-p-col-6,
+  .vfc-p-col-8, .vfc-p-col-12 { grid-column: 1 / -1; }
+}
+
+
+/* -------------------------------------------------------------- 7. SURFACES
+   Three grounds, three jobs. A surface sets a ground and the ink that is
+   legible on it, and nothing else. */
+
+/* QUIET - most reading. Neutral canvas, charcoal ink (owner decision 2026-09-19;
+   warm paper is now the document surface). */
+.vfc-p-surface--quiet {
+  background: var(--canvas);
+  color: var(--ink-charcoal);
+}
+
+/* EVIDENCE - tables, documents, source comparison. White ground and a hairline
+   so structure reads without a card. Denser metadata lives here. */
+.vfc-p-surface--evidence {
+  background: var(--surface-white);
+  color: var(--ink-charcoal);
+  border: var(--border-thin) solid var(--rule);
+  border-radius: var(--radius-1);
+}
+
+/* IMPACT - one short high-value statement, used sparingly. Charcoal, NOT navy.
+   Text is white or near-white; crimson is barred here because it measures
+   2.83:1 on this ground, failing normal text AND the 3:1 non-text bar. */
+.vfc-p-surface--impact {
+  background: var(--ink-charcoal);
+  color: var(--on-dark);
+}
+.vfc-p-surface--impact .vfc-p-meta { color: var(--on-dark-muted); }
+
+
+/* ------------------------------------------------------------------- FOCUS
+   Never removed, and never crimson on the dark surface where it would be
+   invisible. */
+.vfc-p-canvas :focus-visible,
+.vfc-p-container :focus-visible,
+.vfc-p-prose :focus-visible {
+  outline: var(--focus-w) solid var(--focus-ring-light);
+  outline-offset: var(--focus-offset);
+}
+.vfc-p-surface--impact :focus-visible {
+  outline: var(--focus-w) solid var(--focus-ring-dark);
+  outline-offset: var(--focus-offset);
+}
+
+
+/* -------------------------------------------------------------------- MOTION
+   Minimal by default, and honoured. */
+@media (prefers-reduced-motion: reduce) {
+  .vfc-p-canvas *, .vfc-p-container * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------- PRINT
+   Evidence and reference pages print. The dark impact ground is not worth a
+   toner cartridge, so it inverts to paper. */
+@media print {
+  .vfc-p-surface--impact {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  .vfc-p-evidence__scroll { overflow-x: visible; }
+}
+
+
+/* ------------------------------------------------ SPANS FOR SPLIT LAYOUTS
+   Added 2026-09-18 for the Current Status composition: a 7 + 5 split puts
+   the finding and its figures in the wider column and the method, source
+   and limitations in a rail beside them. Collapses with the rest at 768px. */
+.vfc-p-col-5 { grid-column: span 5; }
+.vfc-p-col-7 { grid-column: span 7; }
+@media (max-width: 768px) {
+  .vfc-p-col-5, .vfc-p-col-7 { grid-column: 1 / -1; }
+}
+
+
+/* =========================================================================
+   V2 ADOPTION SCOPE - 2026-09-18
+
+   A page opts into the September 17 system by wrapping its content in
+   <div class="vfc-v2">. NOTHING outside that wrapper changes, which is owner
+   decision 4 (controlled adoption, never accidental site-wide reflow) kept
+   literally. Current Status is the first page to opt in; Home can reuse it by
+   adding the same wrapper.
+
+   Inside the scope the legacy section classes are re-pointed at the new
+   tokens: warm paper, IBM Plex Sans headings (Big Shoulders stays for
+   identity and the one impact phrase), Newsreader body at 18px, Plex Mono
+   metadata, and meta-ink kickers so crimson stays a scarce signal instead of
+   labelling every section.
+
+   The body background and the content width sit OUTSIDE the wrapper, so they
+   are reached with :has(). Supported in every current browser; a browser
+   without it simply keeps the legacy paper and 1080px column, which is a
+   safe fallback, not a broken page.
+   ========================================================================= */
+.vfc-page:has(.vfc-v2) { background: var(--canvas); color: var(--ink-charcoal); }
+.vfc-wrap:has(.vfc-v2) { max-width: var(--grid-max); }
+
+/* overflow-wrap: at 320px with 200% text size, single words such as
+   "implementation" are wider than the column (measured 2026-09-18).
+   break-word splits a word only when it cannot fit a line on its own. */
+.vfc-v2 { font-family: var(--font-serif); color: var(--ink-charcoal); overflow-wrap: break-word; }
+
+.vfc-v2 .vfc-section {
+  margin: 0;
+  padding: var(--space-12) 0;
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  scroll-margin-top: var(--space-8);
+}
+.vfc-v2 .vfc-section__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--meta-ink);
+  margin: 0 0 var(--space-3);
+  /* The legacy kicker (vfc-web-ds.css) draws its own 1px rule above itself.
+     In v2 the SECTION carries the rule, so keeping both drew two lines at
+     every section break. Found in the 2026-09-18 after-screenshots. */
+  border-top: 0;
+  padding-top: 0;
+}
+.vfc-v2 .vfc-section__headline {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: var(--t-h2);
+  line-height: var(--t-h2-lh);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--ink-charcoal);
+  max-width: 44rem;
+  margin: 0 0 var(--space-3);
+}
+.vfc-v2 h1.vfc-section__headline {
+  font-size: var(--t-h1);
+  line-height: var(--t-h1-lh);
+  max-width: none;
+}
+.vfc-v2 .vfc-section__plain {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: var(--t-deck);
+  line-height: var(--t-deck-lh);
+  color: var(--ink-soft);
+  max-width: var(--prose-max);
+  margin: 0 0 var(--space-6);
+}
+.vfc-v2 .vfc-body,
+.vfc-v2 .vfc-list {
+  font-size: var(--t-body);
+  line-height: var(--t-body-lh);
+  max-width: var(--prose-max);
+}
+.vfc-v2 .vfc-lede {
+  font-size: var(--t-deck);
+  line-height: var(--t-deck-lh);
+  max-width: var(--prose-max);
+}
+.vfc-v2 .vfc-micro {
+  font-size: var(--t-meta);
+  line-height: 1.55;
+  color: var(--meta-ink);
+  max-width: var(--prose-max);
+}
+.vfc-v2 .vfc-section__body { max-width: none; margin-top: var(--space-8); }
+.vfc-v2 .vfc-section > .vfc-e-lim,
+.vfc-v2 .vfc-section > .vfc-e-method,
+.vfc-v2 .vfc-c-block > .vfc-e-lim,
+.vfc-v2 .vfc-c-block > .vfc-e-method { max-width: var(--prose-max); }
+
+/* Prose links in charcoal with a visible underline; crimson only on hover.
+   A crimson link on every other line was the single largest source of red on
+   the page, and red is meant to be scarce. */
+.vfc-v2 .vfc-body a,
+.vfc-v2 .vfc-micro a,
+.vfc-v2 .vfc-list a,
+.vfc-v2 .vfc-section__plain a,
+.vfc-v2 .vfc-e-lim a,
+.vfc-v2 .vfc-e-method a {
+  color: var(--ink-charcoal);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.vfc-v2 .vfc-body a:hover,
+.vfc-v2 .vfc-micro a:hover,
+.vfc-v2 .vfc-list a:hover { color: var(--accent-critical); }
+
+/* Compact evidence figures: the legacy stat block was a 64px display numeral
+   on a card grid. Here a figure is a top rule, a mono label, a Plex Sans
+   number and its context - weight carried by the rule, not by size. */
+.vfc-v2 .vfc-stat-row {
+  /* min(11rem, 100%): at 200% text size 11rem is 352px, wider than a phone
+     column, and every stat ran 14px off the page (2026-09-18). */
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: var(--space-6);
+  margin: var(--space-6) 0;
+  max-width: none;
+}
+.vfc-v2 .vfc-stat { border-top: var(--border-strong) solid var(--ink-charcoal); padding: var(--space-3) 0 0; }
+.vfc-v2 .vfc-stat__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--meta-ink);
+  margin: 0 0 var(--space-1);
+}
+.vfc-v2 .vfc-stat__value {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 2.125rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-2);
+}
+.vfc-v2 .vfc-stat__value--accent { color: var(--accent-critical); }
+.vfc-v2 .vfc-stat__context { font-family: var(--font-serif); font-size: 1rem; line-height: 1.45; margin: 0 0 var(--space-2); }
+.vfc-v2 .vfc-stat__meta { font-size: var(--t-meta); line-height: 1.45; color: var(--meta-ink); margin: 0; }

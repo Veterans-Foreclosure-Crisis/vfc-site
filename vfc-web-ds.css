@@ -21,7 +21,30 @@
   /* ---- functional additions the web surface genuinely needs ----
      These were already in use, unnamed and drifting. Naming them stops
      the drift; leaving them unnamed is how you end up with 18 colors. */
-  --ink-mute:    #686D67;   /* de-emphasized metadata, source IDs, dates */
+  /* --ink-mute DARKENED #686D67 -> #585D57, 2026-09-17, Phase 3.1 task 5.
+     MEASURED by COUNT_BUILD\scripts\vfc_contrast_audit.py; its controls held
+     (white-on-black 21.00:1, white-on-white 1.00:1) so the ratios are real.
+
+     #686D67 was a LIVE WCAG 2.2 AA FAILURE, not a matter of taste. Metadata
+     renders at --fs-micro 12px, which is NORMAL text to WCAG, so the bar is
+     4.5:1 and not the 3:1 large-text bar:
+         on --paper      #F0F1F0   4.67:1  pass, barely
+         on --card       #FFFFFF   5.29:1  pass
+         on --paper-edge #E6E7E6   4.26:1  FAIL
+     Metadata sits on all three grounds, so the WORST ground is the verdict, and
+     a value that passes on card while failing on paper-edge is not a pass.
+     #585D57 measures 5.95 / 6.73 / 5.43 - AA on all three, with headroom.
+
+     It stays a neutral newsprint grey; this is a lightness change, not a new
+     hue, so the locked palette in vfc-brand-core section 3 is untouched. The
+     Phase 3.1 browser specimen independently called metadata "slightly too
+     weak", which is this same defect read by eye rather than measured.
+
+     NOTE for anyone reading the skill: vfc-web-design-system section 2 documents
+     --ink-mute as #8A8F88. That has never been the value in this file, and
+     #8A8F88 would measure about 3.2:1 on paper - a worse failure. The skill is
+     stale on this token; this file is what renders. */
+  --ink-mute:    #585D57;   /* de-emphasized metadata, source IDs, dates */
   --rule:        #CFD0CE;   /* hairline dividers */
   --warn:        #8A5A00;   /* citation-pending / unverified. The one warm tone with a job. */
   --warn-bg:     #F6EFE0;
@@ -82,10 +105,201 @@
            a convenience, never the signal. */
   --data-1:  #222222;   /* the series the claim is about. Alias of --ink */
   --data-2:  #5C605C;
-  --data-3:  #686D67;   /* alias of --ink-mute */
+  --data-3:  #585D57;   /* alias of --ink-mute. MOVED WITH IT 2026-09-17: this
+                           row's whole purpose is that a chart and a body page
+                           cannot drift apart, so leaving it at #686D67 while
+                           --ink-mute darkened would have broken the one
+                           invariant the comment above promises. */
   --data-4:  #B9BCB8;
   --auth:    #3F5A34;   /* authorized / what Congress wrote. 6.8:1 on paper */
   --auth-bg: #EBEEE8;
+
+  /* ======================================================================
+     PHASE 3.1 FOUNDATION TOKENS - added 2026-09-17.
+
+     ADDITIVE ONLY. Every token below either names a value this stylesheet
+     was ALREADY using unnamed, or is unused and waiting for Phase 3.3.
+     NOTHING that renders today changes value because of this block. The
+     Phase 3.1 brief's type-scale, prose-width, warm-paper and IBM Plex Sans
+     items are NOT here: each collides with a locked rule or with a ruling
+     Leann made on 2026-09-13, and each is on HOLD pending her decision.
+     ====================================================================== */
+
+  /* ---- borders and radii: extracted, not invented ----
+     Measured across this file before naming: every radius in use is already
+     4px or 50% (circles), and there is no large-radius card anywhere. So the
+     Phase 3.1 direction "no large-radius SaaS cards, borders before shadows"
+     is already how this stylesheet behaves; these tokens just give it names. */
+  --border-thin:   1px;
+  --border-strong: 2px;
+  --radius-1: 2px;
+  --radius-2: 4px;   /* the radius already in use, now named */
+
+  /* ---- focus ring: extracted from the 9 :focus-visible rules in this file,
+     all of which are `3px solid var(--red)` at `outline-offset: 2px`.
+     Tokenised so the ring can never drift between components.
+     NOT CHANGED: the Phase 3.1 spec section 9 proposes a NAVY focus ring.
+     vfc-web-design-system section 5 says of the red ring "Never remove it."
+     That is a real conflict and it is on HOLD, so the measured red value
+     stands here and nothing is silently switched. */
+  --focus-w:      3px;
+  --focus-color:  var(--red);
+  --focus-offset: 2px;
+
+  /* ---- data / utility ink. Phase 3.1 task 6. UNUSED as yet. ----
+     The guardrail is that blue stays utility-only and must never read as a
+     patriotic navy co-primary. "Reads navy" is not measurable; CHROMA is, so
+     the choice was made on CIE C* rather than on taste, with
+     COUNT_BUILD\scripts\vfc_contrast_audit.py:
+
+       US flag navy      #0A3161   L* 20.5  C* 32.9
+       spec candidate    #173B57   L* 23.7  C* 20.8   63% of flag chroma
+       deep slate        #2F4858   L* 29.3  C* 13.3
+       CHOSEN            #3D4F5A   L* 32.5  C*  9.6   29% of flag chroma
+       payne grey        #44525C   L* 34.1  C*  8.2
+
+     #3D4F5A measures 7.53:1 on --paper and 8.52:1 on white, both AAA, so
+     nothing is traded away for the lower chroma. The spec's own #173B57 is
+     rejected here: at C* 20.8 it is two-thirds of the way to flag navy and
+     is the single token most likely to drift into a co-primary. #44525C is
+     greyer still but starts to read as another neutral beside --ink-mute
+     #585D57, which defeats the point of having a data ink at all. */
+  --info-ink: #3D4F5A;
+
+  /* ---- evidence bracket. Phase 3.1 task 8. TOKEN ONLY - DO NOT BUILD ----
+     Variant A, the left evidence bracket, is the approved recurring treatment;
+     Variant B may stay an occasional secondary connector; Variant C is
+     rejected. The COMPONENT is Phase 3.3 work and is deliberately not built
+     here. These two tokens exist so 3.3 has a semantic name to bind to and
+     does not reach for a raw --red.
+     RULE, carried from the spec: the bracket is never the only carrier of
+     meaning, must survive greyscale and print, and must not imply causation
+     where only sequence is known. */
+  --bracket-color: var(--red);
+  --bracket-w:     var(--border-strong);
+
+  /* ======================================================================
+     SEPTEMBER 17 DESIGN SYSTEM - TOKENS. Added 2026-09-17.
+
+     OWNER DECISIONS recorded this day, superseding two older rules. Both are
+     appended to 00_STATE\VFC_SETTLED.md with their date and rationale; the
+     historical decisions are preserved there, not deleted.
+       1. The "three fonts, never a fourth" rule is SUPERSEDED. IBM Plex Sans
+          is the fourth family and owns H1/H2/H3, nav, buttons and controls.
+       2. The "cool neutral only, never warm" paper rule is SUPERSEDED. The
+          approved editorial ground is warm paper #F4F0E8.
+
+     EVERY TOKEN BELOW IS A NEW NAME. Not one legacy token is repointed, so no
+     existing page changes by adding this block. That is deliberate and it is
+     owner decision 4: controlled adoption, never accidental site-wide reflow.
+     The Phase 3.2 primitives consume these; legacy selectors keep --fs-*,
+     --sp-*, --paper and --ink until a page is migrated on purpose.
+
+     THE FLIP, when Leann wants it, is small and it is not being done here:
+     repointing --paper to var(--paper-warm) and --ink to var(--ink-charcoal)
+     moves the whole site at once. Left as two one-line edits, not taken.
+     ====================================================================== */
+
+  /* ---- the fourth family. Self-hosted from IBM's own package, OFL-1.1.
+     Generated by COUNT_BUILD\scripts\vfc_selfhost_plexsans.py into
+     public\vfc-plexsans.css; 12 faces, weights 400/500/600/700, each verified
+     against the binary's OS/2 usWeightClass before it was declared. */
+  --font-ui: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* ---- type scale. DESKTOP values here; the mobile block below overrides the
+     same token names at <=768px, so a component never writes a breakpoint.
+     VISUAL RECONCILIATION 2026-09-19: H1 48->52, H2 32->38, H3 24->26, deck
+     22->23. The Sept 17 sizes were "working" values pending browser specimen;
+     these restore hierarchy strength inside the v2 direction's explicit range
+     (H1 48-68, H2 32-44, deck 21-24), in IBM Plex Sans per SETTLED 2026-09-17.
+     04_Website/VFC_WEBSITE_VISUAL_RECONCILIATION_2026-09-19.md */
+  --t-h1:      52px;  --t-h1-lh:   1.08;
+  --t-h2:      38px;  --t-h2-lh:   1.12;
+  --t-h3:      26px;  --t-h3-lh:   1.20;
+  --t-deck:    23px;  --t-deck-lh: 1.45;
+  --t-body:    18px;  --t-body-lh: 1.60;
+  --t-ui:      17px;
+  --t-label:   14px;
+  --t-meta:    13px;
+
+  /* ---- widths. Prose is 48rem per the owner decision of 2026-09-17.
+     Headings and evidence surfaces are NOT constrained to prose width: that
+     was explicit in the decision, and it is why --grid-max exists. */
+  --canvas-max: 90rem;   /* 1440px, the outer canvas */
+  --grid-max:   75rem;   /* 1200px, content grid and evidence surfaces */
+  --prose-max:  48rem;   /* 768px, longform body measure */
+  --measure-target: 74ch; /* mid-70s, the readability target prose aims at */
+
+  --gutter-mobile:  1rem;
+  --gutter-tablet:  1.5rem;
+  --gutter-desktop: 2rem;
+
+  /* ---- spacing, the approved nine steps: 4 8 12 16 24 32 48 64 80.
+     Named --space-* so it cannot collide with the legacy six-step --sp-*. */
+  --space-1:  0.25rem;  /*  4 */
+  --space-2:  0.5rem;   /*  8 */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-6:  1.5rem;   /* 24 */
+  --space-8:  2rem;     /* 32 */
+  --space-12: 3rem;     /* 48 */
+  --space-16: 4rem;     /* 64 */
+  --space-20: 5rem;     /* 80 */
+
+  /* ---- semantic colour. Roles, not decoration.
+     GUARDRAIL, and it governs every use below: crimson and blue-grey are
+     FUNCTIONAL SIGNALS, never a paired visual treatment. No alternating
+     red/blue states, no red heading over a blue border, no adjacent red and
+     blue buttons, no repeating red-section/blue-section rhythm. The identity
+     is warm paper and charcoal; the two signal colours appear apart, sparingly,
+     and each one always carries a word or a mark as well as a hue. */
+  /* OWNER DECISION 2026-09-19 (VFC_SETTLED.md): the general page canvas is
+     cool neutral again; warm paper is kept as an intentional document /
+     archive / evidence surface, not the whole-page ground. */
+  --canvas:        #F0F1F0;  /* the general page canvas (2026-09-19) */
+  /* Pass 3 palette roles, owner-approved 2026-09-19 (reconciliation file).
+     Depth inside dark sections instead of one near-black slab. */
+  --evidence-soft:      #F8F8F5;  /* quiet evidence inset, when white is too stark */
+  --ink-deep:           #111211;  /* masthead, footer, rare highest-impact use */
+  --ink-primary:        #171817;  /* primary text / high-contrast ink */
+  --charcoal-editorial: #232522;  /* DEFAULT large dark chapter / evidence band */
+  --dark-2:             #2D302C;  /* nested inset inside a dark section */
+  --dark-border:        #484B47;  /* rules and separation on dark surfaces */
+  --dark-muted:         #C7CBC5;  /* secondary metadata on dark surfaces */
+  --paper-warm:    #F4F0E8;  /* document / archive / evidence surface */
+  --ink-charcoal:  #161616;  /* near-black, and the impact surface ground */
+  --surface-white: #FFFFFF;
+  --accent-critical: #B8202E; /* crimson: evidence, accountability, urgency */
+  --meta-ink:      #585D57;  /* metadata. AA on every ground, measured */
+  --on-dark:       #FFFFFF;
+  --on-dark-muted: #E7E2D9;
+
+  /* CRIMSON IS BARRED FROM THE DARK IMPACT SURFACE. Measured 2026-09-17 with
+     COUNT_BUILD\scripts\vfc_contrast_audit.py: #B8202E on #161616 is 2.83:1,
+     which fails normal text (4.5:1) AND the 3:1 large-text and non-text bar.
+     So it is not a heading, not a border and not an icon there either - the
+     spec only said "not normal-sized text", and the measurement is stricter.
+     Dark surfaces take --on-dark or --on-dark-muted. Nothing else. */
+
+  /* ---- focus, on the warm/white grounds and on the dark one.
+     --focus-color above stays crimson for the legacy components. New
+     primitives use --focus-ring-light / --focus-ring-dark so a focus ring on
+     the charcoal surface is never an invisible crimson on near-black. */
+  --focus-ring-light: var(--accent-critical);
+  --focus-ring-dark:  var(--on-dark);
+}
+
+/* MOBILE TYPE. Same token names, so no component carries a breakpoint.
+   768px is the spec's own tablet/desktop gutter boundary; it is the only
+   breakpoint this scale uses. */
+@media (max-width: 768px) {
+  :root {
+    --t-h1:   36px;  --t-h1-lh:   1.10;
+    --t-h2:   28px;  --t-h2-lh:   1.16;
+    --t-h3:   21px;  --t-h3-lh:   1.22;
+    --t-deck: 20px;
+    --t-body: 18px;  --t-body-lh: 1.55;
+  }
 }
 
 /* ============================ FOUNDATIONS ============================ */
@@ -1464,4 +1678,111 @@ main .vfc-m-155 { color: var(--red-dk); }
   .vfc-m-092, .vfc-mono-caps-inline-s11_5-113 { white-space: normal; }
   .vfc-m-179 { min-width: 0; }
   .vfc-ruled-010 { overflow-wrap: anywhere; word-break: break-word; }
+}
+
+/* =========================================================================
+   MASTHEAD, NAVIGATION, FOOTER - visual reconciliation, 2026-09-19
+
+   Restores the investigative masthead of the v1-v3 visual direction (v3
+   homepage mockup): a charcoal band, the wordmark in Big Shoulders, the
+   subordinate mono project line, the living-record line opposite, a hairline,
+   the seven primary destinations, and the utility links set smaller and to
+   the right. Applied to every page through BaseLayout.
+
+   Where an owner decision overrides the mockups (SETTLED 2026-09-17):
+     - navigation is IBM Plex Sans, not Plex Mono or Big Shoulders;
+     - the active marker is near-white: crimson is barred as text, border or
+       icon on #161616 (2.83:1);
+     - dark surfaces are charcoal, never navy.
+   The footer returns to charcoal to bookend the masthead, as in the mockups.
+
+   The bands run full width; their content aligns with the page's own content
+   column (.vfc-wrap: 1080px legacy, 1200px on v2 pages), which is also what
+   fixes the masthead, sub-nav and footer sitting flush-left at x=0.
+   Record: 04_Website/VFC_WEBSITE_VISUAL_RECONCILIATION_2026-09-19.md
+   ========================================================================= */
+.vfc-page { --vfc-frame: var(--content); }
+.vfc-page:has(.vfc-v2) { --vfc-frame: var(--grid-max); }
+.vfc-top .vfc-masthead,
+.vfc-navbar,
+.vfc-subnav,
+.vfc-footer {
+  padding-left: max(var(--sp-4), calc((100% - var(--vfc-frame)) / 2 + var(--sp-4)));
+  padding-right: max(var(--sp-4), calc((100% - var(--vfc-frame)) / 2 + var(--sp-4)));
+}
+
+/* 2026-09-20, owner decision: the masthead is light at every width. The dark
+   band is gone from .vfc-top, the identity block and the navigation; warm
+   white ground, ink type, crimson only for the current page and for focus.
+   The footer keeps its own dark treatment and is not touched here. */
+.vfc-top { background: var(--evidence-soft); color: var(--ink-deep); }
+.vfc-top .vfc-masthead {
+  border-bottom: 0;
+  padding-top: var(--space-6); padding-bottom: var(--space-6);
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: var(--space-2) var(--space-8);
+}
+.vfc-top .vfc-masthead__name {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.875rem, 3vw, 2.75rem); line-height: 0.95;
+  letter-spacing: 0.02em; text-transform: uppercase;
+  color: var(--ink-deep); margin: 0;
+}
+.vfc-top .vfc-masthead__meta,
+.vfc-top .vfc-masthead__note {
+  font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.35;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--meta-ink); margin: var(--space-2) 0 0;
+}
+.vfc-top .vfc-masthead__note { margin: 0; font-size: 0.6875rem; }
+
+/* The complete identity block, name and tagline together, is separated from
+   the navigation by space above and below the rule, not by a hairline tucked
+   under the title. */
+.vfc-navline { border-top: 1px solid var(--rule); }
+.vfc-navbar { display: flex; flex-wrap: wrap; align-items: stretch; column-gap: var(--space-8); }
+.vfc-top .vfc-nav { display: flex; flex-wrap: wrap; gap: 0 var(--space-6); padding: 0; margin: 0; }
+.vfc-top .vfc-nav__item {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.875rem; line-height: 1.2;
+  letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+  color: var(--ink-deep); text-decoration: none;
+  padding: var(--space-3) 0 calc(var(--space-3) - 3px);
+  border-bottom: 3px solid transparent;
+}
+.vfc-top .vfc-nav__item:hover { color: var(--ink-deep); border-bottom-color: var(--ink-charcoal); }
+.vfc-top .vfc-nav__item[aria-current] { color: var(--ink-deep); border-bottom-color: var(--accent-critical); font-weight: 700; }
+.vfc-top .vfc-nav__item:focus-visible { outline: 3px solid var(--accent-critical); outline-offset: 2px; }
+.vfc-top .vfc-masthead__name a:focus-visible { outline-color: var(--accent-critical); }
+/* Utility sits apart from the primary destinations: its own rule on wide
+   screens, its own row on narrow ones. */
+.vfc-top .vfc-nav--utility {
+  margin-left: auto; gap: 0 var(--space-4);
+  padding-left: var(--space-8); border-left: 1px solid var(--rule);
+}
+.vfc-top .vfc-nav--utility .vfc-nav__item { font-weight: 500; font-size: 0.75rem; color: var(--meta-ink); }
+.vfc-top .vfc-nav--utility .vfc-nav__item[aria-current] { color: var(--ink-deep); }
+@media (max-width: 768px) {
+  .vfc-top .vfc-masthead { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+  .vfc-top .vfc-nav { gap: 0 var(--space-4); }
+  .vfc-top .vfc-nav--utility {
+    margin-left: 0; width: 100%;
+    padding-left: 0; border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+}
+
+/* Footer: charcoal, every sentence unchanged. */
+.vfc-footer {
+  background: var(--ink-charcoal); color: var(--on-dark-muted);
+  border-top: 0; margin-top: var(--space-16);
+  padding-top: var(--space-12); padding-bottom: var(--space-12);
+}
+.vfc-footer .vfc-micro { color: var(--on-dark-muted); max-width: 48rem; }
+.vfc-footer a { color: var(--on-dark); text-decoration: underline; text-underline-offset: 3px; }
+.vfc-footer a:focus-visible { outline: 3px solid var(--on-dark); outline-offset: 2px; }
+
+@media print {
+  .vfc-top, .vfc-footer { background: #FFFFFF; color: #000000; }
+  .vfc-top .vfc-masthead__name, .vfc-top .vfc-masthead__meta, .vfc-top .vfc-masthead__note,
+  .vfc-footer .vfc-micro, .vfc-footer a { color: #000000; }
 }
