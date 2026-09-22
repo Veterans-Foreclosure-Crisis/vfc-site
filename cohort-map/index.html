@@ -39,6 +39,15 @@
   .sw{ display:inline-block; width:13px; height:13px; vertical-align:-2px; margin-right:5px; border:1px solid #D8D9D8; }
   .sw--cohort{ background:#B8202E; border-color:#B8202E; }
   .sw--none{ background:#E6E7E6; }
+
+  /* 2026-09-21, post-release accessibility follow-up. The cohort table is the
+     one table on this page. It keeps its semantics, caption and scope; this
+     only makes its container a named, keyboard-reachable region that scrolls
+     internally if it ever exceeds the embed, with a visible focus ring. The
+     map, the iframe embedding and printing are untouched. */
+  .cohort-tablewrap { max-width: 100%; overflow-x: auto; }
+  .cohort-tablewrap:focus-visible { outline: 3px solid #B8202E; outline-offset: 2px; }
+  @media print { .cohort-tablewrap { overflow: visible; } }
 </style>
 <link href="/vfc-web.css?v=20260922q" rel="stylesheet"/>
 <link href="/vfc-web-ds.css?v=20260922q" rel="stylesheet"/>
@@ -58,11 +67,13 @@
 <p class="kick">Confirmed so far</p>
 <p class="lead" id="totalFam"></p>
 <p class="leadsub" id="totalSt">across, states · updated as families reach us.</p>
+<div class="cohort-tablewrap" role="region" tabindex="0" aria-labelledby="cohortTableCaption">
 <table class="cohort" id="cohortTable">
-<caption>Confirmed cohort families by state</caption>
+<caption id="cohortTableCaption">Confirmed cohort families by state</caption>
 <thead><tr><th scope="col">State</th><th class="num" scope="col">Families</th></tr></thead>
 <tbody id="tbody"></tbody>
 </table>
+</div>
 <p class="note note--unknown" id="unknownLine"></p>
 <p class="note">Each state shows the number of cohort families who have connected with this project. Families are represented as a count only. Never named or shown, unless they give written consent to be listed. A named, linked entry appears only where a family opted in and chose the channel shown. This is a floor, not a ceiling: it reflects only families who have reached us.<br/>*Some families contacted this project but their state is unknown, they stopped responding or were mid-crisis. They are counted, but cannot be placed on the map.</p>
 </aside>
