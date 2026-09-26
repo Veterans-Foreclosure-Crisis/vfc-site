@@ -1,0 +1,175 @@
+/* ============================================================================
+   VFC READING PILOT — Batch 23B
+   ----------------------------------------------------------------------------
+   Scoped ENTIRELY under .vfc-read. A page opts in via BaseLayout's `pilot`
+   prop. No page without that class is affected, so this file adds and never
+   overrides existing behaviour elsewhere. Loaded LAST.
+
+   Measured problem this addresses (live site, 1363px viewport, 2026-09-26):
+     /record/roundtable-2026-09-16/   16px body, 1036px wide  = 114ch
+     /get-help/first-72-hours/        17px body,  716px wide  =  75ch
+     /                                18px body,  454px wide  =  48ch, 19 sizes
+
+   Targets from the Batch 23 brief: 18px body, 1.55-1.65 line-height,
+   65-72ch measure, a small shared heading scale rather than per-page sizes.
+
+   PRESERVES: all content, citations, source IDs, anchors and stable ids.
+   This file changes presentation only. It sets no display:none anywhere.
+   ========================================================================= */
+
+.vfc-read {
+  --read-size: 1.125rem;      /* 18px */
+  --read-lh: 1.6;
+  --read-measure: 68ch;
+  --read-canvas: #F4F2ED;     /* light neutral canvas behind white panels */
+  --read-panel: #FFFFFF;
+  --read-rule: #E2DED6;
+  --read-accent: #8C1D2A;     /* restrained crimson, edges only */
+  --read-h1: clamp(2rem, 1.2rem + 2.2vw, 2.75rem);   /* 32 -> 44px */
+  --read-h2: clamp(1.5rem, 1.15rem + 1.1vw, 1.875rem); /* 24 -> 30px */
+  --read-h3: clamp(1.1875rem, 1.05rem + 0.5vw, 1.375rem); /* 19 -> 22px */
+}
+
+/* ---- 1. Reading measure and body size ----------------------------------- */
+/* .vfc-body is the shared prose class on all three pilot pages. Tables,
+   evidence sheets and data collections do not use it, so they keep their
+   existing width - the brief asks for that explicitly. */
+.vfc-read .vfc-body {
+  font-size: var(--read-size);
+  line-height: var(--read-lh);
+  max-width: var(--read-measure);
+}
+
+/* Lede keeps its emphasis but gains the same measure. */
+.vfc-read .vfc-lede { max-width: var(--read-measure); line-height: 1.5; }
+
+/* WITHDRAWN: a measure on .vfc-section > ul/ol.
+   Not every direct-child list is prose. OL.vfc-gh-steps on First 72 Hours is a
+   LAYOUT list, and constraining it squeezed the nine step paragraphs inside
+   DIV.vfc-gh-step__body from 716px to 233px (page height 4518 -> 7304px).
+   Prose paragraphs inside those steps already inherit the measure from
+   .vfc-body above, which binds only where the container is wider than it.
+   A list measure needs per-component opt-in, not a descendant selector. */
+
+/* ---- 2. One shared heading scale ---------------------------------------- */
+/* The brief asks for a small shared scale instead of per-page overrides.
+   Display numbers (.vfc-display-*, .vfc-stat__value) are deliberately NOT
+   touched: those are data, not headings. */
+.vfc-read .vfc-section__headline { font-size: var(--read-h2); line-height: 1.2; }
+.vfc-read h1.vfc-section__headline,
+.vfc-read .vfc-c-lead .vfc-section__headline { font-size: var(--read-h1); line-height: 1.12; }
+.vfc-read h3 { font-size: var(--read-h3); line-height: 1.25; }
+
+/* Ordinary headings use Plex Sans; the condensed display face stays on the
+   masthead and short data labels only (brief rule 1). */
+.vfc-read .vfc-section__headline,
+.vfc-read h3 {
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, Segoe UI, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* ---- 3. Section rhythm -------------------------------------------------- */
+/* WITHDRAWN IN THIS PASS: boxing every .vfc-section.
+   Measured result of the first attempt (1363px viewport):
+     /get-help/first-72-hours/  75ch -> 25ch, page height 4518 -> 7230px
+     /                          48ch -> 44ch
+   Adding padding and a border to every section squeezed the prose inside
+   pages whose sections already contain multi-column layouts. The brief warns
+   against boxing everything; boxing every section is the same mistake one
+   level up. Panels need to be applied to specific section types after their
+   internal layouts are inspected, not blanket-applied.
+
+   Spacing alone is kept, since it carries no layout risk. */
+.vfc-read .vfc-section { margin-block: clamp(1rem, 0.7rem + 1vw, 1.75rem); }
+
+/* Kickers pick up the restrained crimson edge (brief rule 4). */
+.vfc-read .vfc-section__kicker {
+  color: var(--read-accent);
+  letter-spacing: 0.08em;
+}
+
+/* ---- 4. The dark implementation banner becomes a light panel ------------ */
+/* Rule 5: convert to a light, bordered sequence panel, preserving every date,
+   distinction and citation inside it. Content is untouched; only the surface
+   changes. The full-bleed shadow/clip trick is neutralised so it sits on the
+   canvas like the other panels. */
+.vfc-read .vfc-c-impact {
+  background: var(--read-panel);
+  color: inherit;
+  box-shadow: none;
+  clip-path: none;
+  border: 1px solid var(--read-rule);
+  border-left: 3px solid var(--read-accent);
+  border-radius: 2px;
+}
+.vfc-read .vfc-c-impact * { color: inherit; }
+
+/* ---- 5. Mobile: keep usable width --------------------------------------- */
+/* Rule 7: use indentation sparingly on mobile so content keeps its width. */
+@media (max-width: 480px) {
+  .vfc-read .vfc-section { padding-inline: 1rem; }
+  .vfc-read .vfc-section > ul,
+  .vfc-read .vfc-section > ol { padding-inline-start: 1.15rem; }
+}
+
+/* ---- 6. Home hero, owner-selected option A1 (2026-09-26) ---------------- */
+/* The name is now the h1 and the finding sentence is the deck beneath it.
+   Type does three distinct jobs here, which was the owner's requirement:
+     title    IBM Plex Sans  bold    32 -> 48px
+     deck     IBM Plex Sans  regular 20 -> 23px
+     body     Newsreader     serif   17px   (unchanged, set elsewhere)
+   The deck deliberately does NOT use the body serif: a serif deck at 23px
+   above 17px serif body reads as one block of prose with no level change.
+   Sans carries structure, serif carries reading. Scoped to the Home hero so
+   no other page family is touched. */
+.vfc-read .vfc-home-hero > h1.vfc-section__headline {
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, Segoe UI, sans-serif;
+  font-size: clamp(2rem, 1.35rem + 2.6vw, 3rem);   /* 32 -> 48 */
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.7rem;
+  max-width: 22ch;
+}
+.vfc-read .vfc-home-hero > .vfc-home-deck {
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, Segoe UI, sans-serif;
+  font-size: clamp(1.1875rem, 1.05rem + 0.55vw, 1.4375rem);  /* 19 -> 23 */
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink-charcoal, #3A352E);
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* ---- 7. WITHDRAWN 2026-09-26: hiding the masthead wordmark on Home ------
+   Tried `.vfc-home-page .vfc-masthead__name { display:none }` so the name did
+   not appear twice once the A1 h1 carried it. REVERTED after looking at the
+   rendered page.
+
+   At 375px it left the masthead as an orphaned tagline - "CLOSING THE GAP THAT
+   PUTS VETERANS OUT OF THEIR HOMES" with no subject above it - and pushed the
+   site name BELOW the navigation. A website masthead is not a magazine cover:
+   it persists on every page and the tagline depends on the name above it.
+
+   The duplication is real but deleting the wordmark is the wrong fix. The right
+   fix is a Home h1 that is not a copy of the masthead, which needs the owner's
+   words. Do not retry this rule. */
+
+/* ---- 8. Home h1: cap the size and narrow the measure (2026-09-26) ------- */
+/* The plain-language h1 wrapped to 3 lines at 1363px and 4 at 375px, which the
+   owner found too heavy. Two causes, both fixed here.
+
+   SPECIFICITY. Rule 6 above set 32-48px and had no effect, because
+   `.vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-section__headline` in
+   vfc-evidence.css is (0,4,0) and rule 6 was only (0,3,1). That page-family
+   rule sets clamp(2.25rem, 4.4vw, 4rem) = 36 -> 64px, which is exactly the
+   36/60 that was measured. This selector is (0,5,1) and vfc-read.css loads
+   after vfc-evidence.css, so it wins on both counts.
+
+   MEASURE. 30ch holds the 57-character title to two lines on desktop and three
+   on a phone, instead of three and four, without changing a word. */
+.vfc-read .vfc-v2.vfc-fam-finding .vfc-home-hero h1.vfc-section__headline {
+  font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.875rem);  /* 28 -> 46 */
+  max-width: 30ch;
+  line-height: 1.1;
+}
