@@ -4,9 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found, Veterans Foreclosure Crisis</title>
+<meta name="description" content="That page is not on this site. Nothing published was deleted. Links to the front page, urgent help, the Rebuttal Index and the claims register.">
 <meta name="robots" content="noindex">
+<!-- No canonical tag. This page is served with HTTP 404 and is noindex; a canonical
+     would nominate an error page as an indexable destination. Deliberately omitted. -->
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Newsreader:opsz,wght@6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* This page is standalone and cannot use the site stylesheets or their custom
+   properties, so the skip link and focus ring are restated here with literal
+   values matching the site palette. Without these the skip link renders as an
+   ordinary visible link above the masthead. */
+.vfc-skip{position:absolute;left:-9999px;}
+.vfc-skip:focus{left:1rem;top:1rem;background:#222222;color:#F0F1F0;padding:.5rem 1rem;z-index:100;}
+:where(a,button):focus-visible{outline:3px solid #B8202E;outline-offset:2px;}
 body{background:#F0F1F0;color:#222222;font-family:'Newsreader',Georgia,serif;margin:0;padding:2rem 1.2rem;}
 main{max-width:64ch;margin:8vh auto 0;}
 .mast{border-top:5px solid #222;border-bottom:2px solid #222;padding:.7rem 0;margin-bottom:2.4rem;}
