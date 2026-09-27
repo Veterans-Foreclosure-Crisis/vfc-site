@@ -729,7 +729,22 @@
 .vfc-s11_5-235 { font-size:var(--fs-micro); line-height:1.45; margin:0; }
 
 /* 3× */
-.vfc-ruled-236 { padding:{{ sectionPad }} 0; border-bottom:1px solid #cfd0ce; }
+/* 2026-09-27: the padding value here was an unrendered Handlebars-style
+   placeholder (a doubled-brace sectionPad expression) that shipped to
+   production. Braces are spelled out rather than quoted so that a scan for
+   unrendered placeholders does not match this comment.
+   It made the whole declaration invalid,
+   so browsers discarded it and these sections have always rendered with no
+   vertical padding. It also made this entire stylesheet unparseable, so no
+   linter had ever read past this line.
+
+   The declaration is removed rather than given a value, because the intended
+   value is not recoverable and every comparable `border-bottom:1px solid #cfd0ce`
+   section rule here uses a different one (18, 22, 24, 28 and 36px). Removing it
+   leaves the rendered result exactly as it is today. Used on /about/ and
+   /glossary/. If these separators should have vertical padding, that is a design
+   decision, not a repair. */
+.vfc-ruled-236 { border-bottom:1px solid #cfd0ce; }
 
 /* 3× */
 .vfc-serif-s26-237 { font-family:'Newsreader',Georgia,serif; font-weight:600; font-size:var(--fs-h2); line-height:1.16; letter-spacing:-.012em; margin:0; text-wrap:balance; }
@@ -1052,8 +1067,12 @@
 /* 2× */
 .vfc-s16-343 { font-size:var(--fs-body); line-height:1.6; margin:0 0 18px; max-width:100%; }
 
-/* 2× */
-.vfc-mono-s11_5-344 { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); letter-spacing:.02em; padding:7px 12px; cursor:pointer; background:{{ f.bg }}; color:{{ f.fg }}; border:1px solid {{ f.bd }}; }
+/* DELETED 2026-09-27: .vfc-mono-s11_5-344, a filter-button rule whose
+   background, color and border were all unrendered template placeholders.
+   Verified dead before deleting: 0 occurrences in the built site, 0 in src/.
+   Its three broken values were the second of two syntax errors in this file;
+   between them they had made the stylesheet unparseable, so no linter had ever
+   read past line 732 of 1200. Filter buttons use .vfc-btn. */
 
 /* 2× */
 .vfc-mono-caps-s11_5-345 { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-micro); letter-spacing:.08em; text-transform:uppercase; color:#B8202E; margin:0 0 8px; }

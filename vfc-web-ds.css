@@ -294,7 +294,11 @@
    breakpoint this scale uses. */
 @media (max-width: 768px) {
   :root {
-    --t-h1:   36px;  --t-h1-lh:   1.10;
+    /* 36px -> 32px, 2026-09-27. At 36px a phone fits about 19 characters per
+       line, which pushed any headline over ~38 characters onto four lines.
+       Owner: titles should feel right-sized for the screen, not obnoxiously
+       big. Measured across all three families before keeping. */
+    --t-h1:   32px;  --t-h1-lh:   1.10;
     --t-h2:   28px;  --t-h2-lh:   1.16;
     --t-h3:   21px;  --t-h3-lh:   1.22;
     --t-deck: 20px;

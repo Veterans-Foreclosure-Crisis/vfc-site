@@ -25,9 +25,19 @@
   --read-panel: #FFFFFF;
   --read-rule: #E2DED6;
   --read-accent: #8C1D2A;     /* restrained crimson, edges only */
-  --read-h1: clamp(2rem, 1.2rem + 2.2vw, 2.75rem);   /* 32 -> 44px */
-  --read-h2: clamp(1.5rem, 1.15rem + 1.1vw, 1.875rem); /* 24 -> 30px */
-  --read-h3: clamp(1.1875rem, 1.05rem + 0.5vw, 1.375rem); /* 19 -> 22px */
+  /* POINTED AT THE TOKEN SCALE 2026-09-27.
+     These three were a fourth type scale. Written in Batch 23B to give the
+     pilot pages a consistent heading rhythm, they duplicated --t-h1/h2/h3 at
+     different values (h1 32->44 against 32->52, h2 24->30 against 28->38,
+     h3 19->22 against 21->26) and then competed with them. Home's h2 measuring
+     24px while --t-h2 declared 28px was this rule, not a legacy layer.
+
+     The pilot keeps what it was actually for - 18px body, 68ch measure, the
+     canvas and panel colours. It no longer carries its own heading scale. If a
+     heading size is wrong, change --t-* and every page moves together. */
+  --read-h1: var(--t-h1);
+  --read-h2: var(--t-h2);
+  --read-h3: var(--t-h3);
 }
 
 /* ---- 1. Reading measure and body size ----------------------------------- */
@@ -107,7 +117,14 @@
 /* ---- 5. Mobile: keep usable width --------------------------------------- */
 /* Rule 7: use indentation sparingly on mobile so content keeps its width. */
 @media (max-width: 480px) {
-  .vfc-read .vfc-section { padding-inline: 1rem; }
+  /* REMOVED 2026-09-27: `.vfc-read .vfc-section { padding-inline: 1rem; }`.
+     It did the opposite of the rule it cited. .vfc-section carries no
+     horizontal padding of its own, so this only ADDED 16px a side on top of
+     the 22px main.vfc-wrap already provides. Measured at a 375px viewport:
+     Home's h1 had 284px of line width where Current Status, which is not a
+     pilot page and so never got this rule, had 316px. That 32px was the
+     difference between the Home headline setting in two lines and three.
+     Nothing replaces it; the wrap gutter is the gutter. */
   .vfc-read .vfc-section > ul,
   .vfc-read .vfc-section > ol { padding-inline-start: 1.15rem; }
 }
@@ -167,9 +184,11 @@
    after vfc-evidence.css, so it wins on both counts.
 
    MEASURE. 30ch holds the 57-character title to two lines on desktop and three
-   on a phone, instead of three and four, without changing a word. */
-.vfc-read .vfc-v2.vfc-fam-finding .vfc-home-hero h1.vfc-section__headline {
-  font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.875rem);  /* 28 -> 46 */
-  max-width: 30ch;
-  line-height: 1.1;
-}
+   on a phone, instead of three and four, without changing a word.
+
+   RETIRED 2026-09-27. This rule existed only to beat a bespoke page-family clamp.
+   That clamp is now var(--t-h1) and the 30ch measure lives with it in
+   vfc-evidence.css, so Home no longer needs the reading pilot enabled to get a
+   sane headline. Nothing replaces it here. Do not reinstate a size override in
+   this file: if the Home headline is wrong, --t-h1 is wrong, and that is the
+   thing to change. */

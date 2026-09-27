@@ -1148,24 +1148,46 @@
 
 /* Finding / investigation: the dominant finding runs across the full grid;
    the deck carries weight. (Home) */
+/* CONVERTED TO TOKENS 2026-09-27 (Batch 25, family 1 of 3).
+   Was clamp(2.25rem, 4.4vw, 4rem) = 36 -> 64px, a bespoke clamp that belonged to
+   no scale and beat both token systems on specificity (0,4,0). Now --t-h1
+   (52px, 36px at <=768px), which is what the other 29 record-family pages
+   already use. The 30ch measure moves here from vfc-read.css so the measure no
+   longer depends on the reading pilot being enabled on this page. */
 .vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-section__headline {
-  font-size: clamp(2.25rem, 4.4vw, 4rem); line-height: 1.04;
+  font-size: var(--t-h1); line-height: var(--t-h1-lh); max-width: 30ch;
   letter-spacing: -0.02em; font-weight: 700; margin: 0 0 var(--space-6);
 }
-.vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-lede { font-size: 1.5rem; line-height: 1.45; }
+/* Was 1.5rem / 1.25rem across a hand-written breakpoint. --t-deck is 23px and
+   20px at <=768px, so the media query below is no longer needed. */
+.vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-lede { font-size: var(--t-deck); line-height: var(--t-deck-lh); }
+/* NOT converted: there is no --t-stat. This is the one number the argument turns
+   on and it has no equivalent in the t- scale. Left as art direction. */
 .vfc-v2.vfc-fam-finding .vfc-c-band .vfc-home-harm-lead .vfc-stat__value { font-size: clamp(2.75rem, 4.2vw, 3.75rem); }
-@media (max-width: 768px) { .vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-lede { font-size: 1.25rem; } }
 
 /* Tracker / record / data: denser, systematic. (Current Status) */
 .vfc-v2.vfc-fam-record .vfc-section { padding: var(--space-8) 0; }
-.vfc-v2.vfc-fam-record .vfc-section__headline { font-size: 2.125rem; }
+/* Section headings were a literal 2.125rem = 34px on desktop while --t-h2
+   declares 38px, so the token was overridden on desktop and honoured only
+   below 768px. Now the token at both ends. 2026-09-27. */
+.vfc-v2.vfc-fam-record .vfc-section__headline { font-size: var(--t-h2); }
 .vfc-v2.vfc-fam-record h1.vfc-section__headline { font-size: var(--t-h1); }
+/* The media query below is now redundant - --t-h2 and --t-h1 already carry
+   their own <=768px values - but it is harmless and left as documentation of
+   the breakpoint this family used to manage by hand. */
 @media (max-width: 768px) { .vfc-v2.vfc-fam-record .vfc-section__headline { font-size: var(--t-h2); } .vfc-v2.vfc-fam-record h1.vfc-section__headline { font-size: var(--t-h1); } }
 
 /* Help / action: task-first. A strong H1, the numbered actions on a white
    action ground, and one crimson primary control on a light surface.
    (Get Help and its six subpages) */
-.vfc-v2.vfc-fam-help .vfc-gh-lead .vfc-section__headline { font-size: clamp(2.25rem, 3.9vw, 3.5rem); line-height: 1.06; letter-spacing: -0.02em; }
+/* CONVERTED TO TOKENS 2026-09-27 (Batch 25, family 3 of 3 - all three now on
+   one scale). Was clamp(2.25rem, 3.9vw, 3.5rem) = 36 -> 56px, whose 36px floor
+   held First 72 Hours at the same size from 375px all the way to 800px.
+   `.vfc-gh-lead` was verified to appear on help-family pages only, so this rule
+   is the sole author of every get-help headline; the lower-specificity
+   `.vfc-v2 .vfc-gh-lead .vfc-section__headline` at line 886 can never win and is
+   dead. Left in place rather than deleted in the same commit as a conversion. */
+.vfc-v2.vfc-fam-help .vfc-gh-lead .vfc-section__headline { font-size: var(--t-h1); line-height: var(--t-h1-lh); letter-spacing: -0.02em; }
 .vfc-v2.vfc-fam-help .vfc-gh-steps { background: var(--surface-white); padding: 0 var(--space-6); }
 @media (max-width: 768px) { .vfc-v2.vfc-fam-help .vfc-gh-steps { padding: 0 var(--space-4); } }
 .vfc-gh-action--urgent a { background: var(--accent-critical); }
@@ -1553,9 +1575,17 @@
    between thin rules, then the page index standing clearly apart from it.
    Backgrounds mark the two meaningful blocks; no box is drawn around every
    paragraph, and no word was added. */
+/* CONVERTED TO TOKENS 2026-09-27 (Batch 25, family 2 of 3).
+   Was clamp(2.5rem, 5vw, 3.75rem) = 40 -> 60px. The browser's own cascade
+   showed this rule at (0,4,0) beating `.vfc-v2.vfc-fam-record
+   h1.vfc-section__headline` at (0,3,1) below, which means the family's token
+   rules at lines 1171-1172 never rendered on any record page - every one of
+   them puts its h1 inside .vfc-c-lead. They were dead code that read as
+   already converted. Identified by asking the browser which of the 9 matching
+   font-size rules won, not by reading the stylesheets. */
 .vfc-v2.vfc-fam-record .vfc-c-lead .vfc-section__headline {
-  font-size: clamp(2.5rem, 5vw, 3.75rem);
-  line-height: 1.02;
+  font-size: var(--t-h1);
+  line-height: var(--t-h1-lh);
   letter-spacing: -0.01em;
   margin-bottom: var(--space-6);
 }
