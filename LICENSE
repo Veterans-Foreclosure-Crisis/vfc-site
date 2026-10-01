@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Veterans Foreclosure Crisis
+Copyright (c) 2026 Leann Ledford and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,14 @@ SOFTWARE.
 
 ---
 
-This licence covers the CODE in this repository only: the HTML structure, CSS,
-JavaScript and build scripts.
+This MIT licence applies to VFC software and code, including Astro/HTML
+structure, CSS, JavaScript, Python/Node build and validation tooling, and other
+source code unless a file states otherwise.
 
-The CONTENT, meaning the record, the writing, the charts, the toolkits, the
-printable documents and the data registers, is licensed separately under
-Creative Commons Attribution 4.0 International. See CONTENT-LICENSE.md.
+VFC-authored content and structured public data are licensed separately under
+`CONTENT-LICENSE.md`. Third-party material and bundled font software retain
+their own rights and licences; see `THIRD_PARTY_NOTICES.md`.
+
+"Veterans Foreclosure Crisis" is the project/publication name. This copyright
+notice does not represent an assignment of Leann Ledford's rights to a separate
+VFC, Salmonberry Cooperative, or other legal entity.

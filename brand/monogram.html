@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VFC monogram render target</title>
+<!--
+  STEP 7 / BRAND-1, 2026-09-30. Render target for the small-format VFC mark.
+
+  This is not a page. It exists to be screenshotted into the icon family, in the
+  same way /og-card.html is screenshotted into og/og-card.png. Both are driven by
+  a script under scripts/ and neither is linked or navigable.
+
+  The mark is derived from the identity already in use, not invented: the
+  masthead wordmark's own face (Big Shoulders Display, ink on paper) reduced to
+  the three letters that stay legible at 16px, over the restrained crimson rule
+  the site already uses as its accountability accent. The full masthead wordmark
+  remains live text and is unchanged.
+-->
+<link rel="stylesheet" href="/vfc-fonts.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { width: 512px; height: 512px; }
+  .mark {
+    width: 512px;
+    height: 512px;
+    background: #F0F1F0;               /* paper */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    /* A hairline ink edge keeps the paper square from vanishing into a light
+       browser tab strip. Scaled up so it survives downsampling to 16px. */
+    border: 10px solid #222222;        /* ink */
+  }
+  .letters {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900;
+    font-size: 300px;
+    line-height: 0.78;
+    letter-spacing: -0.01em;
+    color: #222222;                    /* ink */
+    /* Optical centring: the cap-height block sits high in the em box. */
+    margin: 18px 0 0;
+  }
+  .rule {
+    width: 300px;
+    height: 34px;
+    background: #B8202E;               /* restrained signal crimson */
+    margin-top: 26px;
+  }
+</style>
+</head>
+<body>
+  <div class="mark">
+    <p class="letters">VFC</p>
+    <div class="rule"></div>
+  </div>
+</body>
+</html>

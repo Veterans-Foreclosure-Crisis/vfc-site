@@ -1,0 +1,84 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/tableschema.json",
+  "fieldsMatch": "exact",
+  "fields": [
+    {
+      "name": "pr_id",
+      "type": "string"
+    },
+    {
+      "name": "group",
+      "type": "string"
+    },
+    {
+      "name": "strategy_code",
+      "type": "string"
+    },
+    {
+      "name": "heard",
+      "type": "string"
+    },
+    {
+      "name": "where",
+      "type": "string"
+    },
+    {
+      "name": "record_says",
+      "type": "string"
+    },
+    {
+      "name": "authority",
+      "type": "string"
+    },
+    {
+      "name": "receipt",
+      "type": "string"
+    },
+    {
+      "name": "say_back",
+      "type": "string"
+    },
+    {
+      "name": "if_again",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "last_verified",
+      "type": "string"
+    },
+    {
+      "name": "origin",
+      "type": "string"
+    },
+    {
+      "name": "anchor",
+      "type": "string"
+    },
+    {
+      "name": "notes",
+      "type": "string"
+    },
+    {
+      "name": "verification_status",
+      "type": "string"
+    },
+    {
+      "name": "publication_status",
+      "type": "string"
+    },
+    {
+      "name": "lifecycle_status",
+      "type": "string"
+    }
+  ],
+  "missingValues": [
+    ""
+  ],
+  "primaryKey": [
+    "pr_id"
+  ]
+}

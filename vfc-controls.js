@@ -66,4 +66,68 @@
     Array.prototype.forEach.call(scope.querySelectorAll('[data-vfc-controls]'), function (c) { c.hidden = false; });
     apply();
   });
+
+  /* STEP 6C, 2026-09-30. Scroll discoverability for wide tables (VISUAL-1 V1-04).
+     The region pattern already worked: measured across 15 routes and 6 widths
+     there is zero page-level horizontal overflow, every region carries an
+     accessible name, and every one is keyboard focusable with working arrow-key
+     scrolling. The gap was that nothing told a reader the region scrolls, while
+     /sources/methods/ keeps 11,752px out of view at 375px.
+
+     This adds words, not layout. It writes no markup into the page source, so
+     no route template, generated page or generator parity is affected, and it
+     changes no cell, header, caption, id, order or value. A hint appears only
+     for a region that is genuinely overflowing right now, and disappears when
+     it stops - so a table that fits is never labelled scrollable. */
+  var hintId = 0;
+  var regions = Array.prototype.slice.call(document.querySelectorAll('.vfc-tablewrap'));
+
+  regions.forEach(function (region) {
+    var hint = document.createElement('p');
+    hint.className = 'vfc-tablewrap__hint';
+    hintId += 1;
+    hint.id = 'vfc-tablewrap-hint-' + hintId;
+    hint.setAttribute('data-vfc-scrollhint', 'off');
+    /* The direction glyph is decorative; the sentence already carries the
+       meaning for a screen reader. */
+    hint.innerHTML = 'More columns are off screen. Scroll sideways to view them. ' +
+      'Keyboard: Tab to the table, then use Left/Right Arrow.' +
+      '<span class="vfc-tablewrap__arrow" aria-hidden="true">&#8596;</span>';
+    /* OWNER REVIEW CORRECTION, 2026-09-30. The hint was previously inserted
+       after the region. On a long table at 375px the reader met the
+       instruction only after scrolling past the whole table, which defeats
+       V1-04: the point is to be told before the columns are missed. It now
+       precedes the region, so it is the first thing encountered. */
+    if (region.parentNode) region.parentNode.insertBefore(hint, region);
+
+    function sync() {
+      var overflowing = region.scrollWidth > region.clientWidth + 1;
+      hint.setAttribute('data-vfc-scrollhint', overflowing ? 'on' : 'off');
+      /* Describe the region by the hint only while the hint is true, so a
+         keyboard reader landing on a region that fits hears only its name. */
+      if (overflowing) {
+        region.setAttribute('aria-describedby', hint.id);
+      } else {
+        region.removeAttribute('aria-describedby');
+      }
+    }
+
+    sync();
+
+    if (typeof ResizeObserver === 'function') {
+      /* Zoom, rotation and reflow all change the answer, so recompute rather
+         than deciding once at load. */
+      var ro = new ResizeObserver(sync);
+      ro.observe(region);
+      var table = region.querySelector('table');
+      if (table) ro.observe(table);
+    } else {
+      window.addEventListener('resize', sync);
+    }
+
+    /* A region inside a closed <details> has no layout until it is opened;
+       recompute when the disclosure toggles. Verified on /record/policy/fiscal/. */
+    var details = region.closest ? region.closest('details') : null;
+    if (details) details.addEventListener('toggle', sync);
+  });
 })();

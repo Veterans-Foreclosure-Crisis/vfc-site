@@ -1675,7 +1675,27 @@ main .vfc-m-155 { color: var(--red-dk); }
    flex minimum), /take-action/one-pager/ (a nowrap label in a flex row), /take-action/for-reporters/ (a long link).
    Under 600px: grids stack, tables scroll inside their own box, labels and links wrap. */
 @media (max-width: 600px) {
-  main table { display: block; overflow-x: auto; max-width: 100%; }
+  /* STEP 6, 2026-09-30. Scoped to tables that are NOT already inside a
+     .vfc-tablewrap region.
+
+     When this rule was written on 2026-09-14, /record/policy/barriers/ had a
+     table with no scroll box, so giving every table its own was the fix. The
+     focusable, named .vfc-tablewrap region came later, and
+     tests/sitewide-page-contract.spec.js now asserts tablesOutsideWrap === 0 -
+     so for real content this rule had become a SECOND scroller nested inside
+     the first. axe flagged it as `scrollable-region-focusable` (serious) on 6
+     nodes across /record/policy/how-the-rule-changed/, /record/policy/barriers/,
+     /record/current-status/ and /take-action/one-pager/: a scrollable region
+     with no keyboard access, inside one that has it. Measured on
+     /record/policy/barriers/ at 375px: the table computed to 109px wide holding
+     408px of content, scrolling independently of its wrapper.
+
+     `display: block` on a <table> also drops native table semantics, which
+     matters more here than usual - these are evidence tables.
+
+     The rule is kept rather than deleted so an unwrapped table would still get
+     a scroll box, which is what 2026-09-14 was protecting against. */
+  main table:not(.vfc-tablewrap *) { display: block; overflow-x: auto; max-width: 100%; }
   main table > caption { display: block; max-width: calc(100vw - 2 * var(--sp-4)); }
   .vfc-card-grid, .vfc-asks-grid, .vfc-grid-ruled-080 { grid-template-columns: 1fr; }
   .vfc-m-090 { flex-wrap: wrap; }

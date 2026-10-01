@@ -711,6 +711,43 @@
   padding: var(--space-2) 0; margin: 0 0 var(--space-6);
   display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4);
 }
+
+/* Home hero key dates: date first, then why it matters. This replaces the
+   unexplained metadata strip in the lead without changing the compact dateline
+   treatment used later on Home for the Latest section. */
+.vfc-home-key-dates {
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  border-top: var(--border-thin) solid var(--rule);
+}
+.vfc-home-key-dates > li {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: var(--space-2) var(--space-5);
+  align-items: baseline;
+  padding: var(--space-3) 0;
+  border-bottom: var(--border-thin) solid var(--rule);
+}
+.vfc-home-key-dates time,
+.vfc-home-key-dates__date {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--meta-ink);
+}
+.vfc-home-key-dates > li > span:last-child {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+@media (max-width: 768px) {
+  .vfc-home-key-dates > li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+}
 .vfc-v2 .vfc-home-hero .vfc-lede { font-size: 1.3125rem; line-height: 1.5; margin: 0 0 var(--space-4); max-width: var(--prose-max); }
 .vfc-home-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); margin: var(--space-6) 0 0; padding: 0; list-style: none; }
 .vfc-home-ctas a {
@@ -2156,6 +2193,27 @@
   background: var(--surface-white);
   border: 1px solid var(--rule);
 }
+
+/* STEP 6D, 2026-09-30. The same correction the link rule below already makes,
+   applied to the notice's TEXT. These three carry light-on-dark colours from a
+   2026-09-09 axe fix whose comment still describes `.vfc-chip-350` as having an
+   "ink background". The family rule above gives it a white ground, so on
+   /record/policy/barriers/ they measured:
+     .vfc-m-137 "PROJECT ANALYSIS"  #f0f1f0 on #ffffff  1.13:1
+     .vfc-m-139 em                  #f0f1f0 on #ffffff  1.13:1
+     .vfc-m-140 grounding line      #d6d7d4 on #ffffff  1.45:1
+   Corrected inside the family only, so any page still showing the dark notice
+   keeps its light text. No global token changes, and `.vfc-u-020` is corrected
+   here rather than globally - its instances outside this notice measure 5.29:1
+   and are already fine. */
+.vfc-v2.vfc-fam-record .vfc-chip-350 .vfc-m-137,
+.vfc-v2.vfc-fam-record .vfc-chip-350 .vfc-m-139 {
+  color: var(--ink);
+}
+.vfc-v2.vfc-fam-record .vfc-chip-350 .vfc-m-140,
+.vfc-v2.vfc-fam-record .vfc-chip-350 .vfc-u-020 {
+  color: var(--meta-ink);
+}
 /* The shared rule `main .vfc-chip-350 a { color: var(--paper) }` was written for
    this notice when it had a #222222 ground: near-white link on black. The
    family gives the notice a white ground, so that rule now renders the crisis
@@ -2223,6 +2281,66 @@
   .vfc-v2.vfc-fam-record .vfc-tile-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   }
+}
+
+/* ---- STEP 6C, 2026-09-30: base scroll region + scroll discoverability ----
+   VISUAL-1 V1-04 asked for a non-color-only affordance on narrow tables, and
+   V1-05 asked QA to separate page overflow (a failure) from a local named
+   region (allowed, but it must be discoverable).
+
+   Measured on this build, 15 routes x 6 widths = 90 measurements:
+     - page-level horizontal overflow: 0. The region pattern works.
+     - every region has an accessible name and is keyboard focusable, and
+       arrow keys scroll it (verified on 6 routes at 375px).
+     - what is missing is any indication that the region scrolls at all.
+       /sources/methods/ holds 11,752px out of view at 375px;
+       /record/policy/barriers/ 3,389px; /take-action/ 1,940px.
+
+   BASE RULE. Every .vfc-tablewrap rule below this point is scoped to
+   .vfc-v2.vfc-fam-record, so the two help-family tables (/get-help/ and
+   /get-help/escrow-check/) had role="region" and tabindex="0" but computed
+   overflow-x:visible - a named, focusable region that could not actually
+   scroll. Both tables currently fit at 320-1440px, so nothing is clipped
+   today and this rule is inert for them; it closes the gap before a column is
+   ever added. */
+.vfc-tablewrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.vfc-tablewrap:focus-visible {
+  outline: 3px solid var(--accent-critical);
+  outline-offset: 2px;
+}
+
+/* The hint is written by vfc-controls.js and only for regions that actually
+   overflow, so a table that fits is never labelled as scrollable. It carries
+   its own words and a direction glyph rather than relying on colour or on a
+   gradient edge alone, which satisfies "non-color-only". Hidden until the
+   script confirms overflow; with scripting off nothing false is announced and
+   the region stays focusable and named.
+
+   OWNER REVIEW CORRECTION, 2026-09-30: the hint now precedes its region, so
+   the margin sits below it rather than above. A reader meeting a long table at
+   375px must be told before the off-screen columns are missed, not after
+   scrolling past the whole table. */
+.vfc-tablewrap__hint {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  line-height: 1.4;
+  color: var(--meta-ink);
+  margin: 0 0 var(--space-2);
+  padding: 0;
+}
+.vfc-tablewrap__hint[data-vfc-scrollhint="on"] {
+  display: block;
+}
+.vfc-tablewrap__hint .vfc-tablewrap__arrow {
+  font-weight: 700;
+  padding-inline-start: 0.35em;
+}
+@media (forced-colors: active) {
+  .vfc-tablewrap__hint { color: CanvasText; }
 }
 
 /* ---- Oversight tables: readable columns inside a scroll region ----------
@@ -2481,4 +2599,58 @@
 @media (max-width: 768px) {
   .vfc-v2 .vfc-sheet__footer { flex-wrap: wrap; }
   .vfc-v2 .vfc-m-025 { white-space: normal; overflow-wrap: anywhere; }
+}
+
+/* STEP 6D, 2026-09-30. The 72% stat on the fiscal dark-emphasis panel.
+   `main .vfc-m-155 { color: var(--red-dk) }` was written 2026-09-09 assuming a
+   light ground. On /record/policy/fiscal/ this stat sits on `.vfc-m-150`, which
+   is a deliberate #222222 impact surface - protected by the existing
+   "dark impact surfaces remain short emphasis" guardrail - so the dark red
+   measured #94182a on #222222 = 1.84:1. At 64px/900 this is large text, so the
+   AA threshold is 3:1; it failed that too. Paper on the impact ground is the
+   treatment the rest of that panel already uses. Scoped to the panel, so
+   `--red-dk` and `.vfc-m-155` elsewhere are untouched. */
+.vfc-v2.vfc-fam-record .vfc-m-150 .vfc-m-155 {
+  color: var(--paper);
+}
+
+/* STEP 6D, 2026-09-30. The nine "Evidence · Cxxx" links on /sources/methods/
+   sit in `div.vfc-mono-s12-083`. The site's existing running-text underline
+   rule in vfc-web-ds.css lists `main p a, main li a, main td a, ...` - element
+   containers - so a div container was never matched and these links were
+   distinguished by colour alone (axe `link-in-text-block`, serious, 9 nodes).
+
+   This is the treatment already used sitewide, applied verbatim to the one
+   container that was missed. No new link design, no broad restyle, no change
+   to link text or destinations, and the focus ring is untouched. */
+main .vfc-mono-s12-083 a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* STEP 9, 2026-09-30. Barriers explanatory/table composition stacks on a phone.
+   `.vfc-m-132` is `grid-template-columns: minmax(0,1fr) minmax(0,1.15fr)` with
+   no narrow-width rule, so at 375px it held its two columns and split 229px of
+   content into a 94px prose column beside a 109px table column. The prose then
+   wrapped to two or three words a line, and the Step 6C scroll instruction
+   inherited the same squeeze.
+
+   Collapsing to one column at the component's existing 600px narrow breakpoint
+   is the whole fix. Source order already places the explanatory prose before
+   the table region, so stacking gives prose first at full width, then the
+   instruction, then the table - no markup, copy, column, header or ordering
+   change, and the table keeps its own horizontal scroll region.
+
+   `.vfc-m-132` appears on /record/policy/barriers/ and nowhere else in the
+   build, and this is additionally scoped to the record family, so no other page
+   or family can be affected. Desktop and tablet are untouched. */
+@media (max-width: 600px) {
+  /* minmax(0,1fr), not 1fr. A bare 1fr is minmax(auto,1fr), whose auto floor
+     is the track's min-content width - and the min-content width of a wide
+     table is the whole table. Measured with the bare value: the prose column
+     computed to 728px inside a 276px container and the PAGE overflowed by
+     481px at 320px. The original two-column rule used minmax(0,...) for the
+     same reason. */
+  .vfc-v2.vfc-fam-record .vfc-m-132 { grid-template-columns: minmax(0, 1fr); }
 }

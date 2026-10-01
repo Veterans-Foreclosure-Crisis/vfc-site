@@ -1,0 +1,28 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/tableschema.json",
+  "fieldsMatch": "exact",
+  "fields": [
+    {
+      "name": "glossary_id",
+      "type": "string"
+    },
+    {
+      "name": "term",
+      "type": "string"
+    },
+    {
+      "name": "definition",
+      "type": "string"
+    },
+    {
+      "name": "see",
+      "type": "string"
+    }
+  ],
+  "missingValues": [
+    ""
+  ],
+  "primaryKey": [
+    "glossary_id"
+  ]
+}

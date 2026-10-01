@@ -1,59 +1,96 @@
-# Content licence
+# VFC content and data licence
 
-**Creative Commons Attribution 4.0 International (CC BY 4.0)**
+## Licence
+
+VFC-authored content and structured public data are made available under the
+**Creative Commons Attribution 4.0 International licence (CC BY 4.0)**:
 https://creativecommons.org/licenses/by/4.0/
 
-## What this covers
+This grant applies only to rights actually controlled by the applicable VFC
+contributor(s). It does not relicense third-party material merely because that
+material is cited, reproduced as evidence, linked, or stored in the repository.
 
-Everything in this repository that is not code:
+## Rights holder and publication name
 
-- the record: the chronology, the claims register, the source register, the rebuttal index
-- the writing on every page
-- the charts and their underlying data
-- the toolkits, one pagers and printable documents
-- the data files in `data/`: `timeline.csv`, `claims.csv`, `sources.csv`, `rebuttals.csv`
+As of 2026-09-29, copyright in Leann Ledford's original VFC code, writing,
+compilation, analysis, and other protectable project material has **not** been
+assigned to Salmonberry Cooperative or another legal entity. Leann Ledford
+therefore remains the rights holder for original material she authored.
 
-The code, meaning the HTML structure, CSS, JavaScript and build scripts, is
-covered by the MIT licence in `LICENSE`.
+Other contributors retain copyright in their own contributions unless a
+separate written assignment says otherwise. Accepted contributions must carry
+the permission needed for VFC to publish and license them under the applicable
+project licence.
 
-## What you can do
+**Veterans Foreclosure Crisis** is the project/publication name and the requested
+public attribution name. It is not being represented here as a separate legal
+copyright owner.
 
-Share it, republish it, adapt it, translate it, print it, build on it, put it in
-a training packet, hand it to a family at a kitchen table, quote it in a filing.
-Commercial use included. You do not need to ask.
+## What CC BY 4.0 covers
 
-This record exists to be used. Families, advocates, caseworkers, reporters,
-congressional staff and legal aid organisations are the intended users, and
-nobody should have to ask permission to help someone keep their house.
+To the extent the relevant rights are held by VFC contributors, CC BY 4.0 covers:
 
-## The one condition
+- VFC-authored page copy, explainers, annotations, methods text, and editorial
+  material;
+- VFC-authored charts, diagrams, toolkits, briefs, and printable materials;
+- the VFC-authored compilation, field labels, analysis, annotations, and
+  protectable database rights in the six public registers:
+  - `sources.csv`
+  - `claims.csv`
+  - `timeline.csv`
+  - `rebuttals.csv`
+  - `news.csv`
+  - `glossary.csv`
+- VFC-authored schemas and public package metadata, except where a third-party
+  licence or public-domain status applies.
 
-**Attribution.** Credit "Veterans Foreclosure Crisis", link to
-https://veteransforeclosurecrisis.org, and note the date you took it.
+The code that builds, styles, validates, exports, or deploys the project is
+licensed under the MIT licence in `LICENSE` instead.
 
-Attribution here is not about credit. It is so the **source and the as-of date
-travel with the figure**. A number from this record that arrives somewhere
-without its date stops being checkable, and checkable is the whole asset. If you
-adapt or change something, say so, so a reader can tell your version from ours.
+## What CC BY 4.0 does not cover
 
-## What is NOT covered
+The VFC licence grant does **not** cover rights VFC does not own or control,
+including:
 
-**Third-party material.** Screenshots of statutes, regulations, hearing records
-and agency documents are reproduced here as evidence. Most are US federal
-government works and are in the public domain. News articles, photographs and
-charts produced by other organisations are cited and linked, not relicensed, and
-their own terms apply. If a receipt image carries another outlet's masthead,
-that outlet's rights are theirs, not ours.
+- news articles, photographs, graphics, charts, or other works created by third
+  parties;
+- source documents, hearing materials, agency documents, court records,
+  statutes, regulations, screenshots, and evidence receipts except to the
+  extent VFC separately owns protectable additions to them;
+- third-party software, fonts, or other dependencies;
+- family-supplied photographs, documents, testimony, stories, or case material
+  unless a specific publication/licensing basis says otherwise.
 
-**Personal and case information.** Nothing in this record identifies a minor, and
-private case details are de-identified by state. Do not attempt to re-identify
-any family described here, and do not use this material to do so.
+Some government works may be public domain; others may carry separate rights.
+VFC does not claim copyright in public-domain source material and does not use
+this licence to override a source's own rights status.
+
+Consent to publish family information is **not** treated as consent to place the
+underlying family material under CC BY 4.0. Family and case material stays
+outside the open-content grant unless that scope is explicitly agreed.
+
+See `THIRD_PARTY_NOTICES.md` for bundled third-party notices.
+
+## Attribution requested
+
+When reusing material covered by this licence, please identify:
+
+- **Veterans Foreclosure Crisis** as the source/publication;
+- https://veteransforeclosurecrisis.org;
+- the date or version you used; and
+- whether you changed, adapted, translated, or combined the material.
+
+Where practical, link to this licence. Attribution is intended to keep the
+source, version, and correction trail attached to reused material; it does not
+imply VFC endorses the reuse.
 
 ## Corrections
 
-If you republish something and we later correct it, the correction appears at
-https://veteransforeclosurecrisis.org/about/corrections with its date. If you
-are holding a copy, check there before relying on a figure.
+VFC maintains a public correction record at:
+https://veteransforeclosurecrisis.org/about/corrections/
+
+If you retain or republish a VFC figure, claim, or dataset, check the correction
+record and the current source/register before relying on an older copy.
 
 ## Questions
 

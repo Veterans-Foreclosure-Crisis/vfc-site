@@ -1,0 +1,84 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/tableschema.json",
+  "fieldsMatch": "exact",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "string"
+    },
+    {
+      "name": "date_display",
+      "type": "string"
+    },
+    {
+      "name": "event",
+      "type": "string"
+    },
+    {
+      "name": "layer",
+      "type": "string"
+    },
+    {
+      "name": "span",
+      "type": "string"
+    },
+    {
+      "name": "who_was_told",
+      "type": "string"
+    },
+    {
+      "name": "who_told_them",
+      "type": "string"
+    },
+    {
+      "name": "venue",
+      "type": "string"
+    },
+    {
+      "name": "source_url",
+      "type": "string"
+    },
+    {
+      "name": "source_id",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "notes",
+      "type": "string"
+    },
+    {
+      "name": "commitment_kind",
+      "type": "string"
+    },
+    {
+      "name": "outcome",
+      "type": "string"
+    },
+    {
+      "name": "due_date",
+      "type": "string"
+    },
+    {
+      "name": "verification_status",
+      "type": "string"
+    },
+    {
+      "name": "event_date_precision",
+      "type": "string"
+    }
+  ],
+  "missingValues": [
+    ""
+  ],
+  "primaryKey": [
+    "id"
+  ]
+}

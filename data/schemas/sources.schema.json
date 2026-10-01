@@ -1,0 +1,68 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/tableschema.json",
+  "fieldsMatch": "exact",
+  "fields": [
+    {
+      "name": "source_id",
+      "type": "string"
+    },
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "publisher",
+      "type": "string"
+    },
+    {
+      "name": "url",
+      "type": "string"
+    },
+    {
+      "name": "pub_date",
+      "type": "string"
+    },
+    {
+      "name": "last_verified",
+      "type": "string"
+    },
+    {
+      "name": "type",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "status_display",
+      "type": "string"
+    },
+    {
+      "name": "note",
+      "type": "string"
+    },
+    {
+      "name": "archived_url",
+      "type": "string"
+    },
+    {
+      "name": "provenance",
+      "type": "string"
+    },
+    {
+      "name": "verification_status",
+      "type": "string"
+    },
+    {
+      "name": "pub_date_precision",
+      "type": "string"
+    }
+  ],
+  "missingValues": [
+    ""
+  ],
+  "primaryKey": [
+    "source_id"
+  ]
+}

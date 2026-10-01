@@ -1,0 +1,44 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/tableschema.json",
+  "fieldsMatch": "exact",
+  "fields": [
+    {
+      "name": "claim_id",
+      "type": "string"
+    },
+    {
+      "name": "claim_text",
+      "type": "string"
+    },
+    {
+      "name": "source_id",
+      "type": "string"
+    },
+    {
+      "name": "content_label",
+      "type": "string"
+    },
+    {
+      "name": "definition",
+      "type": "string"
+    },
+    {
+      "name": "limitation",
+      "type": "string"
+    },
+    {
+      "name": "last_verified",
+      "type": "string"
+    },
+    {
+      "name": "pages",
+      "type": "string"
+    }
+  ],
+  "missingValues": [
+    ""
+  ],
+  "primaryKey": [
+    "claim_id"
+  ]
+}
