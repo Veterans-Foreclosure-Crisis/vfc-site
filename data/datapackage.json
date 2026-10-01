@@ -33,8 +33,8 @@
       "schema": "schemas/sources.schema.json",
       "title": "Source register",
       "description": "Every citation on the site.",
-      "bytes": 255898,
-      "hash": "sha256:c459593f32a4d75c354f870c5d123282c3b35aa8cba6eb675e16627165d4f5ba"
+      "bytes": 256132,
+      "hash": "sha256:3348e530c03f4335069633af7d8020ca7e34027f423d5d2e9a9829c52df08453"
     },
     {
       "name": "claims",
@@ -46,8 +46,8 @@
       "schema": "schemas/claims.schema.json",
       "title": "Claims register",
       "description": "Every factual claim on the site, what it rests on, and what it does not prove.",
-      "bytes": 45466,
-      "hash": "sha256:1cf25e1dd10119523e64ebb807b56d99149041c93e6de99aeffe7651d2afe11e"
+      "bytes": 45471,
+      "hash": "sha256:67f25206018d34ec3c88fd3ea8a2b7ba935a11944cb2a7e9e0c3785a658f441f"
     },
     {
       "name": "timeline",
@@ -59,8 +59,8 @@
       "schema": "schemas/timeline.schema.json",
       "title": "Chronology",
       "description": "The dated spine. The Record owns it; other pages render filtered views.",
-      "bytes": 30657,
-      "hash": "sha256:cda4948a4bafa6df1cab03433964548d515fe07554abc89750630f23ea9d8d38"
+      "bytes": 30662,
+      "hash": "sha256:2d0963f51cea3b4031628b3b9b1cc6799ad82897524c5ad030cbaa4fdd1b5e7a"
     },
     {
       "name": "rebuttals",
