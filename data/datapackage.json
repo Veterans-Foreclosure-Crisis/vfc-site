@@ -33,8 +33,8 @@
       "schema": "schemas/sources.schema.json",
       "title": "Source register",
       "description": "Every citation on the site.",
-      "bytes": 256132,
-      "hash": "sha256:3348e530c03f4335069633af7d8020ca7e34027f423d5d2e9a9829c52df08453"
+      "bytes": 258274,
+      "hash": "sha256:c66394d9825b89c5c510837f38b8c565c2dbbf633eb4aa3d7046c3c5293603ea"
     },
     {
       "name": "claims",
@@ -46,8 +46,8 @@
       "schema": "schemas/claims.schema.json",
       "title": "Claims register",
       "description": "Every factual claim on the site, what it rests on, and what it does not prove.",
-      "bytes": 45471,
-      "hash": "sha256:67f25206018d34ec3c88fd3ea8a2b7ba935a11944cb2a7e9e0c3785a658f441f"
+      "bytes": 46921,
+      "hash": "sha256:4e89d6a0b093537244fffe9b10c312fdc72ce51edde6bb829f3585444bbf5913"
     },
     {
       "name": "timeline",

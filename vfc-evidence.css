@@ -2654,3 +2654,719 @@ main .vfc-mono-s12-083 a {
      same reason. */
   .vfc-v2.vfc-fam-record .vfc-m-132 { grid-template-columns: minmax(0, 1fr); }
 }
+
+
+/* ============================================================================
+   WEB-NATIVE EXPLAINERS — 2026-10-04
+   Responsive website figures. These orient the reader before the full
+   source-rich record below. They are NOT social-card layouts and never replace
+   the canonical evidence, source IDs, limitations, or text equivalents.
+   ========================================================================= */
+.vfc-webvis {
+  margin: var(--space-8) 0 var(--space-10);
+  padding: var(--space-6) 0;
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-bottom: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis > :first-child { margin-top: 0; }
+.vfc-webvis__kicker {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--meta-ink);
+}
+.vfc-webvis__title {
+  margin: 0 0 var(--space-3);
+  max-width: 52rem;
+  font-family: var(--font-ui);
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  line-height: 1.18;
+  color: var(--ink-deep);
+}
+.vfc-webvis__dek,
+.vfc-webvis__note {
+  max-width: 52rem;
+  margin: 0 0 var(--space-5);
+  font-size: var(--t-body);
+  line-height: var(--t-body-lh);
+}
+.vfc-webvis__note {
+  margin-top: var(--space-5);
+  margin-bottom: 0;
+  padding-left: var(--space-3);
+  border-left: var(--border-strong) solid var(--ink-charcoal);
+  color: var(--meta-ink);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: 1.55;
+}
+.vfc-webvis__src {
+  margin: var(--space-2) 0 0;
+  color: var(--meta-ink);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: 1.45;
+}
+.vfc-webvis__src a { color: inherit; }
+
+/* Process / implementation chain */
+.vfc-webvis-chain {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-4);
+  padding: 0;
+  margin: var(--space-6) 0 0;
+}
+.vfc-webvis-chain > li {
+  position: relative;
+  min-width: 0;
+  padding-top: var(--space-3);
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+}
+.vfc-webvis-chain > li + li::before {
+  content: "\2192";
+  position: absolute;
+  left: calc(var(--space-4) * -0.72);
+  top: var(--space-3);
+  color: var(--meta-ink);
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+}
+.vfc-webvis-chain__n {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--meta-ink);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+}
+.vfc-webvis-chain__name {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  line-height: 1.25;
+}
+.vfc-webvis-chain__state {
+  display: inline-block;
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--rule);
+  padding: 2px var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.vfc-webvis-chain__owner {
+  margin: 0 0 var(--space-2);
+  color: var(--meta-ink);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  line-height: 1.35;
+}
+.vfc-webvis-chain__text { margin: 0; font-size: .96rem; line-height: 1.45; }
+
+/* Document states / era rail */
+.vfc-webvis-states,
+.vfc-webvis-periods {
+  list-style: none;
+  display: grid;
+  padding: 0;
+  margin: var(--space-6) 0 0;
+}
+.vfc-webvis-states { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.vfc-webvis-periods { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.vfc-webvis-states > li,
+.vfc-webvis-periods > li {
+  min-width: 0;
+  padding: var(--space-4);
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-right: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-states > li:first-child,
+.vfc-webvis-periods > li:first-child { border-left: var(--border-thin) solid var(--rule); }
+.vfc-webvis__date {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  color: var(--meta-ink);
+}
+.vfc-webvis__label {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+.vfc-webvis__text { margin: 0; font-size: .96rem; line-height: 1.48; }
+.vfc-webvis-periods a,
+.vfc-webvis-states a { color: var(--ink-charcoal); }
+
+/* Rule-change comparison matrix */
+.vfc-webvis-matrix {
+  margin: var(--space-6) 0 0;
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+}
+.vfc-webvis-matrix > .vfc-tablewrap {
+  margin: 0;
+}
+.vfc-webvis-matrix > .vfc-tablewrap > table {
+  margin: 0;
+  background: var(--surface-white);
+}
+.vfc-webvis-matrix th,
+.vfc-webvis-matrix td {
+  vertical-align: top;
+  line-height: 1.45;
+}
+.vfc-webvis-matrix thead th {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  letter-spacing: .02em;
+}
+.vfc-webvis-matrix tbody th {
+  font-family: var(--font-ui);
+  font-weight: 700;
+}
+.vfc-webvis-detail {
+  margin-top: var(--space-5);
+}
+.vfc-webvis-detail > summary {
+  max-width: 52rem;
+}
+.vfc-webvis-detail .vfc-details__body > h3:first-child {
+  margin-top: var(--space-5);
+}
+
+.vfc-webvis-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Question router */
+.vfc-webvis-router {
+  margin: var(--space-6) 0 var(--space-6);
+  padding: var(--space-5) 0;
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-bottom: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-router__intro { max-width: 52rem; }
+.vfc-webvis-router .vfc-webvis__title {
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+}
+.vfc-webvis-router__grid {
+  counter-reset: vfc-router;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-left: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-router__grid li {
+  counter-increment: vfc-router;
+  min-width: 0;
+  border-right: var(--border-thin) solid var(--rule);
+  border-bottom: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-router__grid a {
+  display: block;
+  min-height: 100%;
+  padding: var(--space-4);
+  color: var(--ink-charcoal);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.vfc-webvis-router__grid a::before {
+  content: counter(vfc-router, decimal-leading-zero);
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  color: var(--meta-ink);
+}
+.vfc-webvis-router__q {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+.vfc-webvis-router__a {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: .96rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+/* Three-choice consent comparison */
+.vfc-webvis-choices__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: var(--space-6);
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-left: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-choice {
+  min-width: 0;
+  padding: var(--space-4);
+  border-right: var(--border-thin) solid var(--rule);
+  border-bottom: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-choice__eyebrow {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--meta-ink);
+}
+.vfc-webvis-choice h4 {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-ui);
+  font-size: 1.08rem;
+  line-height: 1.3;
+}
+.vfc-webvis-choice dl { margin: 0; }
+.vfc-webvis-choice dl > div {
+  padding: var(--space-3) 0;
+  border-top: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-choice dt {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--meta-ink);
+}
+.vfc-webvis-choice dd { margin: 0; line-height: 1.45; }
+
+@media (max-width: 980px) {
+  .vfc-webvis-router__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vfc-webvis-choices__grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 620px) {
+  .vfc-webvis-router__grid { grid-template-columns: minmax(0, 1fr); }
+  .vfc-webvis-router__grid a { padding: var(--space-3); }
+  .vfc-webvis-choice { padding: var(--space-3); }
+}
+
+/* Accountability timeline / compact record rows */
+.vfc-webvis-records__headrow {
+  display: grid;
+  grid-template-columns: 8.5rem 9rem minmax(0, 1.35fr) minmax(0, 1fr) 7rem;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding: 0 0 var(--space-2);
+  border-bottom: var(--border-strong) solid var(--ink-charcoal);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--meta-ink);
+}
+
+.vfc-webvis-records {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+}
+.vfc-webvis-records > li {
+  display: grid;
+  grid-template-columns: 8.5rem 9rem minmax(0, 1.35fr) minmax(0, 1fr) 7rem;
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-4) 0;
+  border-bottom: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-records p { margin: 0; }
+.vfc-webvis-records__date,
+.vfc-webvis-records__type,
+.vfc-webvis-records__src {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: 1.45;
+}
+.vfc-webvis-records__date { font-weight: 700; color: var(--ink-charcoal); }
+.vfc-webvis-records__type { color: var(--meta-ink); text-transform: uppercase; }
+.vfc-webvis-records__main { font-family: var(--font-ui); font-weight: 600; line-height: 1.4; }
+.vfc-webvis-records__next { font-size: .94rem; line-height: 1.45; }
+.vfc-webvis-records__src { text-align: right; }
+.vfc-webvis-records__src a { color: var(--meta-ink); }
+
+/* Evidence coverage map */
+.vfc-webvis-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: var(--space-6);
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+}
+.vfc-webvis-map__col {
+  min-width: 0;
+  padding: var(--space-4);
+  border-right: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-map__col:first-child { border-left: var(--border-thin) solid var(--rule); }
+.vfc-webvis-map__head {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.vfc-webvis-map__col ul { margin: 0; padding-left: 1.1rem; }
+.vfc-webvis-map__col li { margin: 0 0 var(--space-3); line-height: 1.45; }
+.vfc-webvis-map__col li:last-child { margin-bottom: 0; }
+
+/* Multi-lane chronology */
+.vfc-webvis-lanes {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: var(--space-6);
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+}
+.vfc-webvis-lane {
+  min-width: 0;
+  padding: var(--space-4);
+  border-right: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-lane:first-child { border-left: var(--border-thin) solid var(--rule); }
+.vfc-webvis-lane__name {
+  margin: 0 0 var(--space-4);
+  min-height: 2.8rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.vfc-webvis-lane ol { list-style: none; margin: 0; padding: 0; }
+.vfc-webvis-lane li {
+  padding: var(--space-3) 0;
+  border-top: var(--border-thin) solid var(--rule);
+}
+.vfc-webvis-lane li:first-child { border-top: 0; padding-top: 0; }
+.vfc-webvis-lane time {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--meta-ink);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+}
+.vfc-webvis-lane a { color: var(--ink-charcoal); font-weight: 600; }
+
+@media (max-width: 980px) {
+  .vfc-webvis-chain { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .vfc-webvis-chain > li + li::before { content: none; }
+  .vfc-webvis-states { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vfc-webvis-periods { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vfc-webvis-lanes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vfc-webvis-records > li {
+    grid-template-columns: 7.5rem 7rem minmax(0, 1fr);
+  }
+  .vfc-webvis-records__next { grid-column: 3; }
+  .vfc-webvis-records__src { grid-column: 3; text-align: left; }
+}
+@media (max-width: 620px) {
+  .vfc-webvis-records__headrow { display: none; }
+
+  .vfc-webvis { margin: var(--space-6) 0 var(--space-8); padding: var(--space-5) 0; }
+  .vfc-webvis-chain,
+  .vfc-webvis-states,
+  .vfc-webvis-periods,
+  .vfc-webvis-lanes,
+  .vfc-webvis-map { grid-template-columns: minmax(0, 1fr); }
+  .vfc-webvis-states > li,
+  .vfc-webvis-periods > li,
+  .vfc-webvis-lane,
+  .vfc-webvis-map__col {
+    border-left: var(--border-thin) solid var(--rule);
+    border-right: var(--border-thin) solid var(--rule);
+  }
+  .vfc-webvis-records > li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+  .vfc-webvis-records__next,
+  .vfc-webvis-records__src { grid-column: auto; text-align: left; }
+  .vfc-webvis-lane { padding-block: var(--space-3); }
+  .vfc-webvis-lane__name { min-height: 0; margin-bottom: var(--space-2); }
+  .vfc-webvis-lane li {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: var(--space-2);
+    padding: var(--space-2) 0;
+  }
+  .vfc-webvis-lane time { margin: 0; }
+}
+/* Mobile matrix becomes labelled rule records rather than a sideways table. */
+@media (max-width: 620px) {
+  /* wrapTables() owns the actual scroll region. On this one matrix, mobile
+     changes the table into labelled rule records, so the canonical nested
+     wrapper must stop behaving like a sideways table and its runtime hint must
+     stay hidden. */
+  .vfc-webvis-matrix > .vfc-tablewrap__hint { display: none !important; }
+  .vfc-v2.vfc-fam-record .vfc-webvis-matrix > .vfc-tablewrap {
+    max-width: 100%;
+    overflow-x: visible;
+    border-bottom: 0;
+  }
+  .vfc-v2.vfc-fam-record .vfc-webvis-matrix > .vfc-tablewrap > table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    table-layout: auto;
+  }
+  .vfc-v2.vfc-fam-record .vfc-webvis-matrix > .vfc-tablewrap > table > caption {
+    position: static;
+    display: block;
+    max-width: none;
+    width: 100%;
+    padding: var(--space-3) 0;
+    text-align: left;
+  }
+  .vfc-webvis-matrix thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .vfc-webvis-matrix tbody,
+  .vfc-webvis-matrix tr,
+  .vfc-webvis-matrix th,
+  .vfc-webvis-matrix td { display: block; width: 100%; }
+  .vfc-webvis-matrix tbody tr {
+    padding: var(--space-3) 0 var(--space-4);
+    border-top: var(--border-strong) solid var(--ink-charcoal);
+  }
+  .vfc-v2.vfc-fam-record .vfc-webvis-matrix > .vfc-tablewrap > table th,
+  .vfc-v2.vfc-fam-record .vfc-webvis-matrix > .vfc-tablewrap > table td {
+    min-width: 0;
+    max-width: 100%;
+    padding: var(--space-2) 0;
+    border: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+  .vfc-webvis-matrix tbody th[scope="row"] {
+    margin-bottom: var(--space-1);
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+  .vfc-webvis-matrix tbody td {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    border-top: var(--border-thin) solid var(--rule);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .vfc-webvis-matrix tbody td::before {
+    display: block;
+    margin-bottom: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: var(--t-meta);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--meta-ink);
+  }
+  .vfc-webvis-matrix tbody td:nth-of-type(1)::before { content: "Jul 2025 law"; }
+  .vfc-webvis-matrix tbody td:nth-of-type(2)::before { content: "Nov amendment"; }
+  .vfc-webvis-matrix tbody td:nth-of-type(3)::before { content: "VA draft"; }
+  .vfc-webvis-matrix tbody td:nth-of-type(4)::before { content: "VA final"; }
+  .vfc-webvis-matrix tbody td:nth-of-type(5)::before { content: "Family meaning"; }
+  .vfc-webvis-matrix tbody td:nth-of-type(6)::before { content: "Sources"; }
+}
+
+@media print {
+  .vfc-webvis { break-inside: avoid; }
+  .vfc-webvis-chain,
+  .vfc-webvis-states,
+  .vfc-webvis-periods,
+  .vfc-webvis-lanes,
+  .vfc-webvis-map { display: block; }
+  .vfc-webvis-chain > li,
+  .vfc-webvis-states > li,
+  .vfc-webvis-periods > li,
+  .vfc-webvis-lane,
+  .vfc-webvis-map__col { break-inside: avoid; border: 1px solid #000; margin-bottom: 8px; }
+}
+
+
+/* =========================================================================
+   SITE-WIDE OWNER CORRECTION: PLAIN-SPEAK HEADING HIERARCHY
+   2026-10-05
+
+   The previous system explicitly treated the small mono kicker as "what this
+   section is" and the larger headline as "the editorial line." That produces
+   the chronic title/subtitle inversion the owner has repeatedly rejected.
+
+   New invariant:
+     - h1/h2/h3 carries the actual plain-language meaning and is visually primary.
+     - kicker/eyebrow text is metadata only: date, sequence, document type,
+       evidence class, or route context. It must not look like the real title.
+     - structural rules belong to sections/components, not to the metadata label.
+   ========================================================================= */
+.vfc-v2 .vfc-section__kicker,
+.vfc-section__kicker {
+  border-top: 0;
+  padding-top: 0;
+  margin: 0 0 var(--space-1);
+  color: var(--meta-ink);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  letter-spacing: .055em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Web-native explainers no longer use a visible newspaper-style eyebrow.
+   Their direct h2/h3 title must explain the visual on its own. */
+.vfc-webvis__kicker {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Numbered implementation chain: the old horizontal top rules visually ran
+   into the stage numbers at review scale. Use a vertical stage rule instead;
+   arrows remain between columns and no rule occupies the number's text line. */
+.vfc-webvis-chain > li {
+  padding-top: 0;
+  padding-left: var(--space-3);
+  border-top: 0;
+  border-left: var(--border-strong) solid var(--ink-charcoal);
+}
+.vfc-webvis-chain > li + li::before {
+  content: none;
+}
+@media (max-width: 980px) {
+  .vfc-webvis-chain > li { min-height: 100%; }
+}
+@media (max-width: 620px) {
+  .vfc-webvis-chain > li {
+    padding: var(--space-3) 0 var(--space-4) var(--space-3);
+    border-left: var(--border-strong) solid var(--ink-charcoal);
+    border-bottom: var(--border-thin) solid var(--rule);
+  }
+  .vfc-webvis-chain > li:last-child { border-bottom: 0; }
+}
+
+/* How-the-rule-changed is exceptionally dense. Its direct-child evidence
+   subsections get a visible start boundary so an h3 can never disappear in the
+   preceding prose/table. Nested headings inside disclosures keep their normal
+   hierarchy and do not receive another chapter break. */
+.vfc-rule-changed > h3.vfc-display-s20-127 {
+  margin: var(--space-12) 0 var(--space-4);
+  padding-top: var(--space-8);
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  font-family: var(--font-ui);
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.vfc-rule-changed > h3.vfc-display-s20-127 + p {
+  max-width: 52rem;
+  margin-top: 0;
+}
+.vfc-rule-changed > table,
+.vfc-rule-changed > .vfc-tablewrap,
+.vfc-rule-changed > .vfc-webvis-matrix,
+.vfc-rule-changed > details {
+  margin-bottom: var(--space-8);
+}
+@media (max-width: 620px) {
+  .vfc-rule-changed > h3.vfc-display-s20-127 {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+  }
+}
+
+
+/* Homepage causal history: COVID forbearance → VASP → Congress → VA Partial Claim.
+   This is an orientation timeline, not a replacement for the detailed record. */
+.vfc-home-history {
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.vfc-home-history__steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  border-left: var(--border-thin) solid var(--rule);
+}
+.vfc-home-history__steps > li {
+  min-width: 0;
+  padding: var(--space-4);
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-right: var(--border-thin) solid var(--rule);
+  border-bottom: var(--border-thin) solid var(--rule);
+  background: var(--surface-white);
+}
+.vfc-home-history__analysis {
+  max-width: 60rem;
+  margin: var(--space-5) 0 0;
+  padding: var(--space-4) 0 0;
+  border-top: var(--border-thin) solid var(--rule);
+  font-family: var(--font-serif);
+  line-height: 1.55;
+}
+.vfc-home-history .vfc-webvis__note {
+  max-width: 60rem;
+  margin-top: var(--space-4);
+}
+@media (max-width: 980px) {
+  .vfc-home-history__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .vfc-home-history__steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .vfc-home-history__steps > li {
+    padding: var(--space-4) var(--space-3);
+  }
+}

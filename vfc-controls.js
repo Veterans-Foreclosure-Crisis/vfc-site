@@ -101,7 +101,15 @@
     if (region.parentNode) region.parentNode.insertBefore(hint, region);
 
     function sync() {
-      var overflowing = region.scrollWidth > region.clientWidth + 1;
+      /* The Rule Changed comparison becomes stacked labelled records at
+         <=620px. At that width the region is intentionally non-scrollable, so
+         do not announce a sideways-scroll affordance even if an intermediate
+         layout measurement briefly reports overflow while fonts/reflow settle. */
+      var stackedRuleMatrix =
+        Boolean(region.closest && region.closest('.vfc-webvis-matrix')) &&
+        window.matchMedia('(max-width: 620px)').matches;
+      var overflowing =
+        !stackedRuleMatrix && region.scrollWidth > region.clientWidth + 1;
       hint.setAttribute('data-vfc-scrollhint', overflowing ? 'on' : 'off');
       /* Describe the region by the hint only while the hint is true, so a
          keyboard reader landing on a region that fits hears only its name. */

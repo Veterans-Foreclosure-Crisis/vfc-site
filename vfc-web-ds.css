@@ -341,18 +341,23 @@
 .vfc-nav__item:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
 
 /* ============================ THE SECTION BLOCK ============================
-   The single most important component. Fixed order, every time:
-     kicker (what this section is)  →  headline (the editorial line)
-     →  chip (evidence class)  →  plain line  →  body  →  collapsed detail
-   Orienting context first. Never last. This is a structural guarantee,
-   not an editorial habit, the DOM order enforces it.
+   The single most important component. Fixed semantic order:
+     optional metadata kicker → direct plain-language headline
+     → chip (evidence class) → explanatory line → body → collapsed detail
+
+   OWNER CORRECTION, 2026-10-05:
+   The headline carries the actual meaning: who/what/when/where/why as needed.
+   The kicker is metadata only (date, part number, document/evidence type,
+   route context). It must never contain the only useful description of the
+   section and must never visually outrank the headline. Decorative rules live
+   on the section/component, not on the metadata label.
    ========================================================================= */
 
 .vfc-section          { margin: var(--sp-6) 0; scroll-margin-top: var(--sp-5); }
-.vfc-section__kicker  { font-family: var(--font-mono); font-size: var(--fs-label);
-                        text-transform: uppercase; letter-spacing: .12em; color: var(--red);
-                        border-top: 1px solid var(--ink); padding-top: var(--sp-2);
-                        margin: 0 0 var(--sp-2); display: block; }
+.vfc-section__kicker  { font-family: var(--font-mono); font-size: var(--fs-micro);
+                        text-transform: uppercase; letter-spacing: .055em; color: var(--ink-mute);
+                        border-top: 0; padding-top: 0;
+                        margin: 0 0 var(--sp-1); display: block; }
 .vfc-section__headline{ font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h2);
                         line-height: 1.12; letter-spacing: .01em; margin: 0 0 var(--sp-2);
                         max-width: 24ch; }
@@ -426,9 +431,10 @@
 
 .vfc-myth        { border-left: 4px solid var(--red); padding: var(--sp-3) 0 var(--sp-3) var(--sp-4);
                    margin: var(--sp-4) 0; scroll-margin-top: var(--sp-5); }
-.vfc-myth__heard { font-family: var(--font-mono); font-size: var(--fs-label);
-                   text-transform: uppercase; letter-spacing: .1em; color: var(--red);
-                   margin: 0 0 var(--sp-1); }
+.vfc-myth__heard { font-family: var(--font-ui); font-size: var(--t-h3);
+                   font-weight: 700; line-height: var(--t-h3-lh);
+                   text-transform: none; letter-spacing: 0; color: var(--ink-charcoal);
+                   margin: 0 0 var(--sp-2); }
 .vfc-myth__claim { font-family: var(--font-serif); font-style: italic; font-size: var(--fs-lede);
                    color: var(--ink-soft); margin: 0 0 var(--sp-3); max-width: var(--measure); }
 .vfc-myth__record{ font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3);
@@ -1364,9 +1370,9 @@ h1.vfc-section__headline    { font-size: var(--fs-h1); max-width: none; }
   line-height: 1.02;
 }
 
-/* 3. Section kickers were 11.5px and 12px. That is metadata size, and these are
-      doing the job of a section label. The web floor of 12px is for metadata
-      only, per the design system. */
+/* 3. Section kickers are metadata, not section titles. Keep them at metadata
+      size; the adjacent h1/h2/h3 must carry the section's plain-language
+      meaning and visibly outrank the kicker. */
 .vfc-mono-caps-ruled-s11_5-066,
 .vfc-mono-caps-ruled-s12-052,
 .vfc-m-094,
@@ -1566,8 +1572,13 @@ h1.vfc-section__headline    { font-size: var(--fs-h1); max-width: none; }
    1. .vfc-ruled-010 sets color #F0F1F0 (paper) and is used on phone links INSIDE
       .vfc-key-finding, whose background is #ffffff. White on white: the HUD and
       211 numbers on /get-help/ were invisible. Tier 1.
-   2. The 988 link inside .vfc-chip-350 (ink background) inherited the base red
-      link colour: red on black fails AA.
+   2. The 988 link inside .vfc-chip-350 inherited the base red link colour.
+      At the time this was written the notice had an ink (#222222) ground, so
+      the failure was red on black. STALE COMMENT CORRECTED 2026-10-01: the
+      record family now gives .vfc-chip-350 a WHITE ground, and the
+      light-on-dark colours are corrected inside that family in
+      vfc-evidence.css (STEP 6D). The rule below is unchanged; only this
+      description of the ground was wrong.
    3. .vfc-mono-s11-292 sets #686d67 at 12px on paper, below 4.5:1. */
 main .vfc-key-finding a, main .vfc-key-finding a.vfc-ruled-010 {
   color: var(--red-dk); border-bottom: 0; text-decoration: underline; text-underline-offset: 3px;
