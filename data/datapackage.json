@@ -46,8 +46,8 @@
       "schema": "schemas/claims.schema.json",
       "title": "Claims register",
       "description": "Every factual claim on the site, what it rests on, and what it does not prove.",
-      "bytes": 46921,
-      "hash": "sha256:4e89d6a0b093537244fffe9b10c312fdc72ce51edde6bb829f3585444bbf5913"
+      "bytes": 47688,
+      "hash": "sha256:01693fe1dcda59703b7f12d20e5fd7b5620ab4213b1670a2b86077d3042e37a7"
     },
     {
       "name": "timeline",
@@ -72,8 +72,8 @@
       "schema": "schemas/rebuttals.schema.json",
       "title": "Rebuttal index",
       "description": "What you may have heard, and what the record says.",
-      "bytes": 56486,
-      "hash": "sha256:661cf9cd7cd2bbb4a42cd5aab0dff195d8bab13549039fa2a0169111708e2eb7"
+      "bytes": 57381,
+      "hash": "sha256:e65d36131c27ceb8bfb251bddd4343660496856f676b5ccf90ffb9f20c64ce8c"
     },
     {
       "name": "news",
