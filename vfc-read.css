@@ -139,20 +139,38 @@
    above 17px serif body reads as one block of prose with no level change.
    Sans carries structure, serif carries reading. Scoped to the Home hero so
    no other page family is touched. */
+/* SIZE AUTHORITY REMOVED 2026-10-09 (batch 1, issue #34).
+   font-size, line-height and max-width were deleted from this rule. They were
+   already dead: `.vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-section__headline`
+   in vfc-evidence.css is (0,4,0) and sets font-size: var(--t-h1),
+   line-height: var(--t-h1-lh) and max-width: 30ch. This selector is (0,3,1),
+   so it lost on specificity regardless of load order. Confirmed against the
+   browser's own cascade (CDP getMatchedStylesForNode) and by value: the Home
+   h1 computed 52px at 1440px, which is --t-h1, not this rule's clamp ceiling
+   of 48px.
+   What remains here is presentation the family rule does not set, so removing
+   it would change the rendering: the sans family and the optical tracking and
+   margin chosen for the A1 hero.
+   Do not reinstate a size or measure override in this file. If the Home
+   headline is wrong, --t-h1 in vfc-web-ds.css is wrong. */
 .vfc-read .vfc-home-hero > h1.vfc-section__headline {
   font-family: 'IBM Plex Sans', system-ui, -apple-system, Segoe UI, sans-serif;
-  font-size: clamp(2rem, 1.35rem + 2.6vw, 3rem);   /* 32 -> 48 */
   font-weight: 700;
-  line-height: 1.08;
   letter-spacing: -0.015em;
   margin: 0 0 0.7rem;
-  max-width: 22ch;
 }
+/* SIZE AUTHORITY MOVED 2026-10-09 (batch 2, issue #34).
+   font-size and line-height now come from
+   `.vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-home-deck` in vfc-evidence.css
+   as var(--t-deck) / var(--t-deck-lh), the same family-rule layer that already
+   owns this hero's h1 and lede. The clamp here was 19 -> 23px and belonged to
+   no scale, so the deck role could not be reached from --t-deck.
+   The rest stays: this file is the only owner of the deck's sans family,
+   weight, colour, 56ch measure and margin, and the family rule does not set
+   them. Do not reinstate a size here; change --t-deck instead. */
 .vfc-read .vfc-home-hero > .vfc-home-deck {
   font-family: 'IBM Plex Sans', system-ui, -apple-system, Segoe UI, sans-serif;
-  font-size: clamp(1.1875rem, 1.05rem + 0.55vw, 1.4375rem);  /* 19 -> 23 */
   font-weight: 400;
-  line-height: 1.45;
   color: var(--ink-charcoal, #3A352E);
   max-width: 56ch;
   margin: 0;

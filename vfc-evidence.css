@@ -1198,6 +1198,18 @@
 /* Was 1.5rem / 1.25rem across a hand-written breakpoint. --t-deck is 23px and
    20px at <=768px, so the media query below is no longer needed. */
 .vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-lede { font-size: var(--t-deck); line-height: var(--t-deck-lh); }
+/* CONVERTED TO TOKENS 2026-10-09 (batch 2, issue #34).
+   The Home hero deck is `<p class="vfc-home-deck">` and does NOT carry
+   .vfc-lede, so the rule above never reached it. Its only owner was
+   `.vfc-read .vfc-home-hero > .vfc-home-deck` in vfc-read.css, a
+   clamp(1.1875rem, 1.05rem + 0.55vw, 1.4375rem) = 19 -> 23px that belonged to
+   no scale and only applied while the reading pilot was enabled on this page.
+   That made the deck role unreachable from --t-deck: changing the token moved
+   every other family's deck and left Home behind.
+   Same (0,4,0) family-rule layer as the h1 and lede above, not a new override.
+   Family, weight, colour, measure and margin stay in vfc-read.css because this
+   layer does not set them. */
+.vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-home-deck { font-size: var(--t-deck); line-height: var(--t-deck-lh); }
 /* NOT converted: there is no --t-stat. This is the one number the argument turns
    on and it has no equivalent in the t- scale. Left as art direction. */
 .vfc-v2.vfc-fam-finding .vfc-c-band .vfc-home-harm-lead .vfc-stat__value { font-size: clamp(2.75rem, 4.2vw, 3.75rem); }

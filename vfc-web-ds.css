@@ -297,11 +297,35 @@
     /* 36px -> 32px, 2026-09-27. At 36px a phone fits about 19 characters per
        line, which pushed any headline over ~38 characters onto four lines.
        Owner: titles should feel right-sized for the screen, not obnoxiously
-       big. Measured across all three families before keeping. */
+       big. Measured across all three families before keeping.
+
+       h2 28 -> 26, h3 21 -> 22, deck 20 -> 19, 2026-10-09 (batch 2, issue #34).
+       --t-h1 and --t-body are deliberately NOT changed.
+
+       The measured problem was separation, not title size. At 32/28 the title
+       to section-heading step was 1.14, which is ordered but not perceptible,
+       and the hero deck out-inked the h1 on all four tested families (home
+       1.66, record 1.92, watch 1.32, take-action 1.09 deck-ink over h1-ink).
+
+       Raising --t-h1 was tested first and rejected: 34, 35 and 36px each push
+       take-action and record to a four-line h1, which is the exact failure the
+       2026-09-27 note above records fixing. Lowering h2 and the deck instead
+       buys the same separation with no change to any h1 line count on any
+       tested family (home 2, watch 5, take-action 3, record 3, before and
+       after).
+
+       Result at 375px: h1/section-h2 1.14 -> 1.23, h3/body 1.22 -> 1.29,
+       deck-ink over h1-ink home 1.66 -> 1.57, watch 1.32 -> 1.10,
+       take-action 1.09 -> 1.04, record 1.92 -> 1.56. Section-h2 to
+       subordinate-h3 lands at 1.18, still a clear step.
+
+       Trade-off to watch: deck/body narrows from 1.11 to 1.06 on take-action.
+       The deck is sans and the body is serif, so the family carries that
+       distinction, but do not reduce --t-deck further without re-measuring. */
     --t-h1:   32px;  --t-h1-lh:   1.10;
-    --t-h2:   28px;  --t-h2-lh:   1.16;
-    --t-h3:   21px;  --t-h3-lh:   1.22;
-    --t-deck: 20px;
+    --t-h2:   26px;  --t-h2-lh:   1.16;
+    --t-h3:   22px;  --t-h3-lh:   1.22;
+    --t-deck: 19px;
     --t-body: 18px;  --t-body-lh: 1.55;
   }
 }
