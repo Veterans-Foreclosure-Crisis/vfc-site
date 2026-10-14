@@ -34,13 +34,15 @@ To the extent the relevant rights are held by VFC contributors, CC BY 4.0 covers
   material;
 - VFC-authored charts, diagrams, toolkits, briefs, and printable materials;
 - the VFC-authored compilation, field labels, analysis, annotations, and
-  protectable database rights in the six public registers:
+  protectable database rights in the eight public registers, including company-level S1 evidence:
   - `sources.csv`
   - `claims.csv`
   - `timeline.csv`
   - `rebuttals.csv`
   - `news.csv`
   - `glossary.csv`
+  - `servicers.csv`
+  - `servicer_evidence.csv`
 - VFC-authored schemas and public package metadata, except where a third-party
   licence or public-domain status applies.
 

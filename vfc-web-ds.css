@@ -731,6 +731,13 @@
                       padding: 0.55in; box-shadow: 0 1px 0 var(--rule); }
 .vfc-sheet__header  { border-bottom: 2px solid var(--ink); padding: 0 0 6px; margin: 0 0 10px;
                       display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+/* QA47 First 72 Hours: the full site masthead is visible even on phones.
+   Avoid repeating VFC's identity and delaying Tier 1 crisis help. A standalone
+   printed copy still needs its own identifying header; screen-only hide. */
+@media screen {
+  .vfc-v2.vfc-first-72 .vfc-sheet__header { display: none; }
+}
+
 .vfc-sheet__footer  { border-top: 1px solid var(--ink); padding: 6px 0 0; margin: var(--sp-4) 0 0;
                       display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
 @media print { .vfc-sheet { max-width: none; margin: 0; padding: 0; box-shadow: none; }

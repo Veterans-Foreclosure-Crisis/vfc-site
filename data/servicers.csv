@@ -1,0 +1,3 @@
+servicer_id,canonical_name,display_name,aliases,servicing_role_status,servicing_role_source_ids,official_help_source_ids,last_verified,notes
+SV001,"PennyMac Loan Services, LLC",Pennymac,PennyMac|Pennymac Loan Services|PennyMac Financial Services,PRIMARY_CURRENT,S302,S303,2026-10-10,"Seed row for the S1 tracker. Chosen because it demonstrates the secondary-reported implementation state alongside primary servicing-role evidence."
+SV002,Freedom Mortgage Corporation,Freedom Mortgage,Freedom|Freedom Mortgage Corp,PRIMARY_CURRENT,S304|S305,S306,2026-10-10,"Seed row for the S1 tracker. Chosen because it demonstrates the no-public-evidence-located implementation state alongside primary borrower-help information."

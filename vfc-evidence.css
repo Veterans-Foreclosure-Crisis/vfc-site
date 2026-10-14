@@ -481,7 +481,16 @@
   font-family: var(--font-mono); font-size: var(--t-meta); font-weight: 600;
   letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 var(--space-3);
 }
-.vfc-v2 .vfc-c-help .vfc-body { font-size: 1.0625rem; line-height: 1.55; margin: 0 0 var(--space-3); }
+/* ============================================================================
+   ISSUE #60 - SEMANTIC BODY ROLE CONSOLIDATION, 2026-10-11
+
+   .vfc-v2 .vfc-body is owned by the primitives layer at --t-body (18px).
+   Component rules below may control spacing and line-height, but must not
+   shrink ordinary explanatory body copy below that semantic role. Compact
+   metadata, table, navigation and UI typography remain intentionally separate.
+   ========================================================================= */
+
+.vfc-v2 .vfc-c-help .vfc-body { line-height: 1.55; margin: 0 0 var(--space-3); }
 .vfc-c-help__link { font-family: var(--font-ui); font-weight: 600; font-size: var(--t-ui); margin: 0 0 var(--space-3); }
 .vfc-c-help__link a { color: var(--ink-charcoal); text-underline-offset: 4px; text-decoration-thickness: 2px; }
 .vfc-c-help__link a:hover { color: var(--accent-critical); }
@@ -492,7 +501,7 @@
 .vfc-c-answers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-12); row-gap: var(--space-8); margin: var(--space-8) 0 0; }
 .vfc-c-answer { border-top: var(--border-thin) solid var(--ink-charcoal); padding-top: var(--space-4); min-width: 0; }
 .vfc-c-answer > h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0 0 var(--space-3); }
-.vfc-v2 .vfc-c-answer .vfc-body { font-size: 1.0625rem; line-height: 1.55; }
+.vfc-v2 .vfc-c-answer .vfc-body { line-height: 1.55; }
 .vfc-c-answer .vfc-e-lim { margin: var(--space-4) 0 0; }
 @media (max-width: 768px) { .vfc-c-answers { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-6); } }
 
@@ -654,7 +663,7 @@
 .vfc-c-col__tag { font-family: var(--font-mono); font-size: var(--t-meta); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--meta-ink); margin: 0 0 var(--space-2); }
 .vfc-c-col > h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0 0 var(--space-4); }
 .vfc-c-col > h4 { font-family: var(--font-ui); font-weight: 600; font-size: 1.125rem; line-height: 1.3; margin: 0 0 var(--space-3); }
-.vfc-v2 .vfc-c-col .vfc-body { font-size: 1.0625rem; line-height: 1.55; }
+.vfc-v2 .vfc-c-col .vfc-body { line-height: 1.55; }
 .vfc-c-fields { margin: 0; }
 .vfc-c-fields > div { padding: var(--space-3) 0; border-top: var(--border-thin) solid var(--rule); }
 .vfc-c-fields > div:first-child { border-top: 0; padding-top: 0; }
@@ -683,7 +692,7 @@
 
 /* ---- quiet: corrections and provenance ------------------------------- */
 .vfc-v2 .vfc-section.vfc-c-quiet { border-top: var(--border-thin) solid var(--rule); padding-top: var(--space-8); }
-.vfc-v2 .vfc-c-quiet .vfc-section__headline { font-size: 1.25rem; line-height: 1.3; }
+.vfc-v2 .vfc-c-quiet h2.vfc-section__headline { font-size: var(--t-h3); line-height: var(--t-h3-lh); }
 .vfc-c-quiet .vfc-e-corr { margin: 0 0 var(--space-4); }
 .vfc-c-meta { list-style: none; margin: var(--space-3) 0 0; padding: 0; font-family: var(--font-mono); font-size: var(--t-meta); line-height: 1.6; color: var(--ink-charcoal); }
 .vfc-c-meta > li { padding: var(--space-2) 0; border-top: var(--border-thin) solid var(--rule); }
@@ -758,6 +767,35 @@
 .vfc-v2 .vfc-home-hero .vfc-c-help { border-top-color: var(--accent-critical); }
 .vfc-home-help__q { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0 0 var(--space-3); }
 
+/* QA47 mobile urgent route. The existing full help rail remains unchanged.
+   Keeping this as a real, visible link after the deck avoids shrinking the
+   global navigation or relying on CSS visual/keyboard reordering. */
+.vfc-v2.vfc-fam-finding .vfc-home-mobile-help { display: none; }
+@media screen and (max-width: 768px) {
+  .vfc-v2.vfc-fam-finding .vfc-home-mobile-help {
+    display: block;
+    margin: 0 0 var(--space-5);
+    border-top: 2px solid var(--accent-critical);
+  }
+  .vfc-v2.vfc-fam-finding .vfc-home-mobile-help a {
+    display: block;
+    min-height: 44px;
+    padding: var(--space-3) 0;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.35;
+    color: var(--ink-charcoal);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .vfc-v2.vfc-fam-finding .vfc-home-mobile-help a:focus-visible {
+    outline: 3px solid var(--accent-critical);
+    outline-offset: 2px;
+  }
+}
+
+
 /* ---- Home launch distinction ------------------------------------------
    The dark surface is deliberately limited to the short chapter marker.
    The explanatory sequence returns to the light reading canvas so it does
@@ -773,7 +811,7 @@
   font-family: var(--font-ui); font-size: 1.5rem; line-height: 1; color: var(--meta-ink);
 }
 .vfc-home-seq__when { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 3.4vw, 2.75rem); line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; color: var(--ink-charcoal); margin: 0 0 var(--space-2); }
-.vfc-v2 .vfc-home-launch .vfc-home-seq .vfc-body { color: var(--ink-charcoal); font-size: 1.0625rem; margin: 0; }
+.vfc-v2 .vfc-home-launch .vfc-home-seq .vfc-body { color: var(--ink-charcoal); margin: 0; }
 .vfc-home-seq__src { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--meta-ink); margin: var(--space-2) 0 0; }
 .vfc-home-seq__src a { color: var(--meta-ink); }
 .vfc-home-band-note { font-family: var(--font-mono); font-size: var(--t-meta); line-height: 1.55; color: var(--meta-ink); border-left: var(--border-strong) solid var(--ink-charcoal); padding-left: var(--space-3); margin: 0; max-width: 42rem; }
@@ -788,7 +826,7 @@
 .vfc-home-status dt { font-family: var(--font-mono); font-size: var(--t-meta); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--meta-ink); margin: 0; padding-top: 0.25rem; }
 .vfc-home-status dd { margin: 0; min-width: 0; }
 .vfc-home-status__value { font-family: var(--font-ui); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; margin: 0 0 var(--space-1); }
-.vfc-v2 .vfc-home-status .vfc-body { font-size: 1.0625rem; line-height: 1.5; margin: 0; }
+.vfc-v2 .vfc-home-status .vfc-body { line-height: 1.5; margin: 0; }
 .vfc-home-status__src { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--meta-ink); margin: var(--space-1) 0 0; }
 .vfc-home-status__src a { color: var(--meta-ink); }
 @media (max-width: 768px) { .vfc-home-status > div { grid-template-columns: minmax(0, 1fr); } }
@@ -830,7 +868,7 @@
 }
 .vfc-home-route > h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.25rem; line-height: 1.3; margin: 0 0 var(--space-2); }
 .vfc-home-route--urgent > h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.15; letter-spacing: -0.01em; }
-.vfc-v2 .vfc-home-route .vfc-body { font-size: 1.0625rem; line-height: 1.55; margin: 0 0 var(--space-3); }
+.vfc-v2 .vfc-home-route .vfc-body { line-height: 1.55; margin: 0 0 var(--space-3); }
 .vfc-v2 .vfc-home-route--urgent .vfc-body { font-size: 1.1875rem; }
 .vfc-home-route__go { font-family: var(--font-mono); font-size: var(--t-meta); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin: 0; }
 .vfc-home-route__go a { color: var(--ink-charcoal); text-underline-offset: 3px; }
@@ -891,7 +929,7 @@
 }
 .vfc-home-asks > li::before { content: counter(vfc-ask, decimal-leading-zero); font-family: var(--font-mono); font-size: 0.9375rem; font-weight: 600; color: var(--meta-ink); }
 .vfc-home-asks h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; margin: 0; }
-.vfc-v2 .vfc-home-asks .vfc-body { margin: 0; font-size: 1.0625rem; line-height: 1.55; max-width: var(--prose-max); }
+.vfc-v2 .vfc-home-asks .vfc-body { margin: 0; line-height: 1.55; max-width: var(--prose-max); }
 @media (max-width: 768px) {
   .vfc-home-asks > li { grid-template-columns: 2.5rem minmax(0, 1fr); }
   .vfc-home-asks > li > .vfc-body { grid-column: 2; }
@@ -920,25 +958,115 @@
      chain       next action -> next action, for "if the answer is no"
    Every class here is `vfc-gh-`, measured unused before adoption.
    ========================================================================= */
-.vfc-v2 .vfc-gh-lead .vfc-section__headline { font-size: clamp(2rem, 3.4vw, 2.875rem); line-height: 1.1; letter-spacing: -0.015em; margin-bottom: var(--space-4); }
+/* The previous 32-46px guide H1 clamp could be SMALLER than the desktop
+   38px H2 at 769-1100px. Use the owned semantic role instead. */
+.vfc-v2 .vfc-gh-lead h1.vfc-section__headline { font-size: var(--t-h1); line-height: var(--t-h1-lh); letter-spacing: -0.015em; margin-bottom: var(--space-4); }
 .vfc-v2 .vfc-gh-lead .vfc-lede { font-size: 1.25rem; line-height: 1.55; max-width: var(--prose-max); margin: 0; }
 
 /* ---- urgent rail --------------------------------------------------------- */
 .vfc-v2 .vfc-gh-urgent { border-top-color: var(--accent-critical); padding: 0; }
+
+/* QA47 owner-approved desktop-only urgent band, 2026-10-11.
+   Preserve all copy, the phone-first 988 reading order, the printed sheet,
+   and global navigation. The intro occupies a normal full-width row, then
+   the TWO EXISTING urgent-help blocks share a full-width ruled band.
+   Desktop only; the compact/mobile emergency block remains untouched. */
+@media screen and (min-width: 769px) {
+  .vfc-v2.vfc-first-72 .vfc-gh-lead--urgent-first .vfc-c-split > .vfc-p-col-7:first-child {
+    grid-column: 1 / -1;
+  }
+  .vfc-v2.vfc-first-72 .vfc-gh-lead--urgent-first .vfc-c-split > .vfc-gh-urgent {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    min-width: 0;
+  }
+  .vfc-v2.vfc-first-72 .vfc-gh-lead--urgent-first .vfc-gh-urgent__block {
+    min-width: 0;
+    padding: var(--space-6);
+  }
+  .vfc-v2.vfc-first-72 .vfc-gh-lead--urgent-first .vfc-gh-urgent__block + .vfc-gh-urgent__block {
+    border-top: 0;
+    border-left: var(--border-thin) solid var(--rule);
+  }
+}
+
+/* QA47 responsive orientation: desktop intro sits above a two-notice
+   band; mobile shows the same orientation text after urgent crisis help. */
+.vfc-v2.vfc-fam-help .vfc-gh-lead__orientation--narrow { display: none; }
+@media screen and (max-width: 768px) {
+  .vfc-v2.vfc-fam-help .vfc-gh-lead__orientation--wide { display: none; }
+  .vfc-v2.vfc-fam-help .vfc-gh-lead__orientation--narrow { display: block; }
+}
+
 .vfc-gh-urgent__block { padding: var(--space-6); }
 .vfc-gh-urgent__block + .vfc-gh-urgent__block { border-top: var(--border-thin) solid var(--rule); }
 .vfc-gh-urgent__num { font-family: var(--font-ui); font-weight: 700; font-size: 1.75rem; line-height: 1.15; margin: 0 0 var(--space-2); }
 .vfc-gh-urgent__num a { color: var(--ink-charcoal); text-decoration-thickness: 2px; text-underline-offset: 4px; }
-.vfc-v2 .vfc-gh-urgent .vfc-body { font-size: 1.0625rem; line-height: 1.55; margin: 0 0 var(--space-3); }
+.vfc-v2 .vfc-gh-urgent .vfc-body { line-height: 1.55; margin: 0 0 var(--space-3); }
 .vfc-gh-urgent .vfc-c-help__link { margin: 0 0 var(--space-2); }
 @media (max-width: 768px) { .vfc-gh-urgent__block { padding: var(--space-4); } }
+
+/* The First 72 Hours guide has substantive headings, not metadata labels.
+   The scoped role styles leave other Get Help page families untouched. */
+.vfc-v2.vfc-first-72 .vfc-gh-urgent__heading {
+  font-family: var(--font-ui);
+  font-size: var(--t-h3);
+  line-height: var(--t-h3-lh);
+  font-weight: 600;
+  color: var(--ink-charcoal);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-3);
+}
+.vfc-v2.vfc-first-72 .vfc-gh-process__title {
+  font-family: var(--font-ui);
+  font-size: var(--t-h3);
+  line-height: var(--t-h3-lh);
+  font-weight: 600;
+  color: var(--ink-charcoal);
+  margin: 0 0 var(--space-3);
+}
+.vfc-v2.vfc-first-72 .vfc-gh-steps > li > h3 {
+  font-family: var(--font-ui);
+  font-size: var(--t-h3);
+  line-height: var(--t-h3-lh);
+  font-weight: 600;
+  margin: 0;
+}
+/* Step 4: separate three existing servicer topics by a documentary rule,
+   keeping every question, legal caveat and link exposed (no accordion/JS). */
+.vfc-v2.vfc-first-72 .vfc-gh-step-part {
+  max-width: var(--prose-max);
+  min-width: 0;
+}
+.vfc-v2.vfc-first-72 .vfc-gh-step-part + .vfc-gh-step-part {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: var(--border-thin) solid var(--rule);
+}
+.vfc-v2.vfc-first-72 .vfc-gh-step-part > h4 {
+  font-family: var(--font-ui);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 600;
+  margin: 0 0 var(--space-3);
+}
+.vfc-v2.vfc-first-72 .vfc-gh-step-part .vfc-gh-check {
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.vfc-v2.vfc-first-72 .vfc-gh-step-part .vfc-gh-check__foot {
+  margin: var(--space-3) 0;
+}
 
 /* ---- four answers, fast (locked copy) ----------------------------------- */
 .vfc-gh-four { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); counter-reset: vfc-gh-four; }
 .vfc-gh-four > li { border-top: var(--border-strong) solid var(--ink-charcoal); padding-top: var(--space-3); min-width: 0; counter-increment: vfc-gh-four; }
 .vfc-gh-four__q { font-family: var(--font-ui); font-weight: 600; font-size: 1.125rem; line-height: 1.3; margin: 0 0 var(--space-2); }
 .vfc-gh-four__q::before { content: counter(vfc-gh-four) "\00a0\00a0"; font-family: var(--font-mono); color: var(--meta-ink); }
-.vfc-v2 .vfc-gh-four .vfc-body { font-size: 1rem; line-height: 1.5; margin: 0 0 var(--space-2); }
+.vfc-v2 .vfc-gh-four .vfc-body { line-height: 1.5; margin: 0 0 var(--space-2); }
 @media (max-width: 1024px) { .vfc-gh-four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .vfc-gh-four { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); } }
 
@@ -958,7 +1086,7 @@
 }
 .vfc-gh-steps > li::before { content: counter(vfc-gh-step); font-family: var(--font-display); font-weight: 800; font-size: 2.75rem; line-height: 0.9; color: var(--ink-charcoal); }
 .vfc-gh-steps h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0; }
-.vfc-v2 .vfc-gh-steps .vfc-body { margin: 0; font-size: 1.0625rem; line-height: 1.55; max-width: var(--prose-max); }
+.vfc-v2 .vfc-gh-steps .vfc-body { margin: 0; line-height: 1.55; max-width: var(--prose-max); }
 @media (max-width: 768px) {
   /* Single-digit step numbers need about 2rem; 3rem plus the 24px gap took ~72px of a
      331px phone column. Tightened 2026-09-19. */
@@ -1015,7 +1143,7 @@
 .vfc-gh-stages > div { padding: var(--space-4) var(--space-6) var(--space-4) 0; min-width: 0; }
 .vfc-gh-stages > div + div { border-left: var(--border-thin) solid var(--rule); padding-left: var(--space-6); }
 .vfc-gh-stages h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.125rem; line-height: 1.3; margin: var(--space-1) 0 var(--space-2); }
-.vfc-v2 .vfc-gh-stages .vfc-body { font-size: 1rem; line-height: 1.5; margin: 0; }
+.vfc-v2 .vfc-gh-stages .vfc-body { line-height: 1.5; margin: 0; }
 @media (max-width: 768px) {
   .vfc-gh-stages { grid-template-columns: minmax(0, 1fr); }
   .vfc-gh-stages > div, .vfc-gh-stages > div + div { padding: var(--space-3) 0; border-left: 0; }
@@ -1028,7 +1156,7 @@
 .vfc-gh-group__title { font-family: var(--font-ui); font-weight: 600; font-size: 1.5rem; line-height: 1.25; margin: 0 0 var(--space-3); }
 .vfc-v2 .vfc-gh-group__lede { font-size: 1.0625rem; line-height: 1.55; max-width: var(--prose-max); margin: 0 0 var(--space-4); }
 .vfc-gh-finding { margin: 0 0 var(--space-4); }
-.vfc-v2 .vfc-gh-finding .vfc-body { font-size: 1.0625rem; line-height: 1.55; margin: 0; }
+.vfc-v2 .vfc-gh-finding .vfc-body { line-height: 1.55; margin: 0; }
 .vfc-gh-res { list-style: none; margin: 0; padding: 0; border-top: var(--border-strong) solid var(--ink-charcoal); }
 .vfc-gh-res > li {
   display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 14rem) minmax(0, 1fr);
@@ -1052,7 +1180,7 @@
 }
 .vfc-gh-chain__n { font-family: var(--font-mono); font-size: var(--t-meta); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--meta-ink); margin: 0 0 var(--space-1); }
 .vfc-gh-chain h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; margin: 0 0 var(--space-2); }
-.vfc-v2 .vfc-gh-chain .vfc-body { font-size: 1rem; line-height: 1.55; margin: 0; }
+.vfc-v2 .vfc-gh-chain .vfc-body { line-height: 1.55; margin: 0; }
 @media (max-width: 1024px) {
   .vfc-gh-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .vfc-gh-chain > li + li::before { content: none; }
@@ -1077,7 +1205,7 @@
 .vfc-gh-step__body .vfc-micro { margin: 0 0 var(--space-2); }
 .vfc-gh-step__body .vfc-gh-tag { margin: 0 0 var(--space-1); }
 .vfc-v2 .vfc-gh-step__body > :last-child { margin-bottom: 0; }
-.vfc-gh-steps > li > h2 { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0; }
+.vfc-gh-steps > li > h2 { font-family: var(--font-ui); font-weight: 600; font-size: var(--t-h2); line-height: var(--t-h2-lh); margin: 0; }
 @media (max-width: 768px) { .vfc-gh-steps > li > .vfc-gh-step__body { grid-column: 2; } }
 
 .vfc-gh-action { margin: var(--space-6) 0; }
@@ -3311,11 +3439,11 @@ main .vfc-mono-s12-083 a {
   padding-top: var(--space-8);
   border-top: var(--border-strong) solid var(--ink-charcoal);
   font-family: var(--font-ui);
-  font-size: clamp(1.35rem, 2vw, 1.65rem);
-  font-weight: 700;
-  line-height: 1.25;
+  font-size: var(--t-h3);
+  font-weight: 600;
+  line-height: var(--t-h3-lh);
   text-transform: none;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
 }
 .vfc-rule-changed > h3.vfc-display-s20-127 + p {
   max-width: 52rem;
@@ -3381,4 +3509,366 @@ main .vfc-mono-s12-083 a {
   .vfc-home-history__steps > li {
     padding: var(--space-4) var(--space-3);
   }
+}
+
+/* ============================================================================
+   WAVE 3 OVERSIGHT EDITORIAL ARCHITECTURE PILOT — Batch 1, 2026-10-11
+   Route-scoped orientation only. The evidence sections, wording, anchors,
+   source IDs, tables, quotes and order remain owned by the canonical fragment.
+   ========================================================================== */
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index {
+  display: block;
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-bottom: var(--border-thin) solid var(--rule);
+  padding: var(--space-4) 0 var(--space-6);
+  margin: var(--space-6) 0 var(--space-10);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-8);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index__part {
+  min-width: 0;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index__part-label {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-critical);
+  margin: 0 0 var(--space-2);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index__summary {
+  font-family: var(--font-ui);
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  font-weight: 600;
+  color: var(--ink-deep);
+  margin: 0 0 var(--space-4);
+  max-width: none;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--border-thin) solid var(--rule);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index__links li {
+  margin: 0;
+  padding: 0;
+  border-bottom: var(--border-thin) solid var(--rule);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index .vfc-jump__item {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--t-ui);
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-charcoal);
+  text-decoration: none;
+  border: 0;
+  margin: 0;
+  padding: var(--space-2) 0;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index .vfc-jump__item:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-section-break {
+  background: var(--evidence-soft);
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-bottom: var(--border-thin) solid var(--rule);
+  padding: var(--space-6);
+  margin: var(--space-12) 0 var(--space-6);
+  scroll-margin-top: var(--space-8);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-section-break .vfc-section__headline {
+  font-size: var(--t-h3);
+  line-height: var(--t-h3-lh);
+  max-width: 58rem;
+}
+@media (max-width: 768px) {
+  .vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+  .vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-oversight-index__summary {
+    font-size: 1rem;
+  }
+  .vfc-v2.vfc-fam-record.vfc-fam-oversight .vfc-section-break {
+    padding: var(--space-4);
+    margin-top: var(--space-10);
+  }
+}
+
+/* ============================================================================
+   WATCH WAVE 3 BATCH 2 — CHAPTER ORIENTATION, 2026-10-11
+
+   Route-scoped orientation only. The 25 existing deep-link labels/targets are
+   preserved, but they are distributed beneath the five authored part markers
+   instead of front-loaded in one flat index. No Watch evidence/body styling is
+   changed here.
+   ========================================================================= */
+
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index {
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-bottom: var(--border-thin) solid var(--rule);
+  margin: var(--space-6) 0 var(--space-8);
+  padding: var(--space-3) 0;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-6);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index__item {
+  display: block;
+  padding: var(--space-3) 0;
+  border-bottom: var(--border-thin) solid var(--rule);
+  color: var(--ink-deep);
+  text-decoration: none;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index__item:hover .vfc-watch-chapter-index__title {
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index__item:focus-visible {
+  outline: 3px solid var(--accent-critical);
+  outline-offset: 3px;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index__part {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-critical);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index__title {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--t-body-sm);
+  line-height: 1.4;
+  font-weight: 600;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-part-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-6);
+  border-bottom: var(--border-thin) solid var(--rule);
+  margin: calc(var(--space-2) * -1) 0 var(--space-8);
+  padding: 0 0 var(--space-4);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-part-links .vfc-jump__item {
+  display: block;
+  padding: var(--space-2) 0;
+  font-family: var(--font-ui);
+  font-size: var(--t-meta);
+  line-height: 1.35;
+  color: var(--ink-charcoal);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+@media (max-width: 768px) {
+  .vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index__grid,
+  .vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-part-links {
+    grid-template-columns: 1fr;
+  }
+  .vfc-v2.vfc-fam-record.vfc-fam-watch .vfc-watch-chapter-index {
+    margin-top: var(--space-4);
+  }
+}
+
+/* ============================================================================
+   WAVE 3 BATCH 3 - LOCAL LONG-FORM ORIENTATION, 2026-10-11
+
+   Route-scoped navigation only. These indexes expose headings/record labels
+   that already exist in the source. They do not replace, hide, summarize or
+   reorder substantive evidence.
+   ========================================================================= */
+
+.vfc-v2.vfc-fam-record .vfc-wave3-local-index {
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-bottom: var(--border-thin) solid var(--rule);
+  margin: var(--space-5) 0 var(--space-7);
+  padding: var(--space-3) 0 var(--space-4);
+}
+.vfc-v2.vfc-fam-record .vfc-wave3-local-index__label {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-critical);
+}
+.vfc-v2.vfc-fam-record .vfc-wave3-local-index__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-6);
+}
+.vfc-v2.vfc-fam-record .vfc-wave3-local-index__item {
+  display: block;
+  padding: var(--space-2) 0;
+  border-top: var(--border-thin) solid var(--rule);
+  font-family: var(--font-ui);
+  font-size: var(--t-meta);
+  line-height: 1.4;
+  color: var(--ink-charcoal);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+.vfc-v2.vfc-fam-record .vfc-wave3-local-index__item:focus-visible {
+  outline: 3px solid var(--accent-critical);
+  outline-offset: 3px;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-bills .vfc-bills-local-index {
+  margin-top: var(--space-4);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-barriers .vfc-barriers-local-index {
+  margin-top: var(--space-6);
+}
+@media (max-width: 768px) {
+  .vfc-v2.vfc-fam-record .vfc-wave3-local-index__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   WAVE 3 BATCH 4 - HOUSING / HEALTH CHAPTER ORIENTATION, 2026-10-11
+
+   Route-scoped orientation only. The four chapter headings and all eleven
+   deep-link labels/targets already exist in the source. Nothing is collapsed
+   or hidden, and the crisis-support note remains ahead of this navigation.
+   ========================================================================= */
+
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-chapter-index {
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-bottom: var(--border-thin) solid var(--rule);
+  margin: var(--space-6) 0 var(--space-8);
+  padding: var(--space-3) 0;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-chapter-index__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-6);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-chapter-index__item {
+  display: block;
+  padding: var(--space-3) 0;
+  border-bottom: var(--border-thin) solid var(--rule);
+  color: var(--ink-deep);
+  text-decoration: none;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-chapter-index__item:hover .vfc-hh-chapter-index__title {
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-chapter-index__item:focus-visible {
+  outline: 3px solid var(--accent-critical);
+  outline-offset: 3px;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-chapter-index__part {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-critical);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-chapter-index__title {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--t-body-sm);
+  line-height: 1.4;
+  font-weight: 600;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-part-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-6);
+  border-bottom: var(--border-thin) solid var(--rule);
+  margin: calc(var(--space-2) * -1) 0 var(--space-8);
+  padding: 0 0 var(--space-4);
+}
+.vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-part-links .vfc-jump__item {
+  display: block;
+  padding: var(--space-2) 0;
+  font-family: var(--font-ui);
+  font-size: var(--t-meta);
+  line-height: 1.35;
+  color: var(--ink-charcoal);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+.vfc-v2.vfc-fam-record.vfc-fam-fiscal .vfc-fiscal-local-index {
+  margin-top: var(--space-4);
+}
+@media (max-width: 768px) {
+  .vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-chapter-index__grid,
+  .vfc-v2.vfc-fam-record.vfc-fam-housing-health .vfc-hh-part-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   QA47 PAGE ENTRY EDITORIAL PASS — 2026-10-12
+   Reader-facing structure: H1 -> one actionable deck -> main content.
+   These selectors are scoped to inspected families whose preceding kicker
+   repeats the following H1/H2. DO NOT hide date, citation, source, uncertainty,
+   status, consent, warning or other evidentiary metadata broadly.
+   Source text and links remain unchanged; the H1/H2 convey topic and role.
+   ========================================================================= */
+.vfc-v2.vfc-fam-help .vfc-gh-lead .vfc-section__kicker,
+.vfc-v2.vfc-fam-help .vfc-section > .vfc-section__kicker:has(+ h2.vfc-section__headline),
+.vfc-v2.vfc-fam-finding .vfc-section > .vfc-section__kicker:has(+ h2.vfc-section__headline),
+.vfc-v2.vfc-fam-current-status .vfc-section > .vfc-section__kicker:has(+ h2.vfc-section__headline),
+.vfc-v2.vfc-fam-watch #watch-header > .vfc-watch-eyebrow,
+.vfc-v2 #about-header > .vfc-mono-caps-ruled-s12-052,
+.vfc-v2 #latest-header > .vfc-mono-caps-ruled-s12-052,
+/* Reviewed archive lead labels duplicate the accompanying H1; do not hide
+   source IDs, evidentiary limitations, dates or status chips elsewhere. */
+.vfc-v2 #bills-now .vfc-section-open > .vfc-section__kicker:has(+ h1),
+.vfc-v2 #what-this-page-is > .vfc-section__kicker:has(+ h1),
+.vfc-v2 #policy-header > .vfc-section__kicker:has(+ h1),
+.vfc-v2 #warned-header > .vfc-section__kicker:has(+ h1),
+.vfc-v2 #barriers-header > .vfc-section__kicker:has(+ h1),
+.vfc-v2 #fiscal-header > .vfc-section__kicker:has(+ h1) {
+  display: none;
+}
+
+/* Keep dated provenance below explanatory text, not as a false second title. */
+.vfc-v2 .vfc-page-intro__dateline {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: 1.55;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  text-transform: none;
+  color: var(--meta-ink);
+  max-width: var(--prose-max);
+  margin: var(--space-4) 0 0;
+}
+
+/* Detailed checklist introductions appear AFTER the urgent-help notice;
+   the primary page opening remains an H1 plus a single concise deck.
+   All context remains visible and in DOM order. */
+.vfc-v2.vfc-fam-help .vfc-gh-lead .vfc-gh-after-urgent {
+  grid-column: 1 / -1;
+  font-family: var(--font-serif);
+  font-size: var(--t-body);
+  line-height: var(--t-body-lh);
+  max-width: var(--prose-max);
+  margin: var(--space-4) 0 0;
 }

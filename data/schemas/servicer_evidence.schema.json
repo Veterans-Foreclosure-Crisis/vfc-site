@@ -1,0 +1,50 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/tableschema.json",
+  "fieldsMatch": "exact",
+  "fields": [
+    {
+      "name": "evidence_id",
+      "type": "string"
+    },
+    {
+      "name": "servicer_id",
+      "type": "string"
+    },
+    {
+      "name": "dimension",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "effective_date",
+      "type": "string"
+    },
+    {
+      "name": "observed_date",
+      "type": "string"
+    },
+    {
+      "name": "source_ids",
+      "type": "string"
+    },
+    {
+      "name": "evidence_tier",
+      "type": "string"
+    },
+    {
+      "name": "last_verified",
+      "type": "string"
+    },
+    {
+      "name": "limitation",
+      "type": "string"
+    },
+    {
+      "name": "public_note",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/tableschema.json",
+  "fieldsMatch": "exact",
+  "fields": [
+    {
+      "name": "servicer_id",
+      "type": "string"
+    },
+    {
+      "name": "canonical_name",
+      "type": "string"
+    },
+    {
+      "name": "display_name",
+      "type": "string"
+    },
+    {
+      "name": "aliases",
+      "type": "string"
+    },
+    {
+      "name": "servicing_role_status",
+      "type": "string"
+    },
+    {
+      "name": "servicing_role_source_ids",
+      "type": "string"
+    },
+    {
+      "name": "official_help_source_ids",
+      "type": "string"
+    },
+    {
+      "name": "last_verified",
+      "type": "string"
+    },
+    {
+      "name": "notes",
+      "type": "string"
+    }
+  ]
+}

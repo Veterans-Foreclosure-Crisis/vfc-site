@@ -380,3 +380,180 @@
 .vfc-v2 .vfc-stat__value--accent { color: var(--accent-critical); }
 .vfc-v2 .vfc-stat__context { font-family: var(--font-serif); font-size: 1rem; line-height: 1.45; margin: 0 0 var(--space-2); }
 .vfc-v2 .vfc-stat__meta { font-size: var(--t-meta); line-height: 1.45; color: var(--meta-ink); margin: 0; }
+
+
+/* =========================================================================
+   #47 FULL-SITE VISUAL COHERENCE — WAVE 1
+   Rendered audit 2026-10-10. These are measured hierarchy/chrome corrections,
+   not a new art direction.
+
+   Invariants:
+   - the ordinary page H1 remains the dominant heading;
+   - Big Shoulders may carry impact, but an H2 impact phrase does not outrank H1;
+   - compact-print One Pager remains compact while returning to the UI heading
+     family and a phone-size page-title floor;
+   - every mobile navigation destination stays visible.
+   ========================================================================= */
+
+/* Home measured 2026-10-10: H1 = 32/52px while this H2 = 44/88px.
+   Preserve the impact face, remove the hierarchy inversion. */
+.vfc-v2 .vfc-c-impact__phrase {
+  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+  line-height: 1;
+}
+
+/* Legacy page-title exceptions. The legacy class remains temporarily for
+   spacing/print parity, while semantic type ownership wins. */
+.vfc-v2 h1.vfc-serif-s26-237.vfc-section__headline {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: var(--t-h1);
+  line-height: var(--t-h1-lh);
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.vfc-v2 h1.vfc-m-074.vfc-onepager__title {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+/* Keep all navigation visible, but reduce repeated vertical chrome on phones.
+   Text size is unchanged; this removes dead padding/gap, not access. */
+@media (max-width: 768px) {
+  .vfc-top .vfc-masthead {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+  }
+  .vfc-top .vfc-nav {
+    gap: 0 var(--space-3);
+  }
+  .vfc-top .vfc-nav__item {
+    padding-top: var(--space-2);
+    padding-bottom: calc(var(--space-2) - 2px);
+  }
+  .vfc-subnav {
+    gap: var(--space-1) var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    margin-bottom: var(--space-2);
+  }
+  .vfc-subnav__item {
+    line-height: 1.35;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+}
+
+
+/* ---- #47 semantic heading ownership bridge -----------------------------
+   The full-site audit found 135 rendered H1/H2/H3 elements on 15 routes still
+   controlled by appearance-named legacy classes. This bridge targets ONLY
+   actual h2/h3 elements with those legacy appearance class families. It leaves
+   documentary metadata headings (timeline dates, lane/map labels) and explicit
+   impact components alone.
+
+   This is a migration layer: markup can shed the old classes family by family
+   later without changing the approved rendered hierarchy. */
+.vfc-v2 h2:is(
+  [class*="vfc-serif-"],
+  [class*="vfc-display-"],
+  [class^="vfc-m-"],
+  [class*=" vfc-m-"]
+),
+.vfc-v2 h3:is(
+  [class*="vfc-serif-"],
+  [class*="vfc-display-"],
+  [class^="vfc-m-"],
+  [class*=" vfc-m-"]
+) {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  text-wrap: pretty;
+}
+/* Semantic subheads keep their ordinary light-surface ink. Legacy appearance
+   headings intentionally inherit color from their owning component so this
+   bridge cannot turn an on-dark heading into dark-on-dark text. */
+.vfc-v2 h3.vfc-section__sub {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--ink-charcoal);
+  text-wrap: pretty;
+}
+.vfc-v2 h2:is(
+  [class*="vfc-serif-"],
+  [class*="vfc-display-"],
+  [class^="vfc-m-"],
+  [class*=" vfc-m-"]
+) {
+  font-size: var(--t-h2);
+  line-height: var(--t-h2-lh);
+}
+.vfc-v2 h3:is(
+  [class*="vfc-serif-"],
+  [class*="vfc-display-"],
+  [class^="vfc-m-"],
+  [class*=" vfc-m-"]
+),
+.vfc-v2 h3.vfc-section__sub {
+  font-size: var(--t-h3);
+  line-height: var(--t-h3-lh);
+}
+
+/* .vfc-section__headline is semantic by role; support all three heading levels. */
+.vfc-v2 h3.vfc-section__headline {
+  font-size: var(--t-h3);
+  line-height: var(--t-h3-lh);
+}
+
+/* =========================================================================
+   #49 MOBILE VISIBLE SHELL — WAVE 2 PROTOTYPE
+   Post-Wave-1 audit 2026-10-11.
+
+   Mobile only. Global navigation stays visible. Family navigation remains in
+   normal document flow but is progressively rehomed after the page's first
+   H1/orientation section. No-JS fallback is the existing top-of-page position.
+   Desktop ordering is unchanged.
+
+   The first Wave-1 pass already removed dead padding. This pass also reduces
+   letter-spacing and vertical item padding just enough to let the seven
+   primary destinations wrap more efficiently at 375px without shrinking type.
+   ========================================================================= */
+@media (max-width: 768px) {
+  .vfc-top .vfc-nav {
+    gap: 0 0.625rem;
+  }
+  .vfc-top .vfc-nav__item {
+    letter-spacing: 0.035em;
+    padding-top: 5px;
+    padding-bottom: 4px;
+  }
+  .vfc-top .vfc-nav--utility {
+    gap: 0 var(--space-3);
+  }
+
+  /* The script adds this class only after a family index has been moved into
+     main. Remove the outer frame padding inherited by the top-level nav so the
+     inline index aligns with the page's evidence grid. */
+  .vfc-subnav.vfc-subnav--inline {
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 0 var(--space-6);
+  }
+
+  /* The orientation section previously carried a full section's trailing
+     whitespace because the next thing was another page chapter. Once the local
+     family index follows it, a half-step is enough to keep the two related
+     orientation elements together without crowding them. */
+  .vfc-mobile-shell__intro.vfc-section {
+    padding-bottom: var(--space-6) !important;
+  }
+}
+
