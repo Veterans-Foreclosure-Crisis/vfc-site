@@ -758,6 +758,49 @@
   }
 }
 .vfc-v2 .vfc-home-hero .vfc-lede { font-size: 1.3125rem; line-height: 1.5; margin: 0 0 var(--space-4); max-width: var(--prose-max); }
+/* The Home page index uses functional reading-sized labels; the global jump links
+   still serve other page families. This rule owns ONLY the Home component. */
+.vfc-v2.vfc-fam-finding .vfc-home-index {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 var(--space-4);
+  align-items: stretch;
+  border-top: var(--border-strong) solid var(--ink-charcoal);
+  border-bottom: var(--border-thin) solid var(--rule);
+  margin: var(--space-6) 0 var(--space-8);
+  padding: var(--space-3) 0;
+}
+.vfc-v2.vfc-fam-finding .vfc-home-index__label {
+  grid-column: 1 / -1;
+  font-family: var(--font-ui);
+  font-size: var(--t-ui);
+  font-weight: 700;
+  margin: 0 0 var(--space-2);
+}
+.vfc-v2.vfc-fam-finding .vfc-home-index .vfc-jump__item {
+  display: block;
+  border: 0;
+  margin: 0;
+  padding: var(--space-2) 0;
+  font-family: var(--font-ui);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  min-width: 0;
+}
+.vfc-v2.vfc-fam-finding .vfc-home-index .vfc-jump__item:focus-visible {
+  outline: 3px solid var(--accent-critical);
+  outline-offset: 2px;
+}
+@media (max-width: 900px) {
+  .vfc-v2.vfc-fam-finding .vfc-home-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 .vfc-home-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); margin: var(--space-6) 0 0; padding: 0; list-style: none; }
 .vfc-home-ctas a {
   font-family: var(--font-ui); font-weight: 600; font-size: 1.125rem; color: var(--ink-charcoal);
@@ -801,7 +844,23 @@
    The explanatory sequence returns to the light reading canvas so it does
    not become a prolonged white-on-charcoal chapter on small screens. */
 .vfc-home-launch { padding: 0 0 var(--space-16); margin: 0; }
-.vfc-home-launch > .vfc-c-impact { margin-bottom: var(--space-8); }
+/* Home-specific impact hierarchy; avoids the poster-sized default impact surface. */
+.vfc-v2.vfc-fam-finding .vfc-home-launch > .vfc-c-impact {
+  margin-bottom: var(--space-6);
+  padding: var(--space-6);
+}
+.vfc-v2.vfc-fam-finding .vfc-home-launch .vfc-c-impact__phrase {
+  font-family: var(--font-ui);
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  margin: 0;
+  text-transform: none;
+}
+@media (max-width: 480px) {
+  .vfc-v2.vfc-fam-finding .vfc-home-launch > .vfc-c-impact { padding: var(--space-4); }
+}
 
 /* ---- sequence following the impact marker ---------------------------- */
 .vfc-home-seq { list-style: none; margin: var(--space-8) 0 var(--space-6); padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); }
@@ -814,16 +873,32 @@
 .vfc-v2 .vfc-home-launch .vfc-home-seq .vfc-body { color: var(--ink-charcoal); margin: 0; }
 .vfc-home-seq__src { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--meta-ink); margin: var(--space-2) 0 0; }
 .vfc-home-seq__src a { color: var(--meta-ink); }
-.vfc-home-band-note { font-family: var(--font-mono); font-size: var(--t-meta); line-height: 1.55; color: var(--meta-ink); border-left: var(--border-strong) solid var(--ink-charcoal); padding-left: var(--space-3); margin: 0; max-width: 42rem; }
+/* Implementation dates/limitations are explanatory prose, not miniature metadata. */
+.vfc-home-band-note {
+  font-family: var(--font-serif);
+  font-size: var(--t-body);
+  line-height: var(--t-body-lh);
+  color: var(--ink-charcoal);
+  border: 0;
+  padding: 0;
+  margin: var(--space-6) 0 0;
+  max-width: 78ch;
+}
 @media (max-width: 768px) {
   .vfc-home-seq { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
   .vfc-home-seq > li + li::before { content: none; }
 }
 
 /* ---- status sheet ------------------------------------------------------ */
+/* The current-status heading carries meaning without a duplicate label. */
+.vfc-v2.vfc-fam-finding #current-status .vfc-section__headline {
+  font-size: clamp(1.75rem, 2.5vw, 2.125rem);
+  line-height: 1.2;
+  max-width: 36ch;
+}
 .vfc-home-status { margin: var(--space-6) 0 0; border-top: var(--border-strong) solid var(--ink-charcoal); }
-.vfc-home-status > div { display: grid; grid-template-columns: 11rem minmax(0, 1fr); column-gap: var(--space-6); row-gap: var(--space-1); padding: var(--space-4) 0; border-bottom: var(--border-thin) solid var(--rule); }
-.vfc-home-status dt { font-family: var(--font-mono); font-size: var(--t-meta); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--meta-ink); margin: 0; padding-top: 0.25rem; }
+.vfc-home-status > div { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2); padding: var(--space-5) 0; border-bottom: var(--border-thin) solid var(--rule); }
+.vfc-home-status dt { font-family: var(--font-ui); font-size: var(--t-ui); font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--meta-ink); margin: 0; padding-top: 0; }
 .vfc-home-status dd { margin: 0; min-width: 0; }
 .vfc-home-status__value { font-family: var(--font-ui); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; margin: 0 0 var(--space-1); }
 .vfc-v2 .vfc-home-status .vfc-body { line-height: 1.5; margin: 0; }
