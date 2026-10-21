@@ -814,7 +814,9 @@
    Keeping this as a real, visible link after the deck avoids shrinking the
    global navigation or relying on CSS visual/keyboard reordering. */
 .vfc-v2.vfc-fam-finding .vfc-home-mobile-help { display: none; }
-@media screen and (max-width: 768px) {
+/* Keep urgent First 72 Hours access above the fold at intermediate 900px laptops.
+   This only expands the existing Home-specific help link, not navigation. */
+@media screen and (max-width: 1024px) {
   .vfc-v2.vfc-fam-finding .vfc-home-mobile-help {
     display: block;
     margin: 0 0 var(--space-5);
@@ -895,6 +897,14 @@
   font-size: clamp(1.75rem, 2.5vw, 2.125rem);
   line-height: 1.2;
   max-width: 36ch;
+}
+/* Oct 20 release QA: on phone/tablet use the approved --t-h2 26px.
+   The older 28px floor collapsed the Home H1/H2 step to 32/28.
+   Above 768px, retain the existing Current Status layout unchanged. */
+@media (max-width: 768px) {
+  .vfc-v2.vfc-fam-finding #current-status .vfc-section__headline {
+    font-size: var(--t-h2);
+  }
 }
 .vfc-home-status { margin: var(--space-6) 0 0; border-top: var(--border-strong) solid var(--ink-charcoal); }
 .vfc-home-status > div { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2); padding: var(--space-5) 0; border-bottom: var(--border-thin) solid var(--rule); }

@@ -33,8 +33,8 @@
       "schema": "schemas/sources.schema.json",
       "title": "Source register",
       "description": "Every citation on the site.",
-      "bytes": 261367,
-      "hash": "sha256:856a1f1d80c2bf0f5c8385ffbbf2f62d70db5ee39f6a985b3e6ca74de199bd46"
+      "bytes": 269926,
+      "hash": "sha256:d8870291ab6244d305e811e0d39af633698e3c7e5d04de52e1182d00e86b2fc7"
     },
     {
       "name": "claims",
@@ -46,8 +46,8 @@
       "schema": "schemas/claims.schema.json",
       "title": "Claims register",
       "description": "Every factual claim on the site, what it rests on, and what it does not prove.",
-      "bytes": 47688,
-      "hash": "sha256:01693fe1dcda59703b7f12d20e5fd7b5620ab4213b1670a2b86077d3042e37a7"
+      "bytes": 48576,
+      "hash": "sha256:05ec68f11fbc6df4e219ec833edbcb21c4afd84acf9fe47cc7827bd3cbf68539"
     },
     {
       "name": "timeline",
@@ -72,8 +72,8 @@
       "schema": "schemas/rebuttals.schema.json",
       "title": "Rebuttal index",
       "description": "What you may have heard, and what the record says.",
-      "bytes": 57381,
-      "hash": "sha256:e65d36131c27ceb8bfb251bddd4343660496856f676b5ccf90ffb9f20c64ce8c"
+      "bytes": 33181,
+      "hash": "sha256:a371c5527a2c98240f41ff40f47d988ef9b5cbe6783355cf36ec852f31c10d43"
     },
     {
       "name": "news",
@@ -85,8 +85,8 @@
       "schema": "schemas/news.schema.json",
       "title": "The dated record",
       "description": "Hearings, letters, program events and press items with external sources.",
-      "bytes": 8998,
-      "hash": "sha256:3e03f2bd2dd422e853c32e6b054e033b28379613b3d977363b1df007c1ae6fd7"
+      "bytes": 11825,
+      "hash": "sha256:a23b4497286bfa202fcbd2198ab2388b462bde34305c208ec93361d4fb62e699"
     },
     {
       "name": "glossary",
