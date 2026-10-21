@@ -46,8 +46,8 @@
       "schema": "schemas/claims.schema.json",
       "title": "Claims register",
       "description": "Every factual claim on the site, what it rests on, and what it does not prove.",
-      "bytes": 48576,
-      "hash": "sha256:05ec68f11fbc6df4e219ec833edbcb21c4afd84acf9fe47cc7827bd3cbf68539"
+      "bytes": 46886,
+      "hash": "sha256:c4f1f55d7fa02e91807e2fa28408a830eb40f3a301a2b07036481876b11e7eca"
     },
     {
       "name": "timeline",
