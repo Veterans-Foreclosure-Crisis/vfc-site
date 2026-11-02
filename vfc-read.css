@@ -68,12 +68,12 @@
 .vfc-read .vfc-section__headline { font-size: var(--read-h2); line-height: 1.2; }
 .vfc-read h1.vfc-section__headline,
 .vfc-read .vfc-c-lead .vfc-section__headline { font-size: var(--read-h1); line-height: 1.12; }
-.vfc-read h3 { font-size: var(--read-h3); line-height: 1.25; }
+.vfc-read h3:where(:not([data-vfc-heading-owner])) { font-size: var(--read-h3); line-height: 1.25; }
 
 /* Ordinary headings use Plex Sans; the condensed display face stays on the
    masthead and short data labels only (brief rule 1). */
 .vfc-read .vfc-section__headline,
-.vfc-read h3 {
+.vfc-read h3:where(:not([data-vfc-heading-owner])) {
   font-family: 'IBM Plex Sans', system-ui, -apple-system, Segoe UI, sans-serif;
   letter-spacing: -0.01em;
 }

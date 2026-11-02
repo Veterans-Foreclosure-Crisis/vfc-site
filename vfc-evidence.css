@@ -556,7 +556,7 @@
 .vfc-c-compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: var(--border-strong) solid var(--ink-charcoal); margin: var(--space-8) 0 0; }
 .vfc-c-compare > div { padding: var(--space-6) var(--space-8) var(--space-6) 0; min-width: 0; }
 .vfc-c-compare > div + div { border-left: var(--border-thin) solid var(--rule); padding: var(--space-6) 0 var(--space-6) var(--space-8); }
-.vfc-c-compare h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0 0 var(--space-4); }
+.vfc-c-compare h3:where(:not([data-vfc-heading-owner])) { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0 0 var(--space-4); }
 .vfc-c-compare__role { font-family: var(--font-mono); font-size: var(--t-meta); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--meta-ink); margin: 0 0 var(--space-1); }
 @media (max-width: 768px) {
   .vfc-c-compare { grid-template-columns: minmax(0, 1fr); }
@@ -1093,33 +1093,9 @@
 .vfc-gh-urgent .vfc-c-help__link { margin: 0 0 var(--space-2); }
 @media (max-width: 768px) { .vfc-gh-urgent__block { padding: var(--space-4); } }
 
-/* The First 72 Hours guide has substantive headings, not metadata labels.
-   The scoped role styles leave other Get Help page families untouched. */
-.vfc-v2.vfc-first-72 .vfc-gh-urgent__heading {
-  font-family: var(--font-ui);
-  font-size: var(--t-h3);
-  line-height: var(--t-h3-lh);
-  font-weight: 600;
-  color: var(--ink-charcoal);
-  text-transform: none;
-  letter-spacing: -0.01em;
-  margin: 0 0 var(--space-3);
-}
-.vfc-v2.vfc-first-72 .vfc-gh-process__title {
-  font-family: var(--font-ui);
-  font-size: var(--t-h3);
-  line-height: var(--t-h3-lh);
-  font-weight: 600;
-  color: var(--ink-charcoal);
-  margin: 0 0 var(--space-3);
-}
-.vfc-v2.vfc-first-72 .vfc-gh-steps > li > h3 {
-  font-family: var(--font-ui);
-  font-size: var(--t-h3);
-  line-height: var(--t-h3-lh);
-  font-weight: 600;
-  margin: 0;
-}
+/* First72 urgent/process/action heading roles now belong to the native
+   scoped style in src/pages/get-help/first-72-hours.astro. No replacement
+   global override: generic roles below exclude that explicit owner. */
 /* Step 4: separate three existing servicer topics by a documentary rule,
    keeping every question, legal caveat and link exposed (no accordion/JS). */
 .vfc-v2.vfc-first-72 .vfc-gh-step-part {
@@ -1170,7 +1146,7 @@
   counter-increment: vfc-gh-step;
 }
 .vfc-gh-steps > li::before { content: counter(vfc-gh-step); font-family: var(--font-display); font-weight: 800; font-size: 2.75rem; line-height: 0.9; color: var(--ink-charcoal); }
-.vfc-gh-steps h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0; }
+.vfc-gh-steps h3:where(:not([data-vfc-heading-owner])) { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0; }
 .vfc-v2 .vfc-gh-steps .vfc-body { margin: 0; line-height: 1.55; max-width: var(--prose-max); }
 @media (max-width: 768px) {
   /* Single-digit step numbers need about 2rem; 3rem plus the 24px gap took ~72px of a
