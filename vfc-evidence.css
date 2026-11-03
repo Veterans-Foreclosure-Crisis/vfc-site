@@ -758,49 +758,9 @@
   }
 }
 .vfc-v2 .vfc-home-hero .vfc-lede { font-size: 1.3125rem; line-height: 1.5; margin: 0 0 var(--space-4); max-width: var(--prose-max); }
-/* The Home page index uses functional reading-sized labels; the global jump links
-   still serve other page families. This rule owns ONLY the Home component. */
-.vfc-v2.vfc-fam-finding .vfc-home-index {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0 var(--space-4);
-  align-items: stretch;
-  border-top: var(--border-strong) solid var(--ink-charcoal);
-  border-bottom: var(--border-thin) solid var(--rule);
-  margin: var(--space-6) 0 var(--space-8);
-  padding: var(--space-3) 0;
-}
-.vfc-v2.vfc-fam-finding .vfc-home-index__label {
-  grid-column: 1 / -1;
-  font-family: var(--font-ui);
-  font-size: var(--t-ui);
-  font-weight: 700;
-  margin: 0 0 var(--space-2);
-}
-.vfc-v2.vfc-fam-finding .vfc-home-index .vfc-jump__item {
-  display: block;
-  border: 0;
-  margin: 0;
-  padding: var(--space-2) 0;
-  font-family: var(--font-ui);
-  font-size: var(--t-ui);
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: 0;
-  text-transform: none;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-  min-width: 0;
-}
-.vfc-v2.vfc-fam-finding .vfc-home-index .vfc-jump__item:focus-visible {
-  outline: 3px solid var(--accent-critical);
-  outline-offset: 2px;
-}
-@media (max-width: 900px) {
-  .vfc-v2.vfc-fam-finding .vfc-home-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
+/* The seven-link Home index now has a single native Astro component style
+   owner in src/components/HomePageIndex.astro. Shared jump navigation remains
+   in vfc-web-ds.css for other page families. */
 .vfc-home-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); margin: var(--space-6) 0 0; padding: 0; list-style: none; }
 .vfc-home-ctas a {
   font-family: var(--font-ui); font-weight: 600; font-size: 1.125rem; color: var(--ink-charcoal);
