@@ -833,7 +833,6 @@
 }
 .vfc-home-seq__when { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 3.4vw, 2.75rem); line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; color: var(--ink-charcoal); margin: 0 0 var(--space-2); }
 .vfc-v2 .vfc-home-launch .vfc-home-seq .vfc-body { color: var(--ink-charcoal); margin: 0; }
-.vfc-home-seq__src { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--meta-ink); margin: var(--space-2) 0 0; }
 .vfc-home-seq__src a { color: var(--meta-ink); }
 /* Implementation dates/limitations are explanatory prose, not miniature metadata. */
 .vfc-home-band-note {
@@ -872,7 +871,6 @@
 .vfc-home-status dd { margin: 0; min-width: 0; }
 .vfc-home-status__value { font-family: var(--font-ui); font-weight: 600; font-size: 1.1875rem; line-height: 1.3; margin: 0 0 var(--space-1); }
 .vfc-v2 .vfc-home-status .vfc-body { line-height: 1.5; margin: 0; }
-.vfc-home-status__src { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--meta-ink); margin: var(--space-1) 0 0; }
 .vfc-home-status__src a { color: var(--meta-ink); }
 @media (max-width: 768px) { .vfc-home-status > div { grid-template-columns: minmax(0, 1fr); } }
 
@@ -894,11 +892,9 @@
 /* ---- latest rows ------------------------------------------------------- */
 .vfc-home-latest { list-style: none; margin: var(--space-6) 0 0; padding: 0; border-top: var(--border-strong) solid var(--ink-charcoal); }
 .vfc-home-latest > li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: var(--space-6); row-gap: var(--space-1); padding: var(--space-4) 0; border-bottom: var(--border-thin) solid var(--rule); }
-.vfc-home-latest__date { font-family: var(--font-mono); font-size: 0.9375rem; font-weight: 600; margin: 0; }
 .vfc-home-latest__head { font-family: var(--font-serif); font-size: 1.1875rem; line-height: 1.4; margin: 0 0 var(--space-1); max-width: var(--prose-max); }
 .vfc-home-latest__head a { color: var(--ink-charcoal); text-underline-offset: 3px; }
 .vfc-home-latest__head a:hover { color: var(--accent-critical); }
-.vfc-home-latest__meta { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--meta-ink); margin: 0; }
 @media (max-width: 768px) { .vfc-home-latest > li { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---- audience routes ---------------------------------------------------
