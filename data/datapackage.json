@@ -33,8 +33,8 @@
       "schema": "schemas/sources.schema.json",
       "title": "Source register",
       "description": "Every citation on the site.",
-      "bytes": 278429,
-      "hash": "sha256:8b9f83f6c05dff4ff5dd762656d09ad787b9ca97989d32eaf160060e1ff21ac1"
+      "bytes": 278661,
+      "hash": "sha256:af7c90f5683e8c9674049267b741acfb0778432af78ba2bb724fda3e1b45bbc0"
     },
     {
       "name": "claims",
@@ -72,8 +72,8 @@
       "schema": "schemas/rebuttals.schema.json",
       "title": "Rebuttal index",
       "description": "What you may have heard, and what the record says.",
-      "bytes": 33400,
-      "hash": "sha256:542d7acb8618c171f7b3bef9bc5860e99e968b1deb783616a53ae4343803c758"
+      "bytes": 34071,
+      "hash": "sha256:3d981498d10680b17ed08a9060041de0c8b687d0eda90129b4bcbee2ad63f846"
     },
     {
       "name": "news",
