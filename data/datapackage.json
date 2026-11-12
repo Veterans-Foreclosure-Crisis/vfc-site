@@ -85,8 +85,8 @@
       "schema": "schemas/news.schema.json",
       "title": "The dated record",
       "description": "Hearings, letters, program events and press items with external sources.",
-      "bytes": 18228,
-      "hash": "sha256:db4092087f45e94a32189960959dfe2ec02cf1a9417ae082bdc3d767b8747620"
+      "bytes": 19919,
+      "hash": "sha256:93affd40cbb67a7c56769c2324dd2dc005bafa2b429b654b64e982910f2dedaf"
     },
     {
       "name": "glossary",
