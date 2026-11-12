@@ -67,7 +67,8 @@
 <p class="kick">Confirmed so far</p>
 <p class="lead" id="totalFam"></p>
 <p class="leadsub" id="totalSt">across, states · updated as families reach us.</p>
-<div class="cohort-tablewrap" role="region" tabindex="0" aria-labelledby="cohortTableCaption">
+<!-- Reuse the existing scroll-region role to avoid the legacy unwrapped-table display rule. -->
+<div class="cohort-tablewrap vfc-tablewrap" role="region" tabindex="0" aria-labelledby="cohortTableCaption">
 <table class="cohort" id="cohortTable">
 <caption id="cohortTableCaption">Confirmed cohort families by state</caption>
 <thead><tr><th scope="col">State</th><th class="num" scope="col">Families</th></tr></thead>

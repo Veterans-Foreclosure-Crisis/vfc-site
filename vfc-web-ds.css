@@ -1641,8 +1641,6 @@ main .vfc-m-155 { color: var(--red-dk); }
 .vfc-door:hover    { border-color: var(--ink); border-left-color: var(--red-dk); }
 .vfc-door:hover .vfc-door__title { text-decoration: underline; text-underline-offset: 3px; }
 .vfc-door:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
-.vfc-door__title   { display: block; font-family: var(--font-display); font-weight: 800;
-                     font-size: var(--fs-h4); line-height: 1.15; margin: 0 0 6px; color: var(--ink); }
 .vfc-door__text    { display: block; font-family: var(--font-serif); font-size: var(--fs-body);
                      line-height: 1.45; color: var(--ink-soft); }
 
@@ -1738,7 +1736,6 @@ main .vfc-m-155 { color: var(--red-dk); }
      The rule is kept rather than deleted so an unwrapped table would still get
      a scroll box, which is what 2026-09-14 was protecting against. */
   main table:not(.vfc-tablewrap *) { display: block; overflow-x: auto; max-width: 100%; }
-  main table > caption { display: block; max-width: calc(100vw - 2 * var(--sp-4)); }
   .vfc-card-grid, .vfc-asks-grid, .vfc-grid-ruled-080 { grid-template-columns: 1fr; }
   .vfc-m-090 { flex-wrap: wrap; }
   .vfc-m-092, .vfc-mono-caps-inline-s11_5-113 { white-space: normal; }
