@@ -441,11 +441,7 @@
     padding-bottom: var(--space-1);
     margin-bottom: var(--space-2);
   }
-  .vfc-subnav__item {
-    line-height: 1.35;
-    padding-top: 2px;
-    padding-bottom: 2px;
-  }
+  /* Family link type/padding are now scoped to BaseLayout.astro. */
 }
 
 
