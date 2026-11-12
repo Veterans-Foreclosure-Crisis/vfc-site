@@ -1296,18 +1296,7 @@ h1.vfc-section__headline    { font-size: var(--fs-h1); max-width: none; }
                      border-top: 1px solid var(--rule);
                      border-bottom: 1px solid var(--rule);
                      padding: var(--sp-2) 0; margin: 0 0 var(--sp-3); }
-.vfc-subnav__item  { font-family: var(--font-mono); font-weight: 400;
-                     font-size: var(--fs-micro); line-height: 1.5;
-                     letter-spacing: .08em; text-transform: uppercase;
-                     color: var(--ink-soft); text-decoration: none;
-                     padding: 3px 0; border-bottom: 2px solid transparent; }
-.vfc-subnav__item:hover { color: var(--red); text-decoration: underline;
-                     text-underline-offset: 3px; }
-.vfc-subnav__item[aria-current] { color: var(--red); font-weight: 600;
-                     border-bottom-color: var(--red);
-                     text-decoration: underline; text-underline-offset: 3px;
-                     text-decoration-thickness: 2px; }
-.vfc-subnav__item:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+/* Family link type, focus and current-page states are scoped in BaseLayout.astro. */
 
 @media print { .vfc-subnav { display: none; } }
 
