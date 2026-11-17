@@ -770,37 +770,6 @@
 .vfc-v2 .vfc-home-hero .vfc-c-help { border-top-color: var(--accent-critical); }
 .vfc-home-help__q { font-family: var(--font-ui); font-weight: 600; font-size: 1.375rem; line-height: 1.25; margin: 0 0 var(--space-3); }
 
-/* QA47 mobile urgent route. The existing full help rail remains unchanged.
-   Keeping this as a real, visible link after the deck avoids shrinking the
-   global navigation or relying on CSS visual/keyboard reordering. */
-.vfc-v2.vfc-fam-finding .vfc-home-mobile-help { display: none; }
-/* Keep urgent First 72 Hours access above the fold at intermediate 900px laptops.
-   This only expands the existing Home-specific help link, not navigation. */
-@media screen and (max-width: 1024px) {
-  .vfc-v2.vfc-fam-finding .vfc-home-mobile-help {
-    display: block;
-    margin: 0 0 var(--space-5);
-    border-top: 2px solid var(--accent-critical);
-  }
-  .vfc-v2.vfc-fam-finding .vfc-home-mobile-help a {
-    display: block;
-    min-height: 44px;
-    padding: var(--space-3) 0;
-    font-family: var(--font-ui);
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.35;
-    color: var(--ink-charcoal);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-  .vfc-v2.vfc-fam-finding .vfc-home-mobile-help a:focus-visible {
-    outline: 3px solid var(--accent-critical);
-    outline-offset: 2px;
-  }
-}
-
-
 /* ---- Home launch distinction ------------------------------------------
    The dark surface is deliberately limited to the short chapter marker.
    The explanatory sequence returns to the light reading canvas so it does
@@ -1330,30 +1299,10 @@
 
 /* Finding / investigation: the dominant finding runs across the full grid;
    the deck carries weight. (Home) */
-/* CONVERTED TO TOKENS 2026-09-27 (Batch 25, family 1 of 3).
-   Was clamp(2.25rem, 4.4vw, 4rem) = 36 -> 64px, a bespoke clamp that belonged to
-   no scale and beat both token systems on specificity (0,4,0). Now --t-h1
-   (52px, 36px at <=768px), which is what the other 29 record-family pages
-   already use. The 30ch measure moves here from vfc-read.css so the measure no
-   longer depends on the reading pilot being enabled on this page. */
-.vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-section__headline {
-  font-size: var(--t-h1); line-height: var(--t-h1-lh); max-width: 30ch;
-  letter-spacing: -0.02em; font-weight: 700; margin: 0 0 var(--space-6);
-}
 /* Was 1.5rem / 1.25rem across a hand-written breakpoint. --t-deck is 23px and
    20px at <=768px, so the media query below is no longer needed. */
 .vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-lede { font-size: var(--t-deck); line-height: var(--t-deck-lh); }
-/* CONVERTED TO TOKENS 2026-10-09 (batch 2, issue #34).
-   The Home hero deck is `<p class="vfc-home-deck">` and does NOT carry
-   .vfc-lede, so the rule above never reached it. Its only owner was
-   `.vfc-read .vfc-home-hero > .vfc-home-deck` in vfc-read.css, a
-   clamp(1.1875rem, 1.05rem + 0.55vw, 1.4375rem) = 19 -> 23px that belonged to
-   no scale and only applied while the reading pilot was enabled on this page.
-   That made the deck role unreachable from --t-deck: changing the token moved
-   every other family's deck and left Home behind.
-   Same (0,4,0) family-rule layer as the h1 and lede above, not a new override.
-   Family, weight, colour, measure and margin stay in vfc-read.css because this
-   layer does not set them. */
+/* The family supplies the shared deck type scale. Home owns its measure. */
 .vfc-v2.vfc-fam-finding .vfc-home-hero .vfc-home-deck { font-size: var(--t-deck); line-height: var(--t-deck-lh); }
 /* NOT converted: there is no --t-stat. This is the one number the argument turns
    on and it has no equivalent in the t- scale. Left as art direction. */
