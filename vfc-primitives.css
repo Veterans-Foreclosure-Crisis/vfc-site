@@ -531,10 +531,6 @@
     padding-top: 5px;
     padding-bottom: 4px;
   }
-  .vfc-top .vfc-nav--utility {
-    gap: 0 var(--space-3);
-  }
-
   /* The script adds this class only after a family index has been moved into
      main. Remove the outer frame padding inherited by the top-level nav so the
      inline index aligns with the page's evidence grid. */
