@@ -33,8 +33,8 @@
       "schema": "schemas/sources.schema.json",
       "title": "Source register",
       "description": "Every citation on the site.",
-      "bytes": 281543,
-      "hash": "sha256:2b96f3a7930901ccdb6e3c6c0eb3e8066cc7a9960c4a8c290a1e360e60f9321e"
+      "bytes": 281432,
+      "hash": "sha256:e1aebbc1778a0f46f6210d5267f75282ed113ab6838e943b0fd549a5795f562e"
     },
     {
       "name": "claims",
