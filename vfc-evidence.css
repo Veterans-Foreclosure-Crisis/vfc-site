@@ -1359,9 +1359,6 @@
 /* ---- footer: deep ink. The masthead left this rule on 2026-09-20, when the
    owner settled the header as light at every width; its colours are now owned
    outright by the masthead block in vfc-web-ds.css, not corrected from here. */
-.vfc-footer { background: var(--ink-deep); }
-.vfc-footer .vfc-micro { color: var(--dark-muted); }
-.vfc-footer a[href^="mailto:"] { overflow-wrap: anywhere; word-break: break-word; }
 
 /* ---- dark chapter bands: editorial charcoal, not near-black, with an
    inner layer (dark-2), dark-border rules and dark-muted metadata. */
@@ -1851,7 +1848,6 @@
 
 @media (max-width: 768px) {
   .vfc-v2.vfc-fam-record .vfc-record-note.vfc-record-intro { padding: var(--space-4); }
-  .vfc-v2.vfc-fam-record .vfc-section--card .vfc-section__headline { font-size: 1.375rem; }
 }
 
 /* ============================================================================
