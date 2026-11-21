@@ -33,8 +33,8 @@
       "schema": "schemas/sources.schema.json",
       "title": "Source register",
       "description": "Every citation on the site.",
-      "bytes": 281432,
-      "hash": "sha256:e1aebbc1778a0f46f6210d5267f75282ed113ab6838e943b0fd549a5795f562e"
+      "bytes": 282187,
+      "hash": "sha256:bda0e734abecdb5b4446d1efdbfdaeb9c75162b21b702aa3a287786486d6bd16"
     },
     {
       "name": "claims",
@@ -59,8 +59,8 @@
       "schema": "schemas/timeline.schema.json",
       "title": "Chronology",
       "description": "The dated spine. The Record owns it; other pages render filtered views.",
-      "bytes": 30662,
-      "hash": "sha256:2d0963f51cea3b4031628b3b9b1cc6799ad82897524c5ad030cbaa4fdd1b5e7a"
+      "bytes": 30552,
+      "hash": "sha256:c03c71a2e4b499bd5207ef0d2d27a3e64cbee9b42d7c9f2e6309db4a1caf7217"
     },
     {
       "name": "rebuttals",
@@ -85,8 +85,8 @@
       "schema": "schemas/news.schema.json",
       "title": "The dated record",
       "description": "Hearings, letters, program events and press items with external sources.",
-      "bytes": 19919,
-      "hash": "sha256:93affd40cbb67a7c56769c2324dd2dc005bafa2b429b654b64e982910f2dedaf"
+      "bytes": 19809,
+      "hash": "sha256:b4fa320718e838eb564f29b07e4b5e083dc379abbef3cfe4ed26b8de596575da"
     },
     {
       "name": "glossary",
