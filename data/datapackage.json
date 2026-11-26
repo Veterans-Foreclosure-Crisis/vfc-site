@@ -33,8 +33,8 @@
       "schema": "schemas/sources.schema.json",
       "title": "Source register",
       "description": "Every citation on the site.",
-      "bytes": 283790,
-      "hash": "sha256:507b800336b4354db54f0f1b4d89fbdb5ce0648ed5cf61d4b274f198fe1922f9"
+      "bytes": 284412,
+      "hash": "sha256:6635e044906356b00a5d8d2b81df98c4e4c9196bba93350e80f85bb2361ecf3d"
     },
     {
       "name": "claims",
@@ -85,8 +85,8 @@
       "schema": "schemas/news.schema.json",
       "title": "The dated record",
       "description": "Hearings, letters, program events and press items with external sources.",
-      "bytes": 19809,
-      "hash": "sha256:b4fa320718e838eb564f29b07e4b5e083dc379abbef3cfe4ed26b8de596575da"
+      "bytes": 20145,
+      "hash": "sha256:c2ef2214ad9d4183cc520508ee3b526f08461acd91a1be0f970ea4af47d1d903"
     },
     {
       "name": "glossary",
